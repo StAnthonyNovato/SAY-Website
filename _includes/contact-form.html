@@ -1,0 +1,30 @@
+<!-- START TEMPLATE: contact-form.html -->
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h3 class="card-title h4 text-center mb-4">Contact Form</h3>
+        <hr />
+        <div style="text-align: center; font-style: italic; margin-bottom: 20px; display: none;" id="form-response">
+            <p id="form-response-message">Thanks for reaching out! We'll get back to you soon.</p>
+        </div>
+        <!-- Google Forms integration -->
+        <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSd2KXYanxczuOMQ8XDrw4O7deudMFnv1MoEk5yWnWnldwkL5w/formResponse" method="post" class="contact-form" id="contactForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="entry.84123338" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="entry.1530727500" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="entry.127061613" rows="4" required></textarea>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </div>
+        </form>
+        <script src="/assets/js/googleform.js"></script>
+    </div>
+</div>
+<!-- END TEMPLATE: contact-form.html -->

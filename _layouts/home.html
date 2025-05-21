@@ -1,0 +1,159 @@
+---
+layout: default
+---
+<div class="home">
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-4">St. Anthony de Padua Parish</h1>
+      <h2 class="h3 mb-5">Confirmation Program</h2>
+      <p class="lead">Strengthening Faith, Building Community, Serving Others</p>
+      <div class="mt-4">
+        <a href="#about" class="btn btn-primary btn-lg me-2">Learn More</a>
+        <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2 class="section-title">About Our Confirmation Program</h2>
+          <p class="mb-4">The Sacrament of Confirmation is a significant milestone in the Catholic faith journey. At St. Anthony de Padua Parish, we guide young Catholics through comprehensive spiritual preparation, helping them to embrace the Holy Spirit and strengthen their commitment to Christ and the Church.</p>
+          <p>Our program focuses on:</p>
+          <ul>
+            <li>Deepening personal relationship with Jesus Christ</li>
+            <li>Understanding Catholic teachings and traditions</li>
+            <li>Building a supportive faith community</li>
+            <li>Encouraging active participation in parish life</li>
+            <li>Service to others as disciples of Christ</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="image-container rounded shadow-lg">
+            <!-- Placeholder for an image -->
+            <div class="img-placeholder d-flex align-items-center justify-content-center">
+              <span>Confirmation Class Image</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="schedule-section bg-light">
+    <div class="container py-5">
+      <h2 class="section-title text-center mb-5">Program Schedule</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <div class="icon-wrapper mb-3">
+                <i class="fas fa-book-bible fa-3x text-primary"></i>
+              </div>
+              <h3 class="card-title h4">Faith Formation</h3>
+              <p class="card-text">Weekly classes focusing on Catholic teachings, scripture, and prayer.</p>
+              <p class="text-muted">Sundays, 9:30 - 10:45 AM</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <div class="icon-wrapper mb-3">
+                <i class="fas fa-hands-helping fa-3x text-primary"></i>
+              </div>
+              <h3 class="card-title h4">Service Projects</h3>
+              <p class="card-text">Community service opportunities to practice our faith in action.</p>
+              <p class="text-muted">Monthly, Various Times</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <div class="icon-wrapper mb-3">
+                <i class="fas fa-pray fa-3x text-primary"></i>
+              </div>
+              <h3 class="card-title h4">Retreats</h3>
+              <p class="card-text">Spiritual retreats for reflection, prayer, and community building.</p>
+              <p class="text-muted">Quarterly, Weekend Events</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2 class="section-title">Contact Us</h2>
+          <p class="mb-4">Have questions about our Confirmation Program? Reach out to us for more information or to register your child for the upcoming program.</p>
+          <div class="contact-info">
+            <div class="d-flex mb-3">
+              <div class="icon me-3">
+                <i class="fas fa-map-marker-alt text-primary"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-1">Parish Address</h3>
+                <p class="mb-0">2110 E Jefferson Blvd, South Bend, IN 46617</p>
+              </div>
+            </div>
+            <div class="d-flex mb-3">
+              <div class="icon me-3">
+                <i class="fas fa-phone text-primary"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-1">Phone</h3>
+                <p class="mb-0">(574) 282-2308</p>
+              </div>
+            </div>
+            <div class="d-flex mb-3">
+              <div class="icon me-3">
+                <i class="fas fa-envelope text-primary"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-1">Email</h3>
+                <p class="mb-0">{{ site.email }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          {% include contact-form.html %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% if site.posts.size > 0 %}
+  <section class="news-section bg-light">
+    <div class="container py-5">
+      <h2 class="section-title text-center mb-5">Latest News & Announcements</h2>
+      <div class="row">
+        {% for post in site.posts limit:3 %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="card-title h5">
+                <a href="{{ post.url | relative_url }}" class="text-decoration-none">{{ post.title }}</a>
+              </h3>
+              <p class="card-text small text-muted">{{ post.date | date: "%B %d, %Y" }}</p>
+              <div class="card-text mb-3">
+                {{ post.excerpt | strip_html | truncatewords: 30 }}
+              </div>
+              <a href="{{ post.url | relative_url }}" class="btn btn-sm btn-outline-primary">Read more</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="text-center mt-4">
+        <a href="{{ '/news' | relative_url }}" class="btn btn-primary">View All News</a>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+</div>

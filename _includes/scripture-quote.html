@@ -1,0 +1,17 @@
+<!-- START TEMPLATE: scripture-quote.html -->
+<div class="scripture-quote">
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
+        <blockquote class="blockquote">
+          <p class="mb-0">{{ include.quote }}</p>
+          {% if include.source %}
+            <footer class="blockquote-footer mt-2">{{ include.source }}</footer>
+          {% endif %}
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END TEMPLATE: scripture-quote.html -->

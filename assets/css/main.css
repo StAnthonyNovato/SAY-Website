@@ -1,0 +1,461 @@
+/* 
+ * St. Anthony de Padua Catholic Parish - Confirmation Program
+ * Custom Theme Stylesheet
+ */
+
+:root {
+  --primary-color: #8b0000; /* Deep Red - representing the Holy Spirit */
+  --secondary-color: #ffd700; /* Gold - representing divine presence */
+  --dark-color: #1a1a1a;
+  --light-color: #f8f9fa;
+  --font-primary: 'Cormorant Garamond', serif;
+  --font-secondary: 'Open Sans', sans-serif;
+}
+
+/* Base Styles */
+body {
+  font-family: var(--font-secondary);
+  color: #333;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 600;
+}
+
+.section-title {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--secondary-color);
+}
+
+.text-center .section-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Navigation */
+.navbar {
+  background-color: rgba(26, 26, 26, 0.9);
+  transition: all 0.3s ease;
+  padding: 1rem 0;
+}
+
+.navbar.scrolled {
+  background-color: rgba(26, 26, 26, 1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+}
+
+.navbar-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.parish-name {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.program-name {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 3px;
+  background-color: var(--secondary-color);
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('/assets/images/church-interior.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding: 12rem 0 8rem;
+  position: relative;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(circle, rgba(139, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+  z-index: 1;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* About Section */
+.about-section {
+  padding: 5rem 0;
+}
+
+.image-container {
+  height: 100%;
+  min-height: 300px;
+  overflow: hidden;
+  background-color: #eaeaea;
+}
+
+.img-placeholder {
+  height: 100%;
+  min-height: 300px;
+  background-color: #e0e0e0;
+  color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Schedule Section */
+.schedule-section {
+  padding: 5rem 0;
+}
+
+.icon-wrapper {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+}
+
+.card {
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 5rem 0;
+}
+
+.contact-info .icon {
+  font-size: 1.5rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.contact-form .form-control {
+  border-radius: 0;
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+}
+
+.contact-form .form-control:focus {
+  box-shadow: none;
+  border-color: var(--primary-color);
+}
+
+/* News Section */
+.news-section {
+  padding: 5rem 0;
+}
+
+.post-meta {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+/* Page Header */
+.page-header {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('/assets/images/church-stained-glass.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding: 8rem 0 4rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.page-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  font-size: 1.25rem;
+  opacity: 0.8;
+}
+
+/* Post Styling */
+.post-header {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('/assets/images/church-altar.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding: 8rem 0 4rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.post-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.post-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.post-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.post-subtitle {
+  font-size: 1.25rem;
+  opacity: 0.8;
+}
+
+.post-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 2rem 0;
+}
+
+.post-content blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 1rem;
+  font-style: italic;
+  color: #555;
+}
+
+.post-navigation {
+  margin-top: 3rem;
+}
+
+.post-nav-link {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  padding: 1rem;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.post-nav-link:hover {
+  background-color: #f9f9f9;
+  border-color: #ddd;
+}
+
+.post-nav-label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #999;
+}
+
+.post-nav-title {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+/* Footer */
+.site-footer {
+  background-color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.social-icons a {
+  color: rgba(255, 255, 255, 0.8);
+  margin-right: 15px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: var(--secondary-color);
+}
+
+/* Scripture Quote */
+.scripture-quote {
+  background-color: #f8f9fa;
+  padding: 3rem 0;
+  position: relative;
+}
+
+.scripture-quote::before {
+  content: '"';
+  font-family: Georgia, serif;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 5rem;
+  color: rgba(139, 0, 0, 0.1);
+  line-height: 1;
+}
+
+.scripture-quote blockquote {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-style: italic;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+  .hero-section {
+    padding: 10rem 0 6rem;
+  }
+
+  .page-title,
+  .post-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    padding: 8rem 0 4rem;
+  }
+
+  .page-title,
+  .post-title {
+    font-size: 2rem;
+  }
+  
+  .parish-name {
+    font-size: 1.25rem;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  .post-content {
+    font-size: 1rem;
+  }
+}
+
+/* Accessibility */
+.btn:focus,
+.navbar-toggler:focus,
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(139, 0, 0, 0.25);
+}
+
+/* Utility Classes */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #700000;
+  border-color: #700000;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+/* Content Spacing */
+.content-wrapper {
+  min-height: calc(100vh - 100px);
+  margin-top: 56px;
+}
+
+/* Non-home pages need top padding for the fixed navbar */
+body:not(.home) .content-wrapper {
+  padding-top: 0;
+}
