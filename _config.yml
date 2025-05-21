@@ -19,7 +19,7 @@
 # in the templates via {{ site.myvariable }}.
 
 title: St. Anthony de Padua Catholic Parish - Confirmation Program
-email: confirmation@stanthonypadua.org
+email: ale@stanthonypadua.org
 description: >- # this means to ignore newlines until "baseurl:"
   St. Anthony de Padua Catholic Parish Confirmation Program. Guiding youth 
   to a deeper relationship with Christ and the Church through the sacrament 
@@ -30,7 +30,7 @@ facebook_username: StAnthonyDepaduaParish
 instagram_username: stanthonypadua
 
 # Build settings
-theme: minima
+# theme: minima
 plugins:
   - jekyll-feed
 
