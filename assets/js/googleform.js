@@ -3,6 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+// @description: Show a message in the form response container
+// @param {string} message - The message to display
 function showFormResponseMessage(message) {
     const container = document.getElementById('form-response');
     const messageElement = document.getElementById('form-response-message');
@@ -11,8 +13,8 @@ function showFormResponseMessage(message) {
 }
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
-    console.log("Found contact form:", contactForm);
     if (contactForm) {
+        console.log("Found contact form", contactForm);
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -45,6 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     } else {
-        console.warn('Contact form element not found');
+        console.warn('Contact form element not found :(');
     }
 });

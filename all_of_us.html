@@ -1,0 +1,14 @@
+---
+layout: page
+permalink: /us
+title: All of Us
+---
+{% for person in site.data.people.bios %}
+<!-- Person Profile -->
+  {% include name-bio.html 
+    name=person.name
+    title=person.title
+    bio=person.bio
+  %}
+<!-- End of Person Profile -->
+{% endfor %}

@@ -1,0 +1,7 @@
+bios:
+  - name: "Alejandra"
+    img: "alejandra.jpg"
+    bio: "Test - Bio entry for Alejandra."
+  - name: "Damien Boisvert"
+    img: "damien.jpg"
+    bio: "Test - Bio entry for Damien."
