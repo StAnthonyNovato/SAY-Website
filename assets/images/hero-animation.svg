@@ -1,0 +1,317 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
+  <!-- Sky -->
+  <rect x="0" y="0" width="1000" height="600" fill="#6ab7ff" opacity="0.3" />
+  
+  <!-- Moving Clouds -->
+  <g class="clouds">
+    <!-- Cloud 1 -->
+    <g opacity="0.7">
+      <ellipse cx="100" cy="100" rx="40" ry="30" fill="white">
+        <animate attributeName="cx" values="100;900;100" dur="60s" repeatCount="indefinite" />
+      </ellipse>
+      <ellipse cx="130" cy="90" rx="50" ry="35" fill="white">
+        <animate attributeName="cx" values="130;930;130" dur="60s" repeatCount="indefinite" />
+      </ellipse>
+      <ellipse cx="160" cy="110" rx="40" ry="30" fill="white">
+        <animate attributeName="cx" values="160;960;160" dur="60s" repeatCount="indefinite" />
+      </ellipse>
+    </g>
+    
+    <!-- Cloud 2 -->
+    <g opacity="0.6">
+      <ellipse cx="300" cy="150" rx="45" ry="25" fill="white">
+        <animate attributeName="cx" values="300;-200;300" dur="75s" repeatCount="indefinite" />
+      </ellipse>
+      <ellipse cx="330" cy="140" rx="55" ry="30" fill="white">
+        <animate attributeName="cx" values="330;-170;330" dur="75s" repeatCount="indefinite" />
+      </ellipse>
+      <ellipse cx="360" cy="160" rx="45" ry="25" fill="white">
+        <animate attributeName="cx" values="360;-140;360" dur="75s" repeatCount="indefinite" />
+      </ellipse>
+    </g>
+  </g>
+  
+  <!-- Hill -->
+  <path d="M0,600 Q500,350 1000,600" fill="#4a773e" />
+  
+  <!-- Cross on Hill -->
+  <g transform="translate(500, 400)">
+    <rect x="-15" y="-100" width="30" height="150" fill="#8b4513" />
+    <rect x="-60" y="-60" width="120" height="30" fill="#8b4513" />
+  </g>
+  
+  <!-- Swaying Trees -->
+  <!-- Tree 1 (left) -->
+  <g transform="translate(300, 450)">
+    <!-- Tree Trunk -->
+    <rect x="-10" y="0" width="20" height="70" fill="#8b4513" />
+    
+    <!-- Tree Top -->
+    <path d="M0,-100 L50,-25 L40,0 L60,-15 L50,20 L0,40 L-50,20 L-60,-15 L-40,0 L-50,-25 Z" fill="#2e5824">
+      <animateTransform 
+        attributeName="transform"
+        type="rotate"
+        values="0;5;0;-5;0"
+        dur="5s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  
+  <!-- Tree 2 (right side) -->
+  <g transform="translate(700, 480)">
+    <!-- Tree Trunk -->
+    <rect x="-8" y="0" width="16" height="60" fill="#8b4513" />
+    
+    <!-- Tree Top -->
+    <path d="M0,-80 L40,-20 L30,0 L50,-10 L40,15 L0,30 L-40,15 L-50,-10 L-30,0 L-40,-20 Z" fill="#2e5824">
+      <animateTransform 
+        attributeName="transform"
+        type="rotate"
+        values="0;-5;0;5;0"
+        dur="6s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  
+  <!-- Tree 3 (far left) -->
+  <g transform="translate(150, 500)">
+    <!-- Tree Trunk -->
+    <rect x="-7" y="0" width="14" height="50" fill="#8b4513" />
+    
+    <!-- Tree Top -->
+    <path d="M0,-60 L30,-15 L25,0 L40,-8 L30,12 L0,25 L-30,12 L-40,-8 L-25,0 L-30,-15 Z" fill="#2e5824">
+      <animateTransform 
+        attributeName="transform"
+        type="rotate"
+        values="0;4;0;-4;0"
+        dur="4s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  
+  <!-- Remove the branch between trees and add ground branch with pouncing fox -->
+  
+  <!-- Small Branch on Ground - Smaller and Moved Right -->
+  <g transform="translate(280, 515)">
+    <!-- Ground Branch -->
+    <path d="M-10,0 C-5,-2 5,-3 15,2" stroke="#8b4513" stroke-width="2.5" fill="none" />
+    <path d="M2,-1 L5,-5 L8,-2" stroke="#8b4513" stroke-width="1.5" fill="none" /> <!-- Small twig -->
+  </g>
+  
+  <!-- Fox Pouncing on Ground Branch with Improved Animation -->
+  <g transform="translate(225, 505) scale(1)">
+    <!-- Fox Group with Animation - In Pouncing Position -->
+    <g>
+      <!-- Fox Body - Adjusted to connect all parts -->
+      <path d="M-5,0 L20,5 L10,-15 Z" fill="#e67e22" />
+      
+      <!-- Fox Head - Attached to body -->
+      <path d="M15,-5 L35,5 L25,-15 Z" fill="#e67e22" />
+      
+      <!-- Fox Ears - Repositioned -->
+      <path d="M25,-12 L29,-20 L31,-10 Z" fill="#d35400" />
+      <path d="M29,-12 L33,-18 L34,-9 Z" fill="#d35400" />
+      
+      <!-- Fox Eye - Repositioned -->
+      <circle cx="27" cy="-7" r="1.5" fill="#2c3e50" />
+      
+      <!-- Fox Tail Up - Repositioned to attach to body -->
+      <path d="M-5,-5 L-20,-15 L-10,0 Z" fill="#d35400">
+        <animateTransform 
+          attributeName="transform"
+          type="rotate"
+          values="0;10;0;-5;0"
+          dur="1.5s"
+          repeatCount="indefinite"
+        />
+      </path>
+      
+      <!-- Fox Front Legs - Repositioned to attach to body -->
+      <path d="M12,5 L20,15 L17,5 Z" fill="#d35400" />
+      <path d="M17,5 L25,15 L22,5 Z" fill="#d35400" />
+      
+      <!-- Fox Back Legs - Repositioned to attach to body -->
+      <path d="M0,0 L-5,10 L5,5 Z" fill="#d35400" />
+      
+      <!-- Replace the Pouncing Animation with more dynamic backing up and jumping -->
+      <animateTransform 
+        attributeName="transform"
+        type="translate"
+        values="-10,0; -15,0; -5,-10; 5,-15; 15,-5; 20,5; -10,0"
+        keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1"
+        dur="4s"
+        repeatCount="indefinite"
+      />
+      
+      <!-- Add a slight rotation to enhance the jumping effect -->
+      <animateTransform 
+        attributeName="transform"
+        type="rotate"
+        values="0; -5; 5; 10; 5; 0; 0"
+        keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1"
+        dur="4s"
+        repeatCount="indefinite"
+        additive="sum"
+      />
+    </g>
+  </g>
+  
+  <!-- Tree 1 (left) -->
+  <g transform="translate(300, 450)">
+    <!-- Tree Trunk -->
+    <rect x="-10" y="0" width="20" height="70" fill="#8b4513" />
+    
+    <!-- Tree Top -->
+    <path d="M0,-100 L50,-25 L40,0 L60,-15 L50,20 L0,40 L-50,20 L-60,-15 L-40,0 L-50,-25 Z" fill="#2e5824">
+      <animateTransform 
+        attributeName="transform"
+        type="rotate"
+        values="0;5;0;-5;0"
+        dur="5s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  
+  <!-- Fox - Now positioned further to the right -->
+  <defs>
+    <linearGradient id="foxTailGradient" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#e67e22" />
+      <stop offset="70%" stop-color="#d35400" />
+      <stop offset="100%" stop-color="#a04000" />
+    </linearGradient>
+  </defs>
+  
+  <g transform="translate(625, 470) scale(2)">
+    <!-- Fox Group with Animation - Flipped to face left -->
+    <g>
+      <!-- Fox Body - Using Triangular Style (flipped) -->
+      <path d="M0,0 L-20,5 L-10,-15 Z" fill="#e67e22" />
+      
+      <!-- Fox Head (flipped) -->
+      <path d="M-20,0 L-35,5 L-28,-12 Z" fill="#e67e22" />
+      
+      <!-- Fox Ears (flipped) -->
+      <path d="M-25,-10 L-28,-18 L-32,-8 Z" fill="#d35400" />
+      <path d="M-30,-10 L-35,-16 L-33,-7 Z" fill="#d35400" />
+      
+      <!-- Fox Eye (flipped) -->
+      <circle cx="-30" cy="-5" r="1.5" fill="#2c3e50" />
+      
+      <!-- Fox Tail with Gradient (now on right side) -->
+      <path d="M0,0 L15,-5 L10,5 Z" fill="url(#foxTailGradient)">
+        <animateTransform 
+          attributeName="transform"
+          type="rotate"
+          values="0;-10;0;5;0"
+          dur="3s"
+          repeatCount="indefinite"
+        />
+      </path>
+      
+      <!-- Fox Legs (flipped) -->
+      <path d="M-5,0 L-7,10 L-10,0 Z" fill="#d35400" />
+      <path d="M-15,0 L-17,10 L-20,0 Z" fill="#d35400" />
+      
+      <!-- Overall Fox Animation -->
+      <animateTransform 
+        attributeName="transform"
+        type="translate"
+        values="0,0; 0,-2; 0,0"
+        dur="4s"
+        repeatCount="indefinite"
+      />
+    </g>
+  </g>
+  
+  <!-- Lion and Lamb on left side of cross (moved down and separated) -->
+  <g transform="translate(380, 490)">
+    <!-- Lion Group - More recognizable design -->
+    <g>
+      <!-- Lion Body - Base triangle -->
+      <path d="M-20,0 L10,0 L-5,-25 Z" fill="#e6b954" />
+      
+      <!-- Lion Head -->
+      <path d="M0,-15 L20,0 L10,-25 Z" fill="#e6b954" />
+      
+      <!-- Lion's Distinctive Mane -->
+      <path d="M-15,-10 L-10,-30 L0,-15 Z" fill="#d4a447" />
+      <path d="M0,-15 L-5,-30 L5,-30 L10,-15 Z" fill="#d4a447" />
+      <path d="M10,-15 L15,-30 L20,-15 Z" fill="#d4a447" />
+      
+      <!-- Lion Eye -->
+      <circle cx="10" cy="-15" r="1.5" fill="#2c3e50" />
+      
+      <!-- Lion Tail - More distinctive -->
+      <path d="M-20,0 L-35,-15 L-25,5 Z" fill="#d4a447">
+        <animateTransform 
+          attributeName="transform"
+          type="rotate"
+          values="0;10;0;-5;0"
+          dur="4s"
+          repeatCount="indefinite"
+        />
+      </path>
+      
+      <!-- Lion Legs -->
+      <path d="M-15,0 L-20,15 L-10,5 Z" fill="#d4a447" />
+      <path d="M0,0 L-5,15 L5,5 Z" fill="#d4a447" />
+      
+      <!-- Subtle Animation -->
+      <animateTransform 
+        attributeName="transform"
+        type="translate"
+        values="0,0; 0,-2; 0,0"
+        dur="6s"
+        repeatCount="indefinite"
+      />
+    </g>
+  </g>
+  
+  <!-- Lamb moved further to the right and down -->
+  <g transform="translate(450, 490) scale(0.9)">
+    <!-- Lamb Group - More recognizable design -->
+    <g>
+      <!-- Lamb Body - Fluffy looking -->
+      <path d="M-15,0 L5,5 L-5,-15 Z" fill="#ffffff" />
+      
+      <!-- Lamb Head -->
+      <path d="M0,-5 L15,5 L5,-20 Z" fill="#ffffff" />
+      
+      <!-- Lamb Distinct Ears -->
+      <path d="M5,-15 L2,-25 L8,-20 Z" fill="#f0f0f0" />
+      <path d="M10,-15 L15,-25 L12,-18 Z" fill="#f0f0f0" />
+      
+      <!-- Lamb Face Details -->
+      <circle cx="7" cy="-10" r="1.5" fill="#2c3e50" /> <!-- Eye -->
+      <circle cx="10" cy="-5" r="1" fill="#d4a6a6" /> <!-- Nose hint -->
+      
+      <!-- Lamb Fluffy Tail -->
+      <path d="M-15,0 L-25,-8 L-20,5 Z" fill="#ffffff">
+        <animateTransform 
+          attributeName="transform"
+          type="rotate"
+          values="0;10;0;-5;0"
+          dur="2s"
+          repeatCount="indefinite"
+        />
+      </path>
+      
+      <!-- Lamb Legs -->
+      <path d="M-10,0 L-12,12 L-5,5 Z" fill="#f0f0f0" />
+      <path d="M0,0 L-2,12 L5,5 Z" fill="#f0f0f0" />
+      
+      <!-- Subtle Animation -->
+      <animateTransform 
+        attributeName="transform"
+        type="translate"
+        values="0,0; 0,-1; 0,0"
+        dur="5s"
+        repeatCount="indefinite"
+      />
+    </g>
+  </g>
+</svg>

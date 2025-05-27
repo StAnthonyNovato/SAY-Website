@@ -1,0 +1,70 @@
+---
+layout: page
+title: Ministries
+permalink: /ministries/
+---
+
+<style>
+    .ministry-photo {
+        float: right;
+        margin-left: 20px;
+        width: 200px;
+    }
+    
+    .ministry-photo img {
+        width: 25vw;
+        height: auto;
+    }
+    
+    .flex-photo-right {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .flex-photo-left {
+        display: flex;
+        justify-content: flex-start;
+    }
+</style>
+
+{% capture techcontent %}
+<p>Hey there! Welcome to the Technology Ministry.</p>
+<p>Well... I don't know what exactly I do here...  Something at the computer, I guess.</p>
+<p>Anyway, I run the website, and basically just anything on the computer. :)</p>
+<p>I would love to have more people involved in the ministry!</p>
+<hr>
+<h3>Contacts</h3>
+<ul>
+    <li>Leader: <a href="mailto:damien@alphagame.dev">Damien Boisvert (damien@alphagame.dev)</a></li>
+</ul>
+
+<!-- really cool button/link -->
+<p class="flex-photo-right">
+    <a href="/ministries/tech/" class="btn btn-primary">
+        <i class="fas fa-laptop-code"></i> Learn More About the Technology Ministry
+    </a>
+</p>
+{% endcapture %}
+
+{% capture confirmation %}
+<p>Hey there! Welcome to the Confirmation Ministry.</p>
+<p class="flex-photo-left">
+    <a href="/ministries/confirmation/" class="btn btn-primary">
+        <i class="fas fa-user-check"></i> Learn More About the Confirmation Ministry
+    </a>
+</p>
+{% endcapture %}
+
+{% include image-to-the-right.html 
+    title="Technology Ministry" 
+    content=techcontent 
+    image="/assets/images/thesocks.jpg" 
+    caption="Our ministries in action!" 
+%}
+
+{% include image-to-the-left.html 
+    title="Confirmation Ministry" 
+    content=confirmation 
+    image="/assets/images/thesocksup.png" 
+    caption="Our ministries in action!"
+%}

@@ -2,24 +2,39 @@
 layout: default
 ---
 <div class="home">
-  <section class="hero-section">
-    <div class="container text-center">
+  <section class="hero-section vh-100 d-flex align-items-center position-relative" style="background-image: url('/assets/images/hero-background.jpg'); background-size: cover; background-position: center;">
+    <!-- SVG Animation Overlay -->
+    <div class="svg-animation-container position-absolute w-100 h-100" style="top: 0; left: 0; z-index: 1; pointer-events: none;">
+      <object type="image/svg+xml" data="{{ '/assets/images/hero-animation.svg' | relative_url }}" class="w-100 h-100">
+        <!-- Fallback content if SVG doesn't load -->
+      </object>
+    </div>
+    
+    <div class="container text-center position-relative" style="z-index: 2;">
       <h1 class="display-4 fw-bold mb-4">St. Anthony Youth Programs</h1>
       <h2 class="h3 mb-5">St. Anthony de Padua Catholic Parish</h2>
       <p class="lead">Strengthening Faith, Building Community, Serving Others</p>
-      <div class="mt-4">
-        <a href="#about" class="btn btn-primary btn-lg me-2">Learn More</a>
+      <div class="mt-5">
+        <a href="#about" class="btn btn-primary btn-lg me-3">Learn More</a>
         <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+      </div>
+      <div class="scroll-indicator mt-5">
+        <a href="#about" class="text-white">
+          <i class="fas fa-chevron-down fa-2x animate__animated animate__bounce animate__infinite"></i>
+        </a>
       </div>
     </div>
   </section>
 
   <section id="about" class="about-section">
     <div class="container py-5">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <h2 class="section-title">Who are we?</h2>
-          <p class="mb-4">
+      {% include image-to-the-right.html 
+        title="Who are we?"
+        image="/assets/images/leaders_in_italy_fullsize.jpg"
+        alt="Youth Leaders"
+        caption="That's us in Italy! (February of 2025)"
+        content="
+          <p class='mb-4'>
             Good question--and one that we're still trying to answer! Fundamentally, we're a group of dedicated youth leaders committed to helping young people grow in their faith and become active members of the Church.
           </p>
           <p><b>That sounds boring.  Let's try that again.</b></p>
@@ -30,17 +45,8 @@ layout: default
           <p>
             We know that being a teenager is hard.  We know that you have a lot of things going on in your life.  We know that you have a lot of questions about your faith.  And we want to help you find the answers.
           </p>
-        </div>
-        <div class="col-lg-6">
-          <div class="image-container rounded shadow-lg">
-            <!-- Placeholder for an image -->
-            <div class="img-placeholder d-flex align-items-center justify-content-center">
-              <img src="{{ '/assets/images/leaders_in_italy_fullsize.jpg' | relative_url }}" alt="Youth Leaders" class="img-fluid rounded">
-            </div>
-            <div class="caption mt-2 text-center text-muted small">That's us in Italy! (February of 2025)</div>
-          </div>
-        </div>
-      </div>
+        "
+      %}
     </div>
   </section>
 

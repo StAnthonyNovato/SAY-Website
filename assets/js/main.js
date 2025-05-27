@@ -4,10 +4,12 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+  console.log("[main.js] Document is ready. Initializing scripts...");
   // Navbar scroll behavior
   const navbar = document.querySelector('.navbar');
   
   if (navbar) {
+    console.log("[main.js] Navbar found. Adding scroll event listener...");
     window.addEventListener('scroll', function() {
       if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
@@ -20,8 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Smooth scrolling for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
+      console.log(`[main.js] Smooth scroll initiated for: ${this.getAttribute('href')}`);
       e.preventDefault();
-      
+
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
       
@@ -57,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
       // If form is valid, you would typically send it to a backend
       if (valid) {
         // Placeholder for form submission
-        alert('Thank you for your message! We will get back to you soon.');
         contactForm.reset();
       }
     });
