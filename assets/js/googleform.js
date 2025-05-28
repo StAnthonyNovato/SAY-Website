@@ -3,9 +3,6 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-// @description: Show a message in the form response container
-// @param {string} message - The message to display
-
 const GoogleFormConfiguration = {
     formId: 'contactForm', // The ID of the contact form
     responseContainerId: 'form-response', // The ID of the response container

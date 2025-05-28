@@ -1,0 +1,40 @@
+---
+title: Site Information
+permalink: /siteinfo
+layout: page
+---
+
+<style>
+    table td {
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+    }
+    table th {
+        padding: 0.5rem;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+    }
+</style>
+<h1>Site Information</h1>
+<p>This site theme, authored by Damien Boisvert, is licensed under the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+<p>The content of this site is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 License</a>.</p>
+<p>This website uses 3rd party Jekyll plugins, specifically:</p>
+<ul>
+    {% for plugin in site.plugins %}
+    <li>{{ plugin }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Git Information</h2>
+<table>
+    <tr>
+        <th>Field</th>
+        <th>Value</th>
+    </tr>
+    {% for item in site.data.git %}
+    <tr>
+        <td>{{ item[0] }}</td>
+        <td>{{ item[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>

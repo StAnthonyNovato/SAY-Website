@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 # About Our Parish & Confirmation Program
-
+# {{ env.SOMEVAR }}
 ## St. Anthony de Padua Catholic Parish
 
 St. Anthony de Padua Catholic Parish has been serving the South Bend community for over 75 years. Our parish is dedicated to living out the Gospel through worship, education, service, and community.

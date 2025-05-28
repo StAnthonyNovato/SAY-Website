@@ -25,7 +25,9 @@ description: >- # this means to ignore newlines until "baseurl:"
   to a deeper relationship with Christ and the Church through the sacrament 
   of Confirmation.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "" # the base hostname & protocol for your site, e.g. http://example.coms  
+
+copyright: "&copy; 2025 St. Anthony Youth Leadership Team"
 facebook_username: StAnthonyDepaduaParish
 instagram_username: stanthonypadua
 
@@ -33,6 +35,7 @@ instagram_username: stanthonypadua
 # theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-dotenv
 
 # Exclude from processing.
 # The following items will not be processed, by default.
