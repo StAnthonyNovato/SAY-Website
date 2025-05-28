@@ -18,6 +18,25 @@ layout: default
       {% if page.subtitle %}
         <p class="post-subtitle">{{ page.subtitle }}</p>
       {% endif %}
+      {% if page.author %}
+        {% if site.data.authors[page.author] %}
+          {% assign name = site.data.authors[page.author].name %}
+          {% assign url = site.data.authors[page.author].url %}
+        {% else %}
+          {% assign name = page.author %}
+          {% assign url = nil %}
+        {% endif %}
+        <p class="post-author">
+          By 
+          {% if url %}
+            <a style="color: inherit; text-decoration: inherit;" href="{{ url | relative_url }}">{{ name }}</a>
+          {% else %}
+            {{ name }}
+          {% endif %}
+        </p>
+      {% else %}
+        <p class="post-author">By {{ site.data.authors[page.author].name }}</p>
+      {% endif %}
     </div>
   </header>
   
@@ -25,7 +44,9 @@ layout: default
     <article class="post-content">
       {{ content }}
     </article>
-    
+    <section id="author-tag">
+      {% include author-tag.html %}
+    </section>
     <div class="post-navigation mt-5 pt-4 border-top">
       <div class="row">
         <div class="col-md-6">

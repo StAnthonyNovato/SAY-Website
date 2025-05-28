@@ -1,0 +1,18 @@
+# Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+# 
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
+damien:
+  name: Damien Boisvert
+  email: damien@alphagame.dev
+  url: https://alphagame.dev
+  bio: >-
+    Damien Boisvert is a software engineer, network architect, and sysadmin.
+    He is passionate about using technology for the good of humanity.  He has a
+    philosophy of "If you enjoy doing something, find people who could benefit from it", which he applies to
+    his work in software development and system administration.
+    <br />
+    He's one of the founding members of the St. Anthony Youth Leadership Team, joining in 2024,
+    going on to establish the Technology Ministry and create the SaintAnthonyYouth.org website.
+  image: /assets/images/people/damien.png

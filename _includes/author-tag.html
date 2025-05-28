@@ -1,0 +1,21 @@
+<!-- START TEMPLATE author-tag.html -->
+{% assign author = site.data.authors[page.author] %}
+{% if author %}
+  <div class="post-author-tag">
+    <div class="author-container">
+      <div class="author-image">
+        <img src="{{ author.image | relative_url }}" alt="{{ author.name }}" class="rounded-circle" width="60" height="60" />
+      </div>
+      <div class="author-info">
+        <h4 class="author-name">{{ author.name }}</h4>
+        <p class="author-bio">{{ author.bio }}</p>
+        {% if author.url %}
+          <a href="{{ author.url }}" class="author-link" target="_blank">Visit Website</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% else %}
+<!-- Not including author tag because page.author isn't registered in the authors.yaml file -->
+{% endif %}
+<!-- END TEMPLATE author-tag.html -->

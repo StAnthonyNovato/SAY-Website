@@ -3,6 +3,7 @@
  * Custom Theme Stylesheet
  */
 
+@import 'author-tag.css';
 :root {
   --primary-color: #8b0000; /* Deep Red - representing the Holy Spirit */
   --secondary-color: #ffd700; /* Gold - representing divine presence */

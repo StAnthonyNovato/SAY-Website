@@ -1,0 +1,97 @@
+---
+title: News & Blog Posts
+layout: page
+---
+
+{% if site.posts.size > 0 %}
+<section class="news-section bg-light">
+  <div class="container py-5">
+    <h1 class="section-title text-center mb-5">News & Blog Posts</h1>
+    
+    <div class="row">
+      {% for post in paginator.posts %}
+      <div class="col-lg-8 mx-auto mb-5">
+        <div class="card shadow">
+          {% if post.image %}
+          <img src="{{ post.image | relative_url }}" class="card-img-top" alt="{{ post.title }}">
+          {% endif %}
+          <div class="card-body">
+            <h2 class="card-title">
+              <a href="{{ post.url | relative_url }}" class="text-decoration-none">{{ post.title }}</a>
+            </h2>
+            <p class="card-text text-muted">
+              <small>
+                <i class="far fa-calendar-alt"></i> {{ post.date | date: "%B %d, %Y" }}
+                {% if post.author %}
+                | <i class="far fa-user"></i> {{ post.author }}
+                {% endif %}
+                {% if post.categories.size > 0 %}
+                | <i class="far fa-folder-open"></i> 
+                {% for category in post.categories %}
+                <span class="badge bg-secondary">{{ category }}</span>
+                {% endfor %}
+                {% endif %}
+              </small>
+            </p>
+            <div class="card-text mb-3">
+              {{ post.excerpt | strip_html | truncatewords: 75 }}
+            </div>
+            <a href="{{ post.url | relative_url }}" class="btn btn-primary">Read Full Post</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if paginator.total_pages > 1 %}
+    <div class="pagination justify-content-center mt-5">
+      <ul class="pagination">
+        {% if paginator.previous_page %}
+        <li class="page-item">
+          <a class="page-link" href="{{ paginator.previous_page_path | relative_url }}">&laquo; Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <span class="page-link">&laquo; Previous</span>
+        </li>
+        {% endif %}
+        
+        {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+        <li class="page-item active">
+          <span class="page-link">{{ page }}</span>
+        </li>
+        {% else %}
+        <li class="page-item">
+          {% if page == 1 %}
+          <a class="page-link" href="{{ '/news/' | relative_url }}">{{ page }}</a>
+          {% else %}
+          <a class="page-link" href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
+          {% endif %}
+        </li>
+        {% endif %}
+        {% endfor %}
+        
+        {% if paginator.next_page %}
+        <li class="page-item">
+          <a class="page-link" href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <span class="page-link">Next &raquo;</span>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% else %}
+<section class="news-section bg-light">
+  <div class="container py-5 text-center">
+    <h1 class="section-title mb-4">News & Blog Posts</h1>
+    <p>No posts available at this time. Please check back later.</p>
+  </div>
+</section>
+{% endif %}
