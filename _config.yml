@@ -20,6 +20,7 @@
 
 title: St. Anthony de Padua Catholic Parish - Confirmation Program
 email: ale@stanthonypadua.org
+admin_email: damien@alphagame.dev
 description: >- # this means to ignore newlines until "baseurl:"
   St. Anthony de Padua Catholic Parish Confirmation Program. Guiding youth 
   to a deeper relationship with Christ and the Church through the sacrament 
@@ -33,10 +34,11 @@ instagram_username: stanthonypadua
 
 # Build settings
 # theme: minima
+publisher: St. Anthony de Padua Catholic Parish
 plugins:
   - jekyll-feed
   - jekyll-dotenv
-
+  - jekyll-news-sitemap
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
