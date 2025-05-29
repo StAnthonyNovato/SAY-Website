@@ -4,65 +4,59 @@ title: About
 permalink: /about/
 ---
 
-# About Our Parish & Confirmation Program
-# {{ env.SOMEVAR }}
-## St. Anthony de Padua Catholic Parish
+{% capture txt %}
+Welcome to St. Anthony of Padua Catholic Church, a vibrant and welcoming parish located in the heart of Novato, California. Established in 1968, our parish has been a cornerstone of faith and community in Marin County for over five decades.
+{% endcapture %}
 
-St. Anthony de Padua Catholic Parish has been serving the South Bend community for over 75 years. Our parish is dedicated to living out the Gospel through worship, education, service, and community.
+{% include image-to-the-right.html 
+    title="Welcome to St. Anthony!"
+    content=txt
+    image="/assets/images/st-anthony-church.png" %}
+# About St. Anthony of Padua Catholic Church – Novato, CA
 
-Founded in 1948, our parish has grown to become a vibrant faith community with a strong commitment to Catholic education and formation at all ages. We strive to be a welcoming parish where all can encounter Christ through the sacraments, community life, and service to others.
+## Our Mission
 
-Our parish is named after St. Anthony of Padua (1195-1231), a Franciscan friar known for his powerful preaching, expert knowledge of scripture, and devotion to the poor and sick. He is the patron saint of lost items, poor people, and travelers.
+At St. Anthony's, we embrace the mission:
 
-## Our Confirmation Program
+{% include scripture-quote.html
+    quote="Jesus invites you to a journey of a lifetime - We will walk with you."
+    source="St. Anthony de Padua Catholic Parish" %}
 
-The Sacrament of Confirmation is a significant milestone in the Catholic faith journey. At St. Anthony de Padua, we take great care in preparing young people to receive the gifts of the Holy Spirit and become fully initiated members of the Catholic Church.
+This guiding principle reflects our commitment to accompany each individual on their spiritual journey, fostering a deep and lasting relationship with Christ.
 
-{% include scripture-quote.html quote="All of them were filled with the Holy Spirit and began to speak in other tongues as the Spirit enabled them." source="Acts 2:4" %}
+## Our Community
 
-### Our Approach
+Our parish is a diverse and inclusive community where individuals and families come together to worship, learn, and serve. We offer a range of ministries and programs designed to support spiritual growth and community engagement, including:
 
-Our Confirmation preparation program is designed to:
+* **Faith Formation**: Programs for children, youth, and adults to deepen their understanding of the Catholic faith.
+* **Youth Ministry**: Engaging activities and spiritual development opportunities for young people.
+* **Volunteer Opportunities**: Various ways to serve within the parish and the broader community.
 
-- Help candidates develop a personal relationship with Jesus Christ
-- Deepen understanding of Catholic teaching and tradition
-- Encourage active participation in parish life and the wider Church
-- Foster a spirit of service and social justice
-- Build a supportive community among candidates
+## Worship and Sacraments
 
-### Program Leadership
+We invite you to join us for Mass and other sacramental celebrations:
 
-Our Confirmation program is led by dedicated clergy, staff, and volunteers who are committed to accompanying young people on their faith journey.
+* **Weekday Mass**:
 
-**Pastor:**  
-Father Michael Roberts
+  * Monday: Communion Service at 9:00 AM
+  * Tuesday to Saturday: Mass at 9:00 AM
+* **Vigil Mass**:
 
-**Parish Director of Religious Education:**  
-Mrs. Jennifer Adams
+  * Saturday at 5:00 PM
+* **Sunday Mass**:
 
-**Confirmation Coordinator:**  
-Mrs. Sarah Johnson
+  * 9:00 AM and 11:15 AM
+* **Adoration**:
 
-**Youth Minister:**  
-Mr. Daniel Thompson
+  * Fridays from 9:30 AM to 10:30 AM
+* **Reconciliation**:
 
-### Our Vision
+  * Saturdays from 3:30 PM to 4:30 PM
 
-We believe that Confirmation is not an end but rather a beginning—the start of a lifelong journey of faith. Our goal is not simply to prepare young people for the sacrament but to form lifelong disciples who actively live out their faith in the world.
+## Connect with Us
 
-We envision our confirmed youth:
-- Growing in their relationship with Christ and the Church
-- Participating actively in parish life
-- Serving others with compassion and love
-- Sharing their faith with others
-- Living virtuous lives guided by Catholic teaching
+For more information about our parish, upcoming events, or to get involved, please visit our official website: [stanthonynovato.org][www]
 
-## Parish History
+We look forward to walking this journey of faith with you.
 
-St. Anthony de Padua Parish was established in 1948 to serve the growing Catholic population on the east side of South Bend. The first Mass was celebrated on Easter Sunday, April 17, 1949, in a temporary chapel while the main church was under construction.
-
-The parish school opened in September 1951 with 180 students in grades one through four, under the direction of the Sisters of St. Joseph. Today, St. Anthony School continues to provide excellent Catholic education to children from preschool through eighth grade.
-
-Over the decades, our parish has grown both in numbers and in ministries. We've expanded our facilities, developed comprehensive faith formation programs for all ages, and established numerous outreach ministries to serve our community.
-
-Throughout our history, we have remained committed to our mission of bringing the love of Christ to all through worship, education, service, and community.
+[www]: https://stanthonynovato.org/?src=say-website
