@@ -6,7 +6,12 @@ layout: default
     <!-- SVG Animation Overlay -->
     <div class="svg-animation-container position-absolute w-100 h-100" style="top: 0; left: 0; z-index: 1; pointer-events: none;">
       <object type="image/svg+xml" data="{{ '/assets/images/hero-animation.svg' | relative_url }}" class="w-100 h-100">
-        <!-- Fallback content if SVG doesn't load -->
+        <!-- Fallback -->
+        <div style="text-align: center;vertical-align:middle;font-size:100pt;color: #f00; padding-top: 50px;">
+          <p>This browser doesn't support SVG.</p>
+          <p>Please, for the love of God, update your browser.</p>
+          <p>&lt;3 your friendly website administrator</p>
+        </div>
       </object>
     </div>
     
