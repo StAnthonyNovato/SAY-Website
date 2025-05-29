@@ -1,19 +1,23 @@
+#!/usr/bin/env python3
 # Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
 # 
 # This software is released under the MIT License.
 # https://opensource.org/licenses/MIT
 
+# Warnings are suppressed for third-party libraries, but you still need to install them:
+# pip install requests bs4 colorama tabulate
+
 import os
 import re
-import requests
+import requests # type: ignore
 import sys
 import argparse
 import datetime
 import concurrent.futures
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup # type: ignore
 from urllib.parse import urljoin, urlparse
-from colorama import init, Fore, Style
-from tabulate import tabulate
+from colorama import init, Fore, Style # type: ignore
+from tabulate import tabulate # type: ignore
 
 # Initialize colorama for cross-platform colored terminal output
 init()
