@@ -225,11 +225,11 @@ class SEOChecker:
         # Count for progress indication
         total_links = len(self.all_links)
         if total_links == 0:
-            print("  No links to check")
+            print(f"{Fore.RED}  No links to check{Style.RESET_ALL}")
             return
-            
-        print(f"  Found {total_links} links to check using {self.threads} thread(s)")
-        
+
+        print(f"  {Fore.GREEN}Found {total_links} links to check using {self.threads} thread(s){Style.RESET_ALL}")
+
         # Convert set to list for threading
         links_to_check = list(self.all_links)
         checked = 0
@@ -240,13 +240,14 @@ class SEOChecker:
             result = None
             
             try:
+                percentageComplete = "[{:.0f}%]".format((checked / total_links) * 100)
                 if link.startswith(('http://', 'https://')):
                     if self.verbose:
-                        print(f"Checking link: {link} from {source_page}")
-                    
+                        print(f"{percentageComplete} {Fore.LIGHTBLACK_EX}Checking link: {link} from {source_page}{Style.RESET_ALL}")
+
                     # Use a proper user agent to avoid being blocked
                     headers = {
-                        'User-Agent': 'Mozilla/5.0 (compatible; SEOChecker/1.0; +https://github.com/AlphaGameDeveloper/seo-checker)'
+                        'User-Agent': 'Mozilla/5.0 (compatible; SEOChecker/1.0; +damien@alphagame.dev)'
                     }
                     
                     # Try HEAD request first, which is faster
@@ -290,7 +291,7 @@ class SEOChecker:
                     if result:
                         self.broken_links.append(result)
                         if self.verbose:
-                            print(f"  Broken link: {result['link']} ({result['status']})")
+                            print(f"{Fore.RED}  Broken link: {result['link']} ({result['status']}){Style.RESET_ALL}")
         else:
             # Single-threaded operation
             for link_data in links_to_check:
@@ -301,7 +302,7 @@ class SEOChecker:
                 result = check_link(link_data)
                 if result:
                     self.broken_links.append(result)
-        
+
         print(f"\n  Found {len(self.broken_links)} broken links")
 
     def generate_report(self):
