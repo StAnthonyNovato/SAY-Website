@@ -1,4 +1,5 @@
 <!-- START TEMPLATE: footer.html -->
+<style>#footer-credit {color: inherit; text-decoration: none;} #footer-credit:hover {text-decoration: underline;}</style>
 <footer class="site-footer bg-dark text-white py-5">
   <div class="container">
     <div class="row">
@@ -21,35 +22,22 @@
         </ul>
       </div>
       <div class="col-lg-4">
-        <h4 class="h5 mb-3">Connect With Us</h4>
-        <div class="social-icons">
-          {% if site.facebook_username %}
-          <a href="https://www.facebook.com/{{ site.facebook_username }}" class="social-icon me-2" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-facebook-f fa-2x"></i>
-          </a>
-          {% endif %}
-          
-          {% if site.instagram_username %}
-          <a href="https://www.instagram.com/{{ site.instagram_username }}" class="social-icon me-2" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-instagram fa-2x"></i>
-          </a>
-          {% endif %}
-          
-          <a href="{{ site.url }}{{ site.baseurl }}/feed.xml" class="social-icon" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-rss fa-2x"></i>
-          </a>
-        </div>
+ 
         <div class="mt-4">
           <h5 class="h6 mb-3">Mass Schedule</h5>
           <p class="mb-1"><strong>Sunday:</strong> 8:00 AM, 10:30 AM</p>
           <p class="mb-1"><strong>Saturday Vigil:</strong> 4:30 PM</p>
           <p><strong>Weekdays:</strong> Mon-Fri 8:30 AM</p>
         </div>
+        <hr />
+        {% include maillist-form.html %}
       </div>
+      
     </div>
     <hr class="mt-4 mb-3">
     <div class="row">
-      <div class="col-md-6">Website by Damien Boisvert.</p>
+      <div class="col-md-6">
+        <a id="footer-credit" href="https://www.linkedin.com/in/damienboisvert/">Website by Damien Boisvert.</a>
       </div>
       <div class="col-md-6 text-md-end">
         <p class="mb-0">With the grace of the Holy Spirit</p>
