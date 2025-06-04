@@ -2,6 +2,7 @@
 title: Site Information
 permalink: /siteinfo
 layout: page
+sitemap: false
 ---
 
 <style>
@@ -18,10 +19,10 @@ layout: page
 <h1>Site Information</h1>
 <p>This site theme, authored by <a href="https://github.com/AlphaGameDeveloper">Damien Boisvert</a>, is licensed under the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
 <p>The content of this site is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 License</a>.</p>
-<p>This website uses 3rd party Jekyll plugins, specifically:</p>
+<p>This website uses <b>{{ site.plugins | size }}</b> 3rd party Jekyll plugins, specifically:</p>
 <ul>
     {% for plugin in site.plugins %}
-    <li>{{ plugin }}</li>
+    <li>{{ plugin }} (<a href="https://rubygems.org/gems/{{ plugin }}">rubygems</a>)</li>
     {% endfor %}
 </ul>
 

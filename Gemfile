@@ -17,6 +17,7 @@ gem "jekyll", "~> 4.4.1"
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
   gem "jekyll-dotenv"
+  gem "jekyll-sitemap"
   gem 'jekyll-news-sitemap'
   gem 'jekyll-paginate', '~> 1.1'
   gem 'jekyll-sass-converter', '~> 3.0'

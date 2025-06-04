@@ -1,0 +1,11 @@
+---
+permalink: /robots.txt
+---
+
+# Robots.txt for St. Anthony Youth Website.
+# (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+
+User-Agent: *
+Allow: /
+Sitemap: /sitemap.xml
+Sitemap: /sitemap_news.xml
