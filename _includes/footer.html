@@ -13,12 +13,11 @@
       <div class="col-lg-4 mb-4 mb-lg-0">
         <h4 class="h5 mb-3">Quick Links</h4>
         <ul class="footer-links list-unstyled">
-          <li class="mb-2"><a href="{{ '/' | relative_url }}">Home</a></li>
-          <li class="mb-2"><a href="{{ '/about/' | relative_url }}">About</a></li>
-          <li class="mb-2"><a href="{{ '/program/' | relative_url }}">Program Details</a></li>
-          <li class="mb-2"><a href="{{ '/schedule/' | relative_url }}">Schedule</a></li>
-          <li class="mb-2"><a href="{{ '/resources/' | relative_url }}">Resources</a></li>
-          <li class="mb-2"><a href="{{ '/contact/' | relative_url }}">Contact Us</a></li>
+          {% for link in site.data.footer.quick_links %}
+          <li class="mb-2">
+            <a href="{{ link.url | relative_url }}" class="text-white">{{ link.name }}</a>
+          </li>
+          {% endfor %}
         </ul>
       </div>
       <div class="col-lg-4">
@@ -37,7 +36,7 @@
     <hr class="mt-4 mb-3">
     <div class="row">
       <div class="col-md-6">
-        <a id="footer-credit" href="https://www.linkedin.com/in/damienboisvert/">Website by Damien Boisvert.</a>
+        <a id="footer-credit" target="_blank" href="https://www.linkedin.com/in/damienboisvert/">Website by Damien Boisvert.</a>
       </div>
       <div class="col-md-6 text-md-end">
         <p class="mb-0">With the grace of the Holy Spirit</p>

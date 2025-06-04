@@ -1,0 +1,20 @@
+# Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+# 
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
+quick_links:
+  - name: "Home"
+    url: "/"
+  - name: "About"
+    url: "/about/"
+  - name: "Program Details"
+    url: "/program/"
+  - name: "Schedule"
+    url: "/schedule/"
+  - name: "Resources"
+    url: "/resources/"
+  - name: "Contact Us"
+    url: "/contact/"
+  - name: "News"
+    url: "/news/"
