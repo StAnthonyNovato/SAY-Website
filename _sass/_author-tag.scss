@@ -1,4 +1,4 @@
-/* Author Tag Styles */
+// Author Tag Styles
 .post-author-tag {
   background-color: #f8f9fa;
   border-radius: 8px;
@@ -6,10 +6,10 @@
   margin: 25px 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   transition: all 0.3s ease;
-}
-
-.post-author-tag:hover {
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
 }
 
 .author-container {
@@ -21,14 +21,14 @@
 .author-image {
   flex-shrink: 0;
   margin-right: 15px;
-}
-
-.author-image img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  
+  img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
 }
 
 .author-info {
@@ -54,11 +54,11 @@
   color: #0066cc;
   text-decoration: none;
   transition: color 0.2s ease;
-}
-
-.author-link:hover {
-  color: #004080;
-  text-decoration: underline;
+  
+  &:hover {
+    color: #004080;
+    text-decoration: underline;
+  }
 }
 
 /* Responsive adjustments */
@@ -72,10 +72,10 @@
   .author-image {
     margin-right: 0;
     margin-bottom: 15px;
-  }
-  
-  .author-image img {
-    width: 80px;
-    height: 80px;
+    
+    img {
+      width: 80px;
+      height: 80px;
+    }
   }
 }

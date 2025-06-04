@@ -19,6 +19,7 @@ group :jekyll_plugins do
   gem "jekyll-dotenv"
   gem 'jekyll-news-sitemap'
   gem 'jekyll-paginate', '~> 1.1'
+  gem 'jekyll-sass-converter', '~> 3.0'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem

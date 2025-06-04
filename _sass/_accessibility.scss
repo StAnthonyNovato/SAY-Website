@@ -1,0 +1,6 @@
+// Accessibility
+.btn:focus,
+.navbar-toggler:focus,
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(139, 0, 0, 0.25);
+}

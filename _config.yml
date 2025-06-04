@@ -17,6 +17,12 @@ plugins:
   - jekyll-dotenv
   - jekyll-news-sitemap
   - jekyll-paginate
+  - jekyll-sass-converter
+
+# Sass/SCSS configuration
+sass:
+  sass_dir: _sass
+  style: compressed # This will minify the CSS output
 
 # Pagination settings
 paginate: 5

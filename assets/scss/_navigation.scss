@@ -1,0 +1,58 @@
+// Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
+// Navigation
+.navbar {
+  background-color: rgba(26, 26, 26, 0.9);
+  transition: all 0.3s ease;
+  padding: 1rem 0;
+  
+  &.scrolled {
+    background-color: rgba(26, 26, 26, 1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+  }
+}
+
+.navbar-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.parish-name {
+  font-family: $font-primary;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.program-name {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  position: relative;
+  transition: color 0.3s ease;
+  
+  &:hover,
+  &.active {
+    color: #fff;
+  }
+  
+  &.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 3px;
+    background-color: $secondary-color;
+  }
+}

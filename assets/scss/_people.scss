@@ -1,0 +1,35 @@
+// Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
+// People Profiles
+.person-profile {
+  display: flex;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.person-image {
+  flex: 0 0 150px;
+  margin-right: 1.5rem;
+  
+  img {
+    width: 100%;
+    border-radius: 50%;
+  }
+}
+
+.person-info {
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.person-title {
+  font-style: italic;
+  margin-bottom: 1rem;
+  color: #666;
+}

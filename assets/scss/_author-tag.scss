@@ -1,0 +1,86 @@
+// Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
+// Author Tag Styles
+.post-author-tag {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 25px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+}
+
+.author-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.author-image {
+  flex-shrink: 0;
+  margin-right: 15px;
+  
+  img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+}
+
+.author-info {
+  flex-grow: 1;
+}
+
+.author-name {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.author-bio {
+  margin: 0 0 10px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.author-link {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: #004080;
+    text-decoration: underline;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .author-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .author-image {
+    margin-right: 0;
+    margin-bottom: 15px;
+    
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+}

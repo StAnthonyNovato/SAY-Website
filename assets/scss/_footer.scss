@@ -1,0 +1,35 @@
+// Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
+// Footer
+.site-footer {
+  background-color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-links {
+  a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+}
+
+.social-icons {
+  a {
+    color: rgba(255, 255, 255, 0.8);
+    margin-right: 15px;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+}

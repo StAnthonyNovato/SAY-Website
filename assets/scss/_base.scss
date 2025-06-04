@@ -1,0 +1,51 @@
+// Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
+// Base Styles
+body {
+  font-family: $font-secondary;
+  color: #333;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-primary;
+  font-weight: 600;
+}
+
+.section-title {
+  font-family: $font-primary;
+  font-weight: 700;
+  color: $primary-color;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: $secondary-color;
+  }
+}
+
+.text-center .section-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+// Content Spacing
+.content-wrapper {
+  min-height: calc(100vh - 100px);
+  margin-top: 56px;
+}
+
+// Non-home pages need top padding for the fixed navbar
+body:not(.home) .content-wrapper {
+  padding-top: 0;
+}

@@ -1,0 +1,94 @@
+// Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
+// Post Styling
+.post-header {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('/assets/images/church-altar.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding: 8rem 0 4rem;
+  margin-bottom: 2rem;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.post-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.post-subtitle {
+  font-size: 1.25rem;
+  opacity: 0.8;
+}
+
+.post-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem 0;
+  }
+  
+  blockquote {
+    border-left: 4px solid $primary-color;
+    padding-left: 1rem;
+    font-style: italic;
+    color: #555;
+  }
+}
+
+.post-navigation {
+  margin-top: 3rem;
+}
+
+.post-nav-link {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  padding: 1rem;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: #f9f9f9;
+    border-color: #ddd;
+  }
+}
+
+.post-nav-label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #999;
+}
+
+.post-nav-title {
+  display: block;
+  font-family: $font-primary;
+  font-size: 1.1rem;
+  color: $primary-color;
+}

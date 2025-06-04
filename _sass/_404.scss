@@ -1,0 +1,37 @@
+// 404 Page Styles
+.error-content {
+  text-align: center;
+  padding: 50px;
+  font-family: $font-secondary;
+  
+  h1 {
+    font-size: 100px;
+    color: #dc3545; // Bootstrap danger color
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  a {
+    color: #007bff; // Bootstrap primary color
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); // Bootstrap focus ring
+    }
+    
+    &:active {
+      color: #0056b3; // Darker shade for active link
+    }
+  }
+}
