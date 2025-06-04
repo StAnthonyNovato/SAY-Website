@@ -25,6 +25,13 @@ sass:
   sass_dir: _sass
   style: compressed # This will minify the CSS output
 
+# Directories to exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+
 # Pagination settings
 paginate: 5
 paginate_path: "/news/page/:num/"

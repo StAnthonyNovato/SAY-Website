@@ -2,6 +2,8 @@
 // 
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
+// Import variables with a namespace
+@use "variables" as *;
 
 // 404 Page Styles
 .error-content {

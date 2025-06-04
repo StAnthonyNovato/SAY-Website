@@ -7,18 +7,18 @@
  * 
  */
 
-
-// Import partials
-@import "variables";
-@import "base";
-@import "navigation";
-@import "sections";
-@import "components";
-@import "posts";
-@import "footer";
-@import "utilities";
-@import "responsive";
-@import "accessibility";
-@import "people";
-@import "author-tag";
-@import "404";
+// Using modern Sass module system
+@use "variables" as *;  // This makes all variables available without namespace
+@use "base";
+@use "navigation";
+@use "sections";
+@use "components";
+@use "posts";
+@use "footer";
+@use "utilities";
+@use "responsive";
+@use "accessibility";
+@use "404" as error404;  // Assign explicit namespace to numbers-only filenames
+@use "author-tag";
+@use "contact-form";
+@use "people";
