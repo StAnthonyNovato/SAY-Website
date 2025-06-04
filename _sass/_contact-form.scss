@@ -3,9 +3,9 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-// Accessibility
-.btn:focus,
-.navbar-toggler:focus,
-.form-control:focus {
-  box-shadow: 0 0 0 0.25rem rgba(139, 0, 0, 0.25);
+#form-response {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 20px;
+  display: none;
 }
