@@ -4,31 +4,20 @@
     <div class="container">
       <a class="navbar-brand" href="{{ '/' | relative_url }}">
         <span class="parish-name">St. Anthony de Padua</span>
-        <span class="program-name d-none d-md-inline">Youth Shenanigans</span>
+        <span class="program-name d-none d-md-inline">Youth d</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link {% if page.url == '/' %}active{% endif %}" href="{{ '/' | relative_url }}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if page.url contains '/about/' %}active{% endif %}" href="{{ '/about/' | relative_url }}">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if page.url contains '/ministries' %}active{% endif %}" href="{{ '/ministries/' | relative_url }}">Ministries</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if page.url contains '/schedule/' %}active{% endif %}" href="{{ '/schedule/' | relative_url }}">Schedule</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if page.url contains '/resources/' %}active{% endif %}" href="{{ '/resources/' | relative_url }}">Resources</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if page.url contains '/contact/' %}active{% endif %}" href="{{ '/contact/' | relative_url }}">Contact</a>
-          </li>
+          {% include navbar-item.html title="Home" href="/" %}
+          {% include navbar-item.html title="About" href="/about/" %}
+          {% include navbar-item.html title="Ministries" href="/ministries/" %}
+          {% include navbar-item.html title="Schedule" href="/schedule/" %}
+          {% include navbar-item.html title="Resources" href="/resources/" %}
+          {% include navbar-item.html title="Contact" href="/contact/" %}
+          
         </ul>
       </div>
     </div>

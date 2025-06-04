@@ -7,7 +7,7 @@
                     <div class="img-placeholder d-flex align-items-center justify-content-center">
                         {% if include.image %}
                         <img src="{{ include.image | relative_url }}"
-                            alt="{{ include.caption }}" class="img-fluid rounded">
+                            alt="{{ include.alt }}" class="img-fluid rounded">
                         {% else %}
                         <span class="text-muted">Placeholder Image</span>
                         {% endif %}

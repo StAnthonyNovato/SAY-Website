@@ -1,0 +1,12 @@
+<!-- macro:navbar-item -->
+{% if include.href != "/" %}
+<li class="nav-item">
+    <a class="nav-link {% if page.url contains include.href %}active{% endif %}" href="{{ include.href | relative_url }}">{{ include.title }}</a>
+</li>
+{% else %}
+<!-- root -->
+<li class="nav-item">
+    <a class="nav-link {% if page.url == '/' %}active{% endif %}" href="{{ include.href | relative_url }}">{{ include.title }}</a>
+</li>
+{% endif %}
+<!-- macro:end -->
