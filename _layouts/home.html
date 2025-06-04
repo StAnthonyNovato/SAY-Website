@@ -19,7 +19,7 @@ layout: default
       <h1 class="display-4 fw-bold mb-4">St. Anthony Youth Programs</h1>
       <h2 class="h3 mb-5">St. Anthony de Padua Catholic Parish</h2>
       <p class="lead">Strengthening Faith, Building Community, Serving Others</p>
-      <div class="mt-5">
+      <div class="mt-5"> 
         <a href="#about" class="btn btn-primary btn-lg me-3">Learn More</a>
         <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
       </div>
@@ -59,42 +59,23 @@ layout: default
     <div class="container py-5">
       <h2 class="section-title text-center mb-5">Program Schedule</h2>
       <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="icon-wrapper mb-3">
-                <i class="fas fa-book-bible fa-3x text-primary"></i>
-              </div>
-              <h3 class="card-title h4">Faith Formation</h3>
-              <p class="card-text">Weekly classes focusing on Catholic teachings, scripture, and prayer.</p>
-              <p class="text-muted">Wednesdays, 6:00 to 8:00 PM.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="icon-wrapper mb-3">
-                <i class="fas fa-hands-helping fa-3x text-primary"></i>
-              </div>
-              <h3 class="card-title h4">Service Projects</h3>
-              <p class="card-text">Community service opportunities to practice our faith in action.</p>
-              <p class="text-muted">Various Times</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="icon-wrapper mb-3">
-                <i class="fas fa-pray fa-3x text-primary"></i>
-              </div>
-              <h3 class="card-title h4">Retreats</h3>
-              <p class="card-text">Spiritual retreats for reflection, prayer, and community building.</p>
-              <p class="text-muted">Ideally biannually.</p>
-            </div>
-          </div>
-        </div>
+        {% include home-card.html 
+          title="Faith Formation"
+          description="Weekly classes focusing on Catholic teachings, scripture, and prayer."
+          time="Wednesdays, 6:00 to 8:00 PM"
+          icon="fas fa-book-bible" %}
+          
+        {% include home-card.html 
+          title="Service Projects"
+          description="Community service opportunities to practice our faith in action."
+          time="Various Times"
+          icon="fas fa-hands-helping" %}
+          
+        {% include home-card.html 
+          title="Retreats"
+          description="Spiritual retreats for reflection, prayer, and community building."
+          time="Ideally biannually"
+          icon="fas fa-pray" %}
       </div>
     </div>
   </section>
