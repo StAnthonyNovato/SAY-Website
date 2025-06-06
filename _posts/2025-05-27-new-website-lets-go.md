@@ -2,6 +2,9 @@
 title: New website! Let's get this party started!
 author: damien
 layout: post
+ministry: tech
+tags:
+    - setup
 ---
 
 Hello!

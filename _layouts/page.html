@@ -2,6 +2,8 @@
 layout: default
 ---
 <div class="page">
+  
+  {% unless page.noheader %}
   <header class="page-header">
     <div class="container">
       <h1 class="page-title">{{ page.title }}</h1>
@@ -10,8 +12,9 @@ layout: default
       {% endif %}
     </div>
   </header>
+  {% endunless %}
   
-  <div class="container py-5">
+  <div class="container py-5 {% if page.noheader %}mt-5 pt-4{% endif %}">
     <article class="page-content">
       {{ content }}
     </article>

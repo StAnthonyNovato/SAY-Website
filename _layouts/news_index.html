@@ -1,0 +1,53 @@
+---
+layout: page
+---
+
+<section class="ministry-news-section bg-light py-5">
+  <div class="container">
+    <!-- Ministry Header -->
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h1 class="display-5 fw-bold text-primary">
+          {{ site.data.ministries_metadata[page.ministry].name }} <span class="text-dark">News</span>
+        </h1>
+        <hr class="divider my-4 mx-auto" style="max-width: 100px;">
+        <p class="lead text-muted mb-5">
+          Latest updates and announcements from our {{ site.data.ministries_metadata[page.ministry].name }} ministry
+        </p>
+      </div>
+    </div>
+
+    <!-- Posts Grid -->
+    {% if page.posts.size > 0 %}
+    <div class="row">
+      {% for post in page.posts %}
+      <div class="col-lg-8 mx-auto mb-5">
+        {% include post-card.html post=post %}
+      </div>
+      {% endfor %}
+    </div>
+    
+    <!-- Back to all news link -->
+    <div class="row mt-3">
+      <div class="col-12 text-center">
+        <a href="{{ '/news/' | relative_url }}" class="btn btn-outline-primary">
+          <i class="fas fa-arrow-left me-2"></i>Back to All News
+        </a>
+      </div>
+    </div>
+    {% else %}
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card border-danger shadow">
+          <div class="card-body text-center p-5">
+            <i class="fas fa-exclamation-triangle text-danger fa-3x mb-3"></i>
+            <h3 class="text-danger">No News Posts Available</h3>
+            <p class="mb-0">That's a problem, because this page shouldn't exist without any posts!</p>
+            <p class="mt-3">Please email <a href="mailto:{{ site.admin_email }}" class="text-primary">{{ site.admin_email }}</a> (the site administrator) to report this issue.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>

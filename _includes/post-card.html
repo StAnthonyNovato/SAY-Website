@@ -1,0 +1,46 @@
+<!-- BEGIN TEMPLATE post-card.html -->
+<div class="card shadow h-100">
+  {% if include.post.image %}
+  <img src="{{ include.post.image | relative_url }}" class="card-img-top" alt="{{ include.post.title }}">
+  {% endif %}
+  <div class="card-body">
+    <h2 class="card-title">
+      <a href="{{ include.post.url | relative_url }}" class="text-decoration-none">{{ include.post.title }}</a>
+    </h2>
+    <p class="card-text text-muted">
+      <small>
+        <i class="far fa-calendar-alt"></i> {{ include.post.date | date: "%B %d, %Y" }}
+        {% if include.post.author %}
+        | <i class="far fa-user"></i> {{site.data.authors[include.post.author].name }}
+        {% endif %}
+        {% if include.post.tags.size > 0 %}
+        | <i class="far fa-folder-open"></i> 
+        {% for tag in include.post.tags %}
+        <a href="{{ '/news/tag/' | append: tag | relative_url }}" class="badge bg-secondary">{{ tag }}</a>
+        {% if forloop.last == false %}, {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% if include.post.ministries.size > 0 %}
+        | <i class="fas fa-church"></i> 
+        {% for ministry in include.post.ministries %}
+        <span class="badge bg-primary">{{ ministry }}</span>
+        {% if forloop.last == false %}, {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% if include.post.ministry %}
+        | <i class="fas fa-church"></i> 
+        <span class="badge bg-primary">{{ include.post.ministry }}</span>
+        {% endif %}
+      </small>
+    </p>
+    <div class="card-text mb-3">
+      {% assign content_text = include.post.content | strip_html | strip_newlines %}
+      {% assign content_with_spaces = content_text | replace: ".", ". " | replace: "!", "! " | replace: "?", "? " | replace: ",", ", " | replace: ";", "; " | replace: ":", ": " %}
+      {% assign content_fixed = content_with_spaces | replace: "!!! ", "!!! " | replace: "!! ", "!! " | replace: "... ", "... " | replace: ".. ", ".. " %}
+      {% assign content_clean = content_fixed | replace: "  ", " " | replace: "  ", " " %}
+      {{ content_clean | truncatewords: 75 }}
+    </div>
+    <a href="{{ include.post.url | relative_url }}" class="btn btn-primary">Read Full Post</a>
+  </div>
+</div>
+<!-- END TEMPLATE post-card.html -->

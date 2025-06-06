@@ -10,6 +10,8 @@ group :jekyll_plugins do
   gem 'jekyll-news-sitemap'
   gem 'jekyll-paginate', '~> 1.1'
   gem 'jekyll-sass-converter', '~> 3.0'
+  # goddammit, this cannot work because of no version solving is availiable.
+  # gem 'github-pages'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
