@@ -6,7 +6,7 @@
 module Jekyll
   class GitMetadataGenerator < Generator
     safe true
-    priority :lowest
+    priority :highest
 
     def generate(site)
       Jekyll.logger.info "GitMeta", "Fetching latest Git commit metadata..."
