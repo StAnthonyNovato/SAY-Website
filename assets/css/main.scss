@@ -1,11 +1,5 @@
 ---
 ---
-/*
- * Main CSS file for St. Anthony de Padua Catholic Parish - Confirmation Program
- * Website Code (c) Damien Boisvert (AlphaGameDeveloper) {{ site.time | date: "%Y" }}
- * Build Date: {{ site.time | date: "%Y-%m-%d %H:%M" }}
- * 
- */
 
 // Using modern Sass module system
 @use "variables" as *;  // This makes all variables available without namespace
@@ -22,3 +16,13 @@
 @use "author-tag";
 @use "contact-form";
 @use "people";
+
+// note - for some gosh darn reason, if I include the following blockcomment at the top,
+// it will repeat the comment a million times in the compiled CSS.
+// Not sure if this is a quirk in SCSS, or just me being stupid.
+/*!
+ * Main CSS file for St. Anthony de Padua Catholic Parish - Confirmation Program
+ * Website Code (c) Damien Boisvert (AlphaGameDeveloper) {{ site.time | date: "%Y" }}
+ * Build Date: {{ site.time | date: "%Y-%m-%d %H:%M" }}
+ * 
+ */

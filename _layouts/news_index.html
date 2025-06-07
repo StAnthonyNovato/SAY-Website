@@ -2,19 +2,26 @@
 layout: page
 noheader: true
 ---
-
 <section class="ministry-news-section bg-light py-5">
   <div class="container">
     <!-- Ministry Header -->
     <div class="row mb-4">
       <div class="col-12 text-center">
         <h1 class="display-5 fw-bold text-primary">
+          {% if page.type == "tag" %}
+          <i class="fas fa-tag me-2"></i>
+          <span class="text-dark">Tag: {{ page.value | capitalize }}</span>
+          {% else %}
+
+        <i class="fas fa-newspaper me-2"></i>
           {{ site.data.ministries_metadata[page.ministry].name }} <span class="text-dark">News</span>
         </h1>
         <hr class="divider my-4 mx-auto" style="max-width: 100px;">
         <p class="lead text-muted mb-5">
           Latest updates and announcements from our {{ site.data.ministries_metadata[page.ministry].name }} ministry
         </p>
+        {% endif %}
+
       </div>
     </div>
 
