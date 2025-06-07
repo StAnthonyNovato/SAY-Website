@@ -9,7 +9,7 @@
 
 // Hero Section
 .hero-section {
-  //background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+  // background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
   //        url('/assets/images/church-interior.jpg') no-repeat center center;
   background-size: cover;
   color: white;
@@ -20,11 +20,8 @@
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: radial-gradient(circle, rgba(139, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+    inset: 0;
+    background: radial-gradient(circle, rgb(139 0 0 / 40%) 0%, rgb(0 0 0 / 60%) 100%);
     z-index: 1;
   }
   
@@ -108,7 +105,7 @@
 
 // Page Header
 .page-header {
-  //background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+  // background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
   //            url('/assets/images/church-stained-glass.jpg') no-repeat center center;
   background-size: cover;
   color: white;
@@ -120,11 +117,8 @@
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5);
+    inset: 0;
+    background: rgb(0 0 0 / 50%);
     z-index: 1;
   }
   
@@ -158,7 +152,7 @@
     top: 20px;
     left: 20px;
     font-size: 5rem;
-    color: rgba(139, 0, 0, 0.1);
+    color: rgb(139 0 0 / 10%);
     line-height: 1;
   }
   
