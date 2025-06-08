@@ -7,7 +7,7 @@ permalink: /humans.txt
  ___/ / /__    / ___ |/ / / / /_/ / / / /_/ / / / / /_/ /      / / /_/ / /_/ / /_/ / / /
 /____/\__(_)  /_/  |_/_/ /_/\__/_/ /_/\____/_/ /_/\__, /      /_/\____/\__,_/\__/_/ /_/ 
                                                  /____/                                 
-                                                    https://stanthonyyouth.org
+                                                    {{ site.url }}
 
 Humans.txt for St. Anthony Youth Website (https://humanstxt.org)
 
