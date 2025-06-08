@@ -1,0 +1,25 @@
+---
+permalink: /humans.txt
+---
+   _____ __       ___          __  __                         __  __            __  __  
+  / ___// /_     /   |  ____  / /_/ /_  ____  ____  __  __    \ \/ /___  __  __/ /_/ /_ 
+  \__ \/ __/    / /| | / __ \/ __/ __ \/ __ \/ __ \/ / / /     \  / __ \/ / / / __/ __ \
+ ___/ / /__    / ___ |/ / / / /_/ / / / /_/ / / / / /_/ /      / / /_/ / /_/ / /_/ / / /
+/____/\__(_)  /_/  |_/_/ /_/\__/_/ /_/\____/_/ /_/\__, /      /_/\____/\__,_/\__/_/ /_/ 
+                                                 /____/                                 
+                                                    https://stanthonyyouth.org
+
+Humans.txt for St. Anthony Youth Website (https://humanstxt.org)
+
+So... you want to know who made this website? Here you go!
+
+This website is maintained by Damien Boisvert (AlphaGameDeveloper).
+This site wouldn't be possible without my fellow leaders and volunteers:
+
+
+Main Site E-mail: {{ site.email }}
+Site Administrator and Maintainer: {{ site.admin_email }}
+
+Full Human List:
+{% for human in site.data.people %}- {{ human.name }} {% if human.title %}({{ human.title }}){% endif %}
+{% endfor %}

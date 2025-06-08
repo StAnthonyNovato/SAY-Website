@@ -1,7 +1,37 @@
-bios:
-  - name: "Alejandra"
-    img: "alejandra.jpg"
-    bio: "Test - Bio entry for Alejandra."
-  - name: "Damien Boisvert"
-    img: "damien.jpg"
-    bio: "Test - Bio entry for Damien."
+- name: Damien Boisvert
+  email: damien@alphagame.dev
+  title: Technology Ministry Leader
+
+- name: Alejandra
+  title: Adult Leader
+  
+- name: Bella
+
+- name: Christian
+  title: Adult Leader
+
+- name: Darleen Tenorio
+
+- name: Kenzie
+
+- name: Lauren Boisvert
+
+- name: Luna
+
+- name: Maki
+
+- name: Maria
+
+- name: Mirza
+
+- name: Rodrigo
+
+- name: Selina
+
+- name: Shay
+
+- name: Leo
+
+- name: Fátima
+
+- name: Maria
