@@ -45,15 +45,17 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Install dependencies
         # Installs the gems specified in the Gemfile
-        run: bundle install --jobs 4 --retry 3
+        run: bundle install --jobs 4 --retry 3 && python3 -m pip install colorama requests bs4 tabulate
     
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --config _config.yml,_config.production.yml" --trace --verbose
         env:
           JEKYLL_ENV: production
+
       - name: Generate SEO Report
-        run: python3 -m pip install colorama requests bs4 tabulate && python3 seo.py --verbose --html-output _site/seo.html --threads 8 --base-url https://stanthonynovato.github.io/SAY-Website
+        run: python3 seo.py --verbose --html-output _site/seo.html --threads 8 --base-url https://stanthonynovato.github.io/${{ steps.pages.outputs.base_url}}
+      
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3

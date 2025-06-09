@@ -1,0 +1,3 @@
+sass:
+  sass_dir: _sass
+  style: compressed # This will minify the CSS output

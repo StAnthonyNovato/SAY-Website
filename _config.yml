@@ -24,7 +24,7 @@ plugins:
 # Sass/SCSS configuration
 sass:
   sass_dir: _sass
-  style: compressed # This will minify the CSS output
+  style: expanded # This will expand the CSS output
 
 # Directories to exclude from processing
 exclude:
