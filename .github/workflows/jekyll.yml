@@ -49,7 +49,7 @@ jobs:
     
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --config _config.yml,_config.production.yml" --trace --verbose
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --config _config.yml,_config.production.yml --trace --verbose
         env:
           JEKYLL_ENV: production
 
