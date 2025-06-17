@@ -31,7 +31,13 @@ sitemap: false
     {% endfor %}
 </ul>
 
-<p>build: {{ jekyll.environment }}</p>
+<p><b>Build: </b> 
+{% if site.environment == "production" %}
+<span style="font-weight: bold; background-color: green;">Production ( {{ site.data.git.commit_hash }}) </span>
+{% else %}
+<span style="font-weight: bold; background-color: red;">Development ( {{ site.data.git.commit_hash }})</span>
+{% endif %}
+</p>
 <h2>Git Information</h2>
 <table>
     <tr>
