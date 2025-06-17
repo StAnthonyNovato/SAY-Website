@@ -118,7 +118,9 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle, rgb(139 0 0 / 80%) 0%, rgb(0 0 0 / 60%) 100%);
+    // svg: /assets/images/page-header-bg.svg
+    background: darkred;
+    
     z-index: 1;
   }
   
