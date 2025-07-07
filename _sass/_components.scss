@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 // Import variables with a namespace
 @use "variables" as *;
-
+@use "./animate/bounce" as *;
 // Components
 
 // Cards
@@ -20,4 +20,30 @@
 
 .scroll-indicator {
   cursor: pointer;
+}
+
+// animate__animated animate__bounce equivalent
+#home-hero-scroll {
+  $duration: 1s;
+  $count: 1;
+  $delay: 1s;
+  $function: ease;
+  $fill: both;
+
+  @include bounce(
+    $duration: $duration,
+    $count: $count,
+    $delay: $delay,
+    $function: $function,
+    $fill: $fill
+  );
+  &:hover {
+    @include bounce(
+      $duration: $duration,
+      $count: infinite,
+      $delay: .75s,
+      $function: $function,
+      $fill: $fill
+    );
+  }
 }
