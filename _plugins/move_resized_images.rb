@@ -27,14 +27,12 @@ Jekyll::Hooks.register :site, :after_init do |site|
 
         if _must_create?(src_path, dest_path)
           puts "Resizing '#{source}' to '#{dest_path_rel}' - using options: '#{options}'"
-
           _process_img(src_path, options, dest_path)
-
           site.static_files << Jekyll::StaticFile.new(site, site.source, Jekyll::Resize::CACHE_DIR, dest_filename)
         end
 
-        # Return just the relative path without baseurl - Jekyll will handle baseurl automatically
-        "/#{dest_path_rel}"
+        # Return just the relative path without leading slash - let relative_url handle baseurl
+        dest_path_rel
       end
     end
     
