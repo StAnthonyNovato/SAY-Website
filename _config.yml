@@ -20,6 +20,15 @@ plugins:
   - jekyll-news-sitemap
   - jekyll-paginate
   - jekyll-sass-converter
+  - jekyll-minifier
+
+# Jekyll Minifier configuration
+jekyll-minifier:
+  uglifier_args:
+    harmony: true
+    compress:
+      drop_console: false
+    mangle: true
 
 # Sass/SCSS configuration
 sass:

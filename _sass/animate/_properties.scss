@@ -119,7 +119,7 @@ $includeBrowserSpecificPrefixes: true !default;
 
 @mixin keyframes($animation-name) {
   @if $includeBrowserSpecificPrefixes {
-    -webkit-keyframes #{$animation-name} {
+    @-webkit-keyframes #{$animation-name} {
       @content;
     }
 
