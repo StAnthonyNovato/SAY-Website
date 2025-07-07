@@ -46,7 +46,10 @@ jobs:
       - name: Install dependencies
         # Installs the gems specified in the Gemfile
         run: bundle install --jobs 4 --retry 3 && python3 -m pip install colorama requests bs4 tabulate
-    
+      
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --config _config.yml,_config.production.yml --trace --verbose

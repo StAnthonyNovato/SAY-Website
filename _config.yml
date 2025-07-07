@@ -1,6 +1,7 @@
 title: St. Anthony Youth
 
 url: https://stanthonynovato.org
+baseurl: "" # Set to empty string for local development, GitHub Actions will override this
 email: ale@stanthonynovato.org
 admin_email: damien@alphagame.dev
 permalink: /news/:year/:month/:title
@@ -21,6 +22,7 @@ plugins:
   - jekyll-paginate
   - jekyll-sass-converter
   - jekyll-minifier
+  - jekyll-resize
 
 # Jekyll Minifier configuration
 jekyll-minifier:

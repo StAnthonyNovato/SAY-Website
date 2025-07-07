@@ -15,6 +15,7 @@ group :jekyll_plugins do
   gem 'jekyll-paginate', '~> 1.1'
   gem 'jekyll-sass-converter', '~> 3.0'
   gem 'jekyll-minifier'
+  gem "jekyll-resize", git: "https://github.com/MichaelCurrin/jekyll-resize"
   # goddammit, this cannot work because of no version solving is availiable.
   # gem 'github-pages'
 end
