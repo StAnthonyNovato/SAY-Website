@@ -4,6 +4,10 @@ _site
 .jekyll-metadata
 vendor
 
+# Generated compression data files in _site (created during build)
+_site/compression_data.json
+_site/compression_history.json
+
 # testing pictures for development.
 assets/**/*socks*
 # Logs
