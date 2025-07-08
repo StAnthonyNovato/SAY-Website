@@ -52,7 +52,14 @@ module Jekyll
       html_files.each do |file_path|
         next unless File.exist?(file_path)
         
-        original_content = File.read(file_path)
+        begin
+          original_content = File.read(file_path, encoding: 'UTF-8')
+        rescue Encoding::InvalidByteSequenceError, Encoding::UndefinedConversionError
+          # Try reading as binary and then convert to UTF-8
+          original_content = File.read(file_path, encoding: 'BINARY').force_encoding('UTF-8')
+          original_content = original_content.scrub('?') unless original_content.valid_encoding?
+        end
+        
         original_size = original_content.bytesize
         
         # Estimate compressed size using our minification algorithm
@@ -87,30 +94,42 @@ module Jekyll
     end
     
     def estimate_minified_size(content)
-      minified = content.dup
-      
-      # Remove HTML comments (preserve IE conditionals)
-      minified.gsub!(/<!--(?!\s*(?:\[if|\]>|<!)).*?-->/m, '')
-      
-      # Remove extra whitespace between tags
-      minified.gsub!(/>\s+</, '><')
-      
-      # Remove leading/trailing whitespace
-      minified.gsub!(/^\s+|\s+$/m, '')
-      
-      # Collapse multiple spaces/tabs/newlines into single space
-      minified.gsub!(/\s+/, ' ')
-      
-      # Remove space around block elements
-      minified.gsub!(/\s*(<\/?(?:div|p|h[1-6]|article|section|nav|header|footer|main|ul|ol|li|table|tr|td|th|tbody|thead|tfoot)[^>]*>)\s*/i, '\1')
-      
-      # Remove quotes around single-word attributes
-      minified.gsub!(/(\w+)="(\w+)"/, '\1=\2')
-      
-      # Remove optional closing tags (be conservative)
-      # minified.gsub!(/<\/(?:li|p|dt|dd|option|thead|tbody|tfoot|tr|td|th)>/i, '')
-      
-      minified.strip
+      # Ensure content is treated as UTF-8 and handle encoding issues
+      begin
+        minified = content.dup.force_encoding('UTF-8')
+        
+        # If the content has invalid UTF-8 sequences, try to scrub them
+        unless minified.valid_encoding?
+          minified = minified.scrub('?')
+        end
+        
+        # Remove HTML comments (preserve IE conditionals)
+        minified.gsub!(/<!--(?!\s*(?:\[if|\]>|<!)).*?-->/m, '')
+        
+        # Remove extra whitespace between tags
+        minified.gsub!(/>\s+</, '><')
+        
+        # Remove leading/trailing whitespace
+        minified.gsub!(/^\s+|\s+$/m, '')
+        
+        # Collapse multiple spaces/tabs/newlines into single space
+        minified.gsub!(/\s+/, ' ')
+        
+        # Remove space around block elements
+        minified.gsub!(/\s*(<\/?(?:div|p|h[1-6]|article|section|nav|header|footer|main|ul|ol|li|table|tr|td|th|tbody|thead|tfoot)[^>]*>)\s*/i, '\1')
+        
+        # Remove quotes around single-word attributes
+        minified.gsub!(/(\w+)="(\w+)"/, '\1=\2')
+        
+        # Remove optional closing tags (be conservative)
+        # minified.gsub!(/<\/(?:li|p|dt|dd|option|thead|tbody|tfoot|tr|td|th)>/i, '')
+        
+        minified.strip
+      rescue ArgumentError => e
+        # If encoding issues persist, return the original content
+        Jekyll.logger.warn "Compression Analyzer", "Encoding error for content: #{e.message}"
+        content
+      end
     end
     
     def display_compression_results(file_count, total_original, total_compressed)
