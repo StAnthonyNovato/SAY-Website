@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     ca-certificates \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*
 
 # Install bundler
