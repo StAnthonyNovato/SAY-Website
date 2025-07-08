@@ -27,9 +27,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Wait for Docker build to complete if it's running
+  wait-for-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Docker build workflow
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'build-and-push'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 30
+          allowed-conclusions: success,failure,cancelled,skipped
+        continue-on-error: true
+
   # Build job
   build:
     runs-on: ubuntu-latest
+    needs: [wait-for-docker]
     container:
       image: ghcr.io/stanthonynovato/say-website-builder:latest
 
