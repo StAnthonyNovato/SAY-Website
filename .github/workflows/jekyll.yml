@@ -34,6 +34,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Download previous compression history
+        uses: actions/download-artifact@v4
+        with:
+          name: compression-history
+          path: _site/
+        continue-on-error: true
+        
       - name: Setup Ruby
         # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0
         uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4
@@ -59,6 +67,15 @@ jobs:
 
       - name: Generate SEO Report
         run: python3 seo.py --verbose --html-output _site/seo.html --threads 8 --base-url https://stanthonynovato.github.io/${{ steps.pages.outputs.base_url}}
+      
+      - name: Archive compression analysis data
+        uses: actions/upload-artifact@v4
+        with:
+          name: compression-history
+          path: |
+            _site/compression_history.json
+          retention-days: 90
+          if-no-files-found: ignore
       
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
