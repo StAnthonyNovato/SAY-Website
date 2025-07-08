@@ -1,0 +1,18 @@
+# Ignore files that are not needed in the Docker build context
+_site/
+.git/
+.github/
+node_modules/
+*.log
+.jekyll-cache/
+.sass-cache/
+.bundle/
+vendor/
+.env
+.env.local
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+README.md
+.gitignore
