@@ -16,5 +16,5 @@ quick_links:
     url: "/resources/"
   - name: "Contact Us"
     url: "/contact/"
-  - name: "News"
-    url: "/news/"
+  - name: "Legal"
+    url: "/legal/"
