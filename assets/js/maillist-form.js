@@ -31,6 +31,14 @@ const funnyEmailPlaceholders = [
     "placeholder@funnyemail.com",
     "placeholder-people@iana.org"
 ];
+
+function showFormResponseMessageUI(statusClass, message) {
+    const parent = document.querySelector("#maillist-form-status");
+    parent.className = "mt-3 alert " + statusClass;
+    parent.innerHTML = "<p>" + message + "</p>";
+    parent.style.display = "block";
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const randomIndex = Math.floor(Math.random() * funnyEmailPlaceholders.length);
     const emailInput = document.querySelector("#maillist-form input[type='email']");
@@ -52,3 +60,46 @@ window.addEventListener('load', function () {
     }, false);
     });
 }, false);
+
+document.querySelector("#maillist-form form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const form = event.target;
+    const emailInput = form.querySelector("input[type='email']");
+    const email = emailInput.value.trim();
+
+    if (!email) {
+        showFormResponseMessageUI("alert-danger", "Please enter a valid email address.");
+        return;
+    }
+
+    const submitButton = form.querySelector("button[type='submit']");
+    submitButton.disabled = true;
+
+    fetch(form.action, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            showFormResponseMessageUI("alert-success", "Thank you for subscribing! Please check your email to confirm your subscription.");
+            form.reset();
+        } else {
+            showFormResponseMessageUI("alert-danger", data.message || "An unknown error occurred. Please try again later.");
+        }
+        submitButton.disabled = false; // Re-enable the button on success or error
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showFormResponseMessageUI("alert-danger", "An unexpected error occurred. Please try again later.");
+        submitButton.disabled = false; // Re-enable the button on exception
+    });
+});
