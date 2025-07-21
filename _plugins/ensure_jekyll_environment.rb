@@ -10,7 +10,7 @@ module Jekyll
 
         def generate(site)
         # Ensure that the Jekyll environment is set to 'production' for deployment
-        if ENV['JEKYLL_ENV'].nil? || ENV['JEKYLL_ENV'] != 'production' && ENV['JEKYLL_ENV'] != "development"
+        if ENV['JEKYLL_ENV'].nil? || (ENV['JEKYLL_ENV'] != 'production' && ENV['JEKYLL_ENV'] != "development")
             Jekyll.logger.warning "EnsureJekyllEnv", "Environment variable JEKYLL_ENV is none or not production."
             Jekyll.logger.warning "EnsureJekyllEnv", "Setting it to 'development', as a safe fallback :)"
             ENV['JEKYLL_ENV'] = 'development'

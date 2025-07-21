@@ -82,7 +82,12 @@ document.querySelector("#maillist-form form").addEventListener("submit", functio
         },
         body: JSON.stringify({ email: email })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             showFormResponseMessageUI("alert-success", "Thank you for subscribing! Please check your email to confirm your subscription.");

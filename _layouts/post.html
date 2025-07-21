@@ -30,7 +30,7 @@ layout: default
       {% else %}
         <p class="post-author">By {{ site.data.authors[page.author].name }}</p>
       {% endif %}
-      <p class="post-date small text-muted"></p>
+      <p class="post-date small text-muted">
         {{ page.date | date: "%B %d, %Y" }}
         {% if page.last_modified_at %}
           <span>| Last updated: {{ page.last_modified_at | date: "%B %d, %Y" }}</span>
