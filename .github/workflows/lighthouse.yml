@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   lighthouse:
-    runs-on: ubuntu-latest
+    runs-on: ghcr.io/stanthonynovato/say-website-builder:latest
 
     steps:
       - name: 🧾 Checkout code
