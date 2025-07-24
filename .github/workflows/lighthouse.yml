@@ -38,7 +38,7 @@ jobs:
 
       - name: 🚀 Start Jekyll Server in background
         run: |
-          JEKYLL_ENV=production bundle exec jekyll serve --port 4000 --host 127.0.0.1 &
+          JEKYLL_ENV=production bundle exec jekyll serve --port 4000 --host 0.0.0.0 &
           echo $! > jekyll.pid
 
       - name: 🕰 Wait for server to be ready
