@@ -4,10 +4,15 @@
     <div class="row">
       <div class="col-lg-4 mb-4 mb-lg-0">
         <h4 class="h5 mb-3">St. Anthony de Padua</h4>
-        <p>Catholic Parish Confirmation Program</p>
+        <p>Catholic Parish Youth Programs</p>
         <p>100 Cambridge Street<br>Novato, CA 94945</p>
-        <p><i class="fas fa-phone me-2"></i> (574) 282-2308</p>
-        <p><i class="fas fa-envelope me-2"></i> {{ site.email }}</p>
+        {% if site.phone %}
+          {% assign phone_uri_compatible = site.phone | replace: ' ', '' | replace: '(', '' | replace: ')', '' | replace: '-', '' %}
+          <p><a href="tel:{{ phone_uri_compatible }}" style="color: inherit; text-decoration: inherit;"><i class="fas fa-phone me-2"></i> {{ site.phone }}</a></p>
+        {% endif %}
+        {% if site.email %}
+          <p><a href="mailto:{{ site.email }}" style="color: inherit; text-decoration: inherit;"><i class="fas fa-envelope me-2"></i> {{ site.email }}</a></p>
+        {% endif %}
       </div>
       <div class="col-lg-4 mb-4 mb-lg-0">
         <h4 class="h5 mb-3">Quick Links</h4>
@@ -22,7 +27,7 @@
       <div class="col-lg-4">
  
         <div class="mt-4">
-          <h5 class="h6 mb-3">Mass Schedule</h5>
+          <h4 class="h5 mb-3">Mass Schedule</h4>
           <p class="mb-1"><strong>Sunday:</strong> 8:00 AM, 10:30 AM</p>
           <p class="mb-1"><strong>Saturday Vigil:</strong> 4:30 PM</p>
           <p><strong>Weekdays:</strong> Mon-Fri 8:30 AM</p>
