@@ -2,6 +2,7 @@ _site
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
+.lighthouseci
 vendor
 
 # Generated compression data files in _site (created during build)

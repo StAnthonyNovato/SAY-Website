@@ -71,9 +71,6 @@ jobs:
         env:
           JEKYLL_ENV: production
 
-      - name: Generate SEO Report
-        run: python3 seo.py --verbose --html-output _site/seo.html --threads 8 --base-url https://stanthonynovato.github.io/${{ steps.pages.outputs.base_url}}
-      
       - name: Archive compression analysis data
         uses: actions/upload-artifact@v4
         with:
