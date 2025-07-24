@@ -5,6 +5,11 @@ baseurl: "" # Set to empty string for local development, GitHub Actions will ove
 email: ale@stanthonynovato.org
 phone: +1 (800) 242-8478
 admin_email: damien@alphagame.dev
+
+# Google Analytics tracking ID
+# TODO: Add this at launch.
+# tracking_id:
+
 permalink: /news/:year/:month/:title
 description: >- # this means to ignore newlines until "baseurl:"
   St. Anthony de Padua Catholic Parish Confirmation Program, guiding youth 
