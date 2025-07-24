@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/StAnthonyNovato/SAY-Website#readme",
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "stylelint": "^16.20.0",
     "stylelint-config-standard-scss": "^15.0.1",
     "stylelint-scss": "^6.12.0"
