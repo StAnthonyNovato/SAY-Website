@@ -3,6 +3,7 @@ title: St. Anthony Youth
 url: https://stanthonynovato.org
 baseurl: "" # Set to empty string for local development, GitHub Actions will override this
 email: ale@stanthonynovato.org
+phone: +1 (800) 242-8478
 admin_email: damien@alphagame.dev
 permalink: /news/:year/:month/:title
 description: >- # this means to ignore newlines until "baseurl:"
