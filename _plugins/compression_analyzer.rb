@@ -184,7 +184,7 @@ module Jekyll
       # Generate or update historical data JSON
       generate_historical_data_json(timestamp, file_count, total_original, total_compressed, total_savings, percentage)
       
-      Jekyll.logger.info "CompressionAnalyzer", "Compression analysis complete!"
+      # Jekyll.logger.info "CompressionAnalyzer", "Compression analysis complete!"
     end
     
     def generate_historical_data_json(timestamp, file_count, total_original, total_compressed, total_savings, percentage)

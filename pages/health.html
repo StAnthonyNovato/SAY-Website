@@ -1,0 +1,132 @@
+---
+title: System Health Status
+subtitle: Real-time monitoring of backend services and infrastructure
+layout: page
+permalink: /health
+---
+
+<div id="health-status">
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <div class="alert alert-info" role="alert">
+        <i class="fas fa-info-circle"></i>
+        <strong>Loading system status...</strong> Please wait while we check all services.
+      </div>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-outline-primary btn-sm" onclick="refreshHealthData()">
+        <i class="fas fa-sync-alt"></i> Refresh Status
+      </button>
+    </div>
+  </div>
+
+  <!-- Overall Status Card -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card" id="overall-status-card">
+        <div class="card-body text-center">
+          <h3 class="card-title mb-3">
+            <span id="overall-status-icon"></span>
+            Overall System Status
+          </h3>
+          <div class="row">
+            <div class="col-md-3">
+              <h5 id="overall-status-text" class="mb-0">Loading...</h5>
+              <small class="text-muted">System Status</small>
+            </div>
+            <div class="col-md-3">
+              <h5 id="environment-text" class="mb-0">-</h5>
+              <small class="text-muted">Environment</small>
+            </div>
+            <div class="col-md-3">
+              <h5 id="version-text" class="mb-0">-</h5>
+              <small class="text-muted">Version</small>
+            </div>
+            <div class="col-md-3">
+              <h5 id="last-updated" class="mb-0">-</h5>
+              <small class="text-muted">Last Updated</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Status Cards -->
+  <div class="row" id="service-checks">
+    <div class="col-12">
+      <h4 class="mb-3">Service Health Checks</h4>
+    </div>
+    
+    <!-- Database Service -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100" id="database-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fas fa-database fa-2x me-3 text-secondary"></i>
+            <div>
+              <h5 class="card-title mb-0">Database</h5>
+              <span class="badge" id="database-status">Checking...</span>
+            </div>
+          </div>
+          <p class="card-text" id="database-message">Loading database status...</p>
+          <div id="database-details" class="small text-muted"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Discord Service -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100" id="discord-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fab fa-discord fa-2x me-3 text-secondary"></i>
+            <div>
+              <h5 class="card-title mb-0">Discord</h5>
+              <span class="badge" id="discord-status">Checking...</span>
+            </div>
+          </div>
+          <p class="card-text" id="discord-message">Loading Discord status...</p>
+          <div id="discord-details" class="small text-muted"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Service -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100" id="email-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fas fa-envelope fa-2x me-3 text-secondary"></i>
+            <div>
+              <h5 class="card-title mb-0">Email</h5>
+              <span class="badge" id="email-status">Checking...</span>
+            </div>
+          </div>
+          <p class="card-text" id="email-message">Loading email status...</p>
+          <div id="email-details" class="small text-muted"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Environment Service -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100" id="environment-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fas fa-cogs fa-2x me-3 text-secondary"></i>
+            <div>
+              <h5 class="card-title mb-0">Environment</h5>
+              <span class="badge" id="environment-status">Checking...</span>
+            </div>
+          </div>
+          <p class="card-text" id="environment-message">Loading environment status...</p>
+          <div id="environment-details" class="small text-muted"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/healthcheckpage.js' | relative_url }}"></script>
+

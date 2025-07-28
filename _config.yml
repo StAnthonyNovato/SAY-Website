@@ -49,6 +49,8 @@ exclude:
   - Gemfile.lock
   - README.md
   - vendor
+  - venv
+  - .venv
 
 # Pagination settings
 paginate: 5

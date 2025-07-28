@@ -1,0 +1,115 @@
+// Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
+// Health Check Status Page Styles
+@use "variables" as *;
+
+// Status badge colors
+.badge.bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+}
+
+// Service card status indicators
+.status-healthy {
+  border-left: 4px solid #28a745;
+}
+
+.status-unhealthy {
+  border-left: 4px solid #dc3545;
+}
+
+.status-warning {
+  border-left: 4px solid #ffc107;
+}
+
+// Overall status card styling
+#overall-status-card {
+  &.status-healthy {
+    background: linear-gradient(135deg, #d4edda 0%, #f8f9fa 100%);
+    border-color: #28a745;
+  }
+
+  &.status-unhealthy {
+    background: linear-gradient(135deg, #f8d7da 0%, #f8f9fa 100%);
+    border-color: #dc3545;
+  }
+
+  &.status-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #f8f9fa 100%);
+    border-color: #ffc107;
+  }
+}
+
+// Health status page specific styles
+#health-status {
+  .service-icon {
+    transition: color 0.3s ease;
+  }
+
+  .card {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.4em 0.8em;
+  }
+
+  .alert {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    .fa-spinner {
+      animation: spin 1s linear infinite;
+    }
+  }
+
+  // Service status details styling
+  .small.text-muted {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    
+    strong {
+      color: $dark-color;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Badge on the bottom of the page */
+
+#backend-health {
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

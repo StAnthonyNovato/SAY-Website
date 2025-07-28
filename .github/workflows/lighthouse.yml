@@ -19,30 +19,50 @@ jobs:
       - name: 🧾 Checkout code
         uses: actions/checkout@v4
 
-      - name: 💎 Set up Ruby (for Jekyll)
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2
+      - name: 🧰 Manually install Node.js 20
+        run: |
+          curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+          apt-get install -y nodejs
 
-      - name: 🧰 Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: 💎 Manually install Ruby 3.2
+        run: |
+          apt-get update && apt-get install -y ruby ruby-dev build-essential
+          gem install bundler
 
       - name: 📦 Install dependencies
         run: |
-          gem install bundler
           bundle install
           npm install
           npm install -g wait-on
 
       - name: 🚀 Start Jekyll Server in background
         run: |
-          JEKYLL_ENV=production bundle exec jekyll serve --port 4000 --host 0.0.0.0 &
+          echo "Starting Jekyll server..."
+          JEKYLL_ENV=production bundle exec jekyll serve --port 4000 --host 0.0.0.0 > jekyll.log 2>&1 &
           echo $! > jekyll.pid
+          sleep 2
+          tail -f jekyll.log | sed '/Server running/ q'
+          
+          echo "Jekyll PID: $(cat jekyll.pid)"
 
       - name: 🕰 Wait for server to be ready
-        run: wait-on http://127.0.0.1:4000
+        run: |
+          echo "Waiting for Jekyll server to start..."
+          # Try wait-on with timeout first
+          if ! wait-on http://127.0.0.1:4000 --timeout 60000; then
+            echo "wait-on failed, trying curl method..."
+            # Fallback: manual check with curl
+            for i in {1..30}; do
+              if curl -f http://127.0.0.1:4000 >/dev/null 2>&1; then
+                echo "Server is ready!"
+                break
+              fi
+              echo "Attempt $i: Server not ready yet, waiting..."
+              sleep 2
+            done
+          else
+            echo "Server is ready via wait-on!"
+          fi
 
       - name: 🔦 Run Lighthouse Audit
         run: |
@@ -51,7 +71,7 @@ jobs:
 
       - name: 🧼 Kill Jekyll Server
         run: |
-          kill $(cat jekyll.pid)
+          kill $(cat jekyll.pid) || true
           
       - name: 📊 Generate Lighthouse Report
         id: lighthouse-report
