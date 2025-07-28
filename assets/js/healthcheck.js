@@ -58,4 +58,4 @@ setInterval(updateHealthStatus, 60000);
 
 document.addEventListener('DOMContentLoaded', () => {
     updateHealthStatus();
-})();
+});
