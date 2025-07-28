@@ -189,9 +189,9 @@ function loadHealthData() {
     updateHealthDisplay(emergencyFailureData);
     return;
   }
-  
-  const healthEndpoint = `${window.backendBaseURL}/api/healthcheck?statuspage=1`;
-  
+
+  const healthEndpoint = `${window.backendBaseURL}/healthcheck?statuspage=1`;
+
   // Show loading state
   const alertDiv = document.querySelector('.alert');
   if (alertDiv) {

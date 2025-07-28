@@ -5,10 +5,10 @@
 
 const updateHealthStatus = () => {
     const emojis = {
-        'healthy': '🟢',
-        'degraded': '🟡',
-        'unhealthy': '🔴',
-        'unknown': '⚪'
+        'healthy': '\uD83D\uDFE2',
+        'degraded': '\uD83D\uDFE1',
+        'unhealthy': '\uD83D\uDD34',
+        'unknown': '\u26AA'
     }
     const healthElement = document.getElementById('backend-health');
 
