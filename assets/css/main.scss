@@ -17,6 +17,7 @@
 @use "contact-form";
 @use "people";
 @use "healthcheck";
+@use "registration";
 
 // note - for some gosh darn reason, if I include the following blockcomment at the top,
 // it will repeat the comment a million times in the compiled CSS.

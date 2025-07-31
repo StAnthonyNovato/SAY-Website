@@ -1,0 +1,88 @@
+---
+layout: page
+title: Registration
+permalink: /registration
+---
+
+<h1>Registration Form</h1>
+<p>Sign up here--Ask Alejandra if you need any help, and contact 
+    <a href="mailto:damien@alphagame.dev">Damien</a>
+    if this thing's not working for you!
+</p>
+<p>
+    Fields marked with an asterisk (<span class="required-asterisk noLeftMargin">*</span>) are required.
+</p>
+
+<form class="registration-form" method="post" action="https://stanthonyyouth.alphagame.dev/api/registration/prgmSignup">
+    <fieldset>
+        <legend>Parent Information</legend>
+        <label for="parent_fname">First Name <span class="required-asterisk">*</span></label>
+        <input type="text" id="parent_fname" name="parent_fname" required placeholder="Parent's first name">
+
+        <label for="parent_lname">Last Name <span class="required-asterisk">*</span></label>
+        <input type="text" id="parent_lname" name="parent_lname" required placeholder="Parent's last name">
+
+        <label for="parent_phone">Phone Number <span class="required-asterisk">*</span></label>
+        <input type="tel" id="parent_phone" name="parent_phone" required placeholder="+11234567890">
+
+        <label for="parent_email">Email <span class="required-asterisk">*</span></label>
+        <input type="email" id="parent_email" name="parent_email" required placeholder="parent@email.com">
+    </fieldset>
+
+    <fieldset>
+        <legend>Child Information</legend>
+        <label for="child_fname">First Name <span class="required-asterisk">*</span></label>
+        <input type="text" id="child_fname" name="child_fname" required placeholder="Child's first name">
+
+        <label for="child_lname">Last Name <span class="required-asterisk">*</span></label>
+        <input type="text" id="child_lname" name="child_lname" required placeholder="Child's last name">
+
+        <label for="child_phone">Phone Number</label>
+        <input type="tel" id="child_phone" name="child_phone" placeholder="+11234567890">
+
+        <label for="child_email">Email</label>
+        <input type="email" id="child_email" name="child_email" placeholder="child@email.com">
+    </fieldset>
+
+    <fieldset>
+        <legend>Baptism <span class="required-asterisk">*</span></legend>
+        <label>
+            <input type="checkbox" id="child_baptism" name="child_baptism" value="1">
+            Has the child been baptized?
+        </label>
+        <label for="child_baptism_date">Date of Baptism</label>
+        <input type="date" id="child_baptism_date" name="child_baptism_date">
+
+        <label for="child_baptism_place">Place of Baptism</label>
+        <input type="text" id="child_baptism_place" name="child_baptism_place" placeholder="Church or location">
+    </fieldset>
+
+    <fieldset>
+        <legend>First Communion <span class="required-asterisk">*</span></legend>
+        <label>
+            <input type="checkbox" id="child_first_comm" name="child_first_comm" value="1">
+            Has the child received First Communion?
+        </label>
+        <label for="child_first_comm_date">Date of First Communion</label>
+        <input type="date" id="child_first_comm_date" name="child_first_comm_date">
+
+        <label for="child_first_comm_place">Place of First Communion</label>
+        <input type="text" id="child_first_comm_place" name="child_first_comm_place" placeholder="Church or location">
+    </fieldset>
+
+    <div class="g-recaptcha" data-sitekey="6LcsPJUrAAAAAHkzMg_hRt2PHdzI74DAJ7TpniLa"></div>
+    <!-- File uploads and additional documents can be handled separately as noted in your schema -->
+
+    <button type="submit">Submit Registration</button>
+</form>
+
+<script>
+    const form = document.querySelector('.registration-form');
+    if (!form) {
+        throw new Error('Registration form not found in the document. Wtf.');
+    }
+    const prgmSignupURL = `${window.backendBaseURL}/registration/prgmSignup`;
+    form.setAttribute('action', prgmSignupURL);
+    console.log(`Registration form action set to: ${prgmSignupURL}`);
+</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>

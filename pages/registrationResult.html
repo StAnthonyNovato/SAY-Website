@@ -1,0 +1,92 @@
+---
+layout: page
+title: "Registration - Complete"
+permalink: /registration/complete
+---
+<!--
+Example: http://127.0.0.1:4000/registration/complete/?state=success
+-->
+<section id="resultContent">
+    <div style="display: none" id="result-success">
+        <h1>You're all set!</h1>
+        <p>Your registration was successful!  One of us'll get back to you soon, hopefully!</p>
+    </div>
+    <div style="display: none;" id="result-db_error">
+        <h1>Uh oh!</h1>
+        <p>There was a problem saving your registration to our database. Please try again later, or contact
+            <a href="mailto:{{ site.admin_email }}">Damien</a> for assistance.
+        </p>
+    </div>
+    <div style="display: none;" id="result-missing_fields">
+        <h1>Oops!</h1>
+        <p>It looks like you missed some required fields. Please go back and fill out all the necessary information.</p>
+    </div>
+    <div style="display: none;" id="result-recaptcha_fail">
+        <h1>Beep Boop. Boop Beep?</h1>
+        <p>We couldn't verify you're a human! Please complete the captcha and try again.</p>
+        <p>In an action that will definitely not be used to train Skynet, we must ask that you click that
+           enticing checkbox to prove you're not a robot.
+        </p>
+        <hr>
+        <p>
+            If you <i>are</i> a human, and you clicked the captcha, but you're still seeing this message,
+            please contact <a href="mailto:{{ site.admin_email }}">Damien</a> for assistance. Sorry about that!
+        </p>
+    </div>
+    <div style="display: none;" id="result-no_db">
+        <h1>Database Unavailable</h1>
+        <p>Our database is currently unavailable. Please try again later, or contact
+            <a href="mailto:{{ site.admin_email }}">Damien</a> for assistance.
+        </p>
+    </div>
+    <div style="display: none;" id="result-error-unknown">
+        <h1>Well, this is awkward.</h1>
+        <p>We couldn't determine your registration status. Please try again from the registration form, or contact
+            <a href="mailto:{{ site.admin_email }}">Damien</a> for assistance.
+        </p>
+    </div>
+    <hr>
+    <p><i>If you ever need any assistance, or want to know how your registration is progressing... <u>Write down this code</u>, it identifies your registration session: <b id="humanid">LOADING...</b></i></p>
+    <p><a id="humanid-email-link" href="#">Click here to send an email asking about how it's going!</a></p>
+</section>
+<script>
+    // Generate a mailto link for status inquiry with a given human ID
+    function generateHumanIdMailto(humanId) {
+        const subject = encodeURIComponent(`Registration Status Inquiry - ${humanId}`);
+        const body = encodeURIComponent(
+            `Hello Damien,\n\nI would like to ask about the status of my registration.\nMy request identifier is: ${humanId}\n\nThank you!\n\n[Your Name]`
+        );
+        return `mailto:damien@alphagame.dev?subject=${subject}&body=${body}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const state = urlParams.get('state');
+        const humanId = urlParams.get('id');
+        const humanIdElement = document.getElementById('humanid');
+        if (humanId) {
+            humanIdElement.textContent = humanId;
+            document.getElementById('humanid-email-link').href = generateHumanIdMailto(humanId);
+        } else {
+            humanIdElement.parentElement.innerHTML = 'No request ID was provided.  Nine times out of ten, this is an issue on our end, not yours. Sorry ._.)';
+        }
+        if (!state) {
+            console.warn('No state parameter found in URL. Defaulting to "error-unknown".');
+            document.getElementById('result-error-unknown').style.display = 'block';
+            return;
+        }
+
+        const validStates = [
+            'success',
+            'db_error',
+            'missing_fields',
+            'recaptcha_fail',
+            'no_db'
+        ];
+        let shownId = 'result-error-unknown';
+        if (validStates.includes(state)) {
+            shownId = 'result-' + state;
+        }
+        document.getElementById(shownId).style.display = 'block';
+    });
+</script>

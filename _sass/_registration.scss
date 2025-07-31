@@ -1,0 +1,74 @@
+// Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
+@use "variables" as *;
+
+form.registration-form {
+    // Removed max-width and centering for inline flow
+    padding: 0;
+    font-size: 1.1em;
+    // No background, border, or box-shadow for seamless integration
+
+    fieldset {
+        border: none;
+        margin-bottom: 1.5em;
+        padding: 0;
+    }
+
+    legend {
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        color: inherit;
+        font-size: 1.1em;
+    }
+
+    label {
+        display: block;
+        margin-top: 1em;
+        font-weight: 500;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 0.5em;
+        margin-top: 0.2em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+        background: inherit;
+        color: inherit;
+    }
+
+    input[type="checkbox"] {
+        width: auto;
+        margin-right: 0.5em;
+    }
+
+    button {
+        margin-top: 1.5em;
+        padding: 0.7em 2em;
+        background: var(--primary, #3a3a7a);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1em;
+        cursor: pointer;
+
+        &:hover {
+            background: #5757a7;
+        }
+    }
+}
+
+.required-asterisk {
+    color: #e00;
+    margin-left: 0.2em;
+    font-weight: inherit;
+
+    &.noLeftMargin {
+        margin-left: 0;
+    }
+}

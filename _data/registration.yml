@@ -1,0 +1,13 @@
+# Copyright (c) 2025 Damien Boisvert (AlphaGameDeveloper)
+# 
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
+questions:
+  - name: patent_fname
+    description: Parent First Name
+    type: text
+  - name: patent_lname
+    description: Parent Last Name
+    type: text
+    
