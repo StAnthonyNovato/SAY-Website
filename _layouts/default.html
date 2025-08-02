@@ -10,7 +10,11 @@
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 
   <script>
-    window.backendBaseURL = "{% if site.environment == 'development' %}http://localhost:8000/api{% else %}https://stanthonyyouth.alphagame.dev/api{% endif %}";
+    {% if site.force_backend_url %}
+      window.backendBaseURL = "{{ site.force_backend_url }}";
+    {% else %}
+      window.backendBaseURL = "{% if jekyll.environment == 'development' %}http://localhost:8000/api{% else %}https://stanthonyyouth.alphagame.dev/api{% endif %}";
+    {% endif %}
   </script>
   <!-- google analytics (gtag.js) -->
   {% if site.tracking_id %}
