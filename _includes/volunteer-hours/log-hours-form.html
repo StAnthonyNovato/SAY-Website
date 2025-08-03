@@ -1,0 +1,33 @@
+<!-- Log hours form -->
+<form id="logHoursForm">
+  <div class="mb-3">
+    <label for="userSelect" class="form-label">Volunteer</label>
+    <select class="form-select" id="userSelect" required>
+      <option value="">Select volunteer...</option>
+      <!-- Options will be populated dynamically -->
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="dateInput" class="form-label">Date</label>
+    <input type="date" class="form-control" id="dateInput" required>
+  </div>
+  <div class="mb-3">
+    <label for="hoursInput" class="form-label">Hours</label>
+    <input type="number" class="form-control" id="hoursInput" min="0.5" step="0.5" required>
+  </div>
+  <div class="mb-3">
+    <label for="notesInput" class="form-label">Notes</label>
+    <textarea class="form-control" id="notesInput" rows="3"></textarea>
+  </div>
+  <div class="d-grid">
+    <button type="submit" class="btn btn-primary">
+      <i class="fas fa-save me-2"></i>Submit Hours
+    </button>
+  </div>
+</form>
+<div class="alert alert-success mt-3 d-none" id="logHoursSuccess">
+  Hours logged successfully!
+</div>
+<div class="alert alert-danger mt-3 d-none" id="logHoursError">
+  Error logging hours. Please try again.
+</div>

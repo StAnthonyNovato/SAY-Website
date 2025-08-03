@@ -1,0 +1,26 @@
+<!-- Create user form -->
+<form id="createUserForm">
+  <div class="mb-3">
+    <label for="nameInput" class="form-label">Name</label>
+    <input type="text" class="form-control" id="nameInput" required>
+  </div>
+  <div class="mb-3">
+    <label for="emailInput" class="form-label">Email</label>
+    <input type="email" class="form-control" id="emailInput" required>
+  </div>
+  <div class="mb-3">
+    <label for="phoneInput" class="form-label">Phone (optional)</label>
+    <input type="tel" class="form-control" id="phoneInput">
+  </div>
+  <div class="d-grid">
+    <button type="submit" class="btn btn-success">
+      <i class="fas fa-user-plus me-2"></i>Register Volunteer
+    </button>
+  </div>
+</form>
+<div class="alert alert-success mt-3 d-none" id="createUserSuccess">
+  Volunteer registered successfully!
+</div>
+<div class="alert alert-danger mt-3 d-none" id="createUserError">
+  Error registering volunteer. Please try again.
+</div>

@@ -5,261 +5,72 @@ permalink: /hours
 ---
 
 <div class="container py-5 volunteer-hours" style="margin-top: 6vh;">
-  <!-- Tabs for navigation -->
-  <ul class="nav nav-tabs mb-4 volunteer-hours-tabs" id="volunteerTabs" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="log-hours-tab" data-bs-toggle="tab" data-bs-target="#log-hours" type="button" role="tab" aria-controls="log-hours" aria-selected="true">
-        <i class="fas fa-clock me-2"></i>Log Hours
-      </button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="create-user-tab" data-bs-toggle="tab" data-bs-target="#create-user" type="button" role="tab" aria-controls="create-user" aria-selected="false">
-        <i class="fas fa-user-plus me-2"></i>New Volunteer
-      </button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="view-hours-tab" data-bs-toggle="tab" data-bs-target="#view-hours" type="button" role="tab" aria-controls="view-hours" aria-selected="false">
-        <i class="fas fa-table me-2"></i>View Hours
-      </button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="user-stats-tab" data-bs-toggle="tab" data-bs-target="#user-stats" type="button" role="tab" aria-controls="user-stats" aria-selected="false">
-        <i class="fas fa-chart-bar me-2"></i>My Stats
-      </button>
-    </li>
-  </ul>
+  <!-- Navigation tabs -->
+  {% include volunteer-hours/tabs-nav.html %}
   
   <!-- Tab content -->
   <div class="tab-content" id="volunteerTabsContent">
     <!-- Log Hours Tab -->
     <div class="tab-pane fade show active" id="log-hours" role="tabpanel" aria-labelledby="log-hours-tab">
-      <div class="card shadow-sm volunteer-hours-card">
-        <div class="card-header bg-primary text-white">
-          <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Log Volunteer Hours</h5>
-        </div>
-        <div class="card-body">
-          <form id="logHoursForm">
-            <div class="mb-3">
-              <label for="userSelect" class="form-label">Volunteer</label>
-              <select class="form-select" id="userSelect" required>
-                <option value="">Select volunteer...</option>
-                <!-- Options will be populated dynamically -->
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="dateInput" class="form-label">Date</label>
-              <input type="date" class="form-control" id="dateInput" required>
-            </div>
-            <div class="mb-3">
-              <label for="hoursInput" class="form-label">Hours</label>
-              <input type="number" class="form-control" id="hoursInput" min="0.5" step="0.5" required>
-            </div>
-            <div class="mb-3">
-              <label for="notesInput" class="form-label">Notes</label>
-              <textarea class="form-control" id="notesInput" rows="3"></textarea>
-            </div>
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save me-2"></i>Submit Hours
-              </button>
-            </div>
-          </form>
-          <div class="alert alert-success mt-3 d-none" id="logHoursSuccess">
-            Hours logged successfully!
-          </div>
-          <div class="alert alert-danger mt-3 d-none" id="logHoursError">
-            Error logging hours. Please try again.
-          </div>
-          
-          <!-- Card footer -->
-          <div class="card-footer bg-light text-end">
-            <small class="volunteer-hours-footer text-muted">
-              <span class="d-block">Backend v<span class="fw-bold" id="backendVersion1">LOADING...</span></span>
-              <span class="d-block">API Requests: <span class="fw-bold" id="apiRequests1">LOADING...</span></span>
-              <span class="d-block">POST: <span class="fw-bold" id="postRequests1">0</span> | Failed: <span class="fw-bold" id="failedRequests1">0</span></span>
-            </small>
-          </div>
-        </div>
-      </div>
+      {% capture log_hours_content %}
+        {% include volunteer-hours/log-hours-form.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="Log Volunteer Hours" 
+        icon_class="fas fa-clock" 
+        header_class="bg-primary text-white" 
+        content=log_hours_content 
+        footer_id="1" 
+      %}
     </div>
     
     <!-- Create User Tab -->
     <div class="tab-pane fade" id="create-user" role="tabpanel" aria-labelledby="create-user-tab">
-      <div class="card shadow-sm volunteer-hours-card">
-        <div class="card-header bg-success text-white">
-          <h5 class="mb-0"><i class="fas fa-user-plus me-2"></i>Register New Volunteer</h5>
-        </div>
-        <div class="card-body">
-          <form id="createUserForm">
-            <div class="mb-3">
-              <label for="nameInput" class="form-label">Name</label>
-              <input type="text" class="form-control" id="nameInput" required>
-            </div>
-            <div class="mb-3">
-              <label for="emailInput" class="form-label">Email</label>
-              <input type="email" class="form-control" id="emailInput" required>
-            </div>
-            <div class="mb-3">
-
-              <input type="tel" class="form-control" id="phoneInput">
-            </div>
-            <div class="d-grid">
-              <button type="submit" class="btn btn-success">
-                <i class="fas fa-user-plus me-2"></i>Register Volunteer
-              </button>
-            </div>
-          </form>
-          <div class="alert alert-success mt-3 d-none" id="createUserSuccess">
-            Volunteer registered successfully!
-          </div>
-          <div class="alert alert-danger mt-3 d-none" id="createUserError">
-            Error registering volunteer. Please try again.
-          </div>
-          
-          <!-- Card footer -->
-          <div class="card-footer bg-light text-end">
-            <small class="volunteer-hours-footer text-muted">
-              <span class="d-block">Backend v<span class="fw-bold" id="backendVersion2">LOADING...</span></span>
-              <span class="d-block">API Requests: <span class="fw-bold" id="apiRequests2">LOADING...</span></span>
-              <span class="d-block">POST: <span class="fw-bold" id="postRequests2">0</span> | Failed: <span class="fw-bold" id="failedRequests2">0</span></span>
-            </small>
-          </div>
-        </div>
-      </div>
+      {% capture create_user_content %}
+        {% include volunteer-hours/create-user-form.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="Register New Volunteer" 
+        icon_class="fas fa-user-plus" 
+        header_class="bg-success text-white" 
+        content=create_user_content 
+        footer_id="2" 
+      %}
     </div>
     
     <!-- View Hours Tab -->
     <div class="tab-pane fade" id="view-hours" role="tabpanel" aria-labelledby="view-hours-tab">
-      <div class="card shadow-sm volunteer-hours-card">
-        <div class="card-header bg-info text-white">
-          <h5 class="mb-0"><i class="fas fa-table me-2"></i>Volunteer Hours Log</h5>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-striped table-hover" id="hoursTable">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Hours</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Table will be populated dynamically -->
-              </tbody>
-            </table>
-          </div>
-          <div class="alert alert-info mt-3 d-none" id="noHoursData">
-            No volunteer hours have been logged yet.
-          </div>
-          <div class="alert alert-danger mt-3 d-none" id="viewHoursError">
-            Error retrieving volunteer hours. Please try again.
-          </div>
-          
-          <!-- Card footer -->
-          <div class="card-footer bg-light text-end">
-            <small class="volunteer-hours-footer text-muted">
-              <span class="d-block">Backend v<span class="fw-bold" id="backendVersion3">LOADING...</span></span>
-              <span class="d-block">API Requests: <span class="fw-bold" id="apiRequests3">LOADING...</span></span>
-              <span class="d-block">POST: <span class="fw-bold" id="postRequests3">0</span> | Failed: <span class="fw-bold" id="failedRequests3">0</span></span>
-            </small>
-          </div>
-        </div>
-      </div>
+      {% capture view_hours_content %}
+        {% include volunteer-hours/view-hours-table.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="Volunteer Hours Log" 
+        icon_class="fas fa-table" 
+        header_class="bg-info text-white" 
+        content=view_hours_content 
+        footer_id="3" 
+      %}
     </div>
-  </div>
     
     <!-- User Stats Tab -->
     <div class="tab-pane fade" id="user-stats" role="tabpanel" aria-labelledby="user-stats-tab">
-      <div class="card shadow-sm volunteer-hours-card">
-        <div class="card-header bg-purple text-white" style="background-color: #6f42c1;">
-          <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>My Volunteer Stats</h5>
-        </div>
-        <div class="card-body">
-          <div class="mb-4">
-            <label for="statsUserSelect" class="form-label">Select Volunteer</label>
-            <div class="input-group">
-              <select class="form-select" id="statsUserSelect">
-                <option value="">Choose volunteer...</option>
-                <!-- Options will be populated dynamically -->
-              </select>
-              <button class="btn btn-outline-secondary" type="button" id="loadStatsBtn">
-                <i class="fas fa-search me-1"></i> View Stats
-              </button>
-            </div>
-          </div>
-          
-          <!-- Stats content (hidden until user is selected) -->
-          <div id="statsContent" class="d-none">
-            <div class="row mb-4">
-              <div class="col-md-6">
-                <div class="card bg-light">
-                  <div class="card-body text-center">
-                    <h6 class="card-subtitle mb-1 text-muted">Volunteer Name</h6>
-                    <h4 class="card-title" id="statsName">-</h4>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="card bg-light">
-                  <div class="card-body text-center">
-                    <h6 class="card-subtitle mb-1 text-muted">Total Hours</h6>
-                    <h4 class="card-title" id="statsTotalHours">-</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <h5 class="border-bottom pb-2 mb-3">Volunteer History</h5>
-            <div class="table-responsive">
-              <table class="table table-striped table-hover" id="userHistoryTable">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Hours</th>
-                    <th>Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Table will be populated dynamically -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-          
-          <!-- Empty state (shown before selecting a user) -->
-          <div id="statsEmptyState" class="text-center py-4">
-            <i class="fas fa-user-clock fa-3x mb-3 text-muted"></i>
-            <p>Select a volunteer to view their stats</p>
-          </div>
-          
-          <!-- Loading spinner -->
-          <div id="statsLoading" class="text-center py-4 d-none">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-2">Loading volunteer stats...</p>
-          </div>
-          
-          <!-- Error message -->
-          <div class="alert alert-danger mt-3 d-none" id="statsError">
-            Error retrieving volunteer stats. Please try again.
-          </div>
-          
-          <!-- Card footer -->
-          <div class="card-footer bg-light text-end">
-            <small class="volunteer-hours-footer text-muted">
-              <span class="d-block">Backend v<span class="fw-bold" id="backendVersion4">LOADING...</span></span>
-              <span class="d-block">API Requests: <span class="fw-bold" id="apiRequests4">LOADING...</span></span>
-              <span class="d-block">POST: <span class="fw-bold" id="postRequests4">0</span> | Failed: <span class="fw-bold" id="failedRequests4">0</span></span>
-            </small>
-          </div>
-        </div>
-      </div>
+      {% capture user_stats_content %}
+        {% include volunteer-hours/user-stats.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="My Volunteer Stats" 
+        icon_class="fas fa-chart-bar" 
+        header_class="bg-purple text-white" 
+        header_style="background-color: #6f42c1;" 
+        content=user_stats_content 
+        footer_id="4" 
+      %}
     </div>
   </div>
 </div>
 
 <script src="{{ '/assets/js/volunteer-hours.js' | relative_url }}"></script>
-
