@@ -76,7 +76,7 @@ function updateAllElements(baseId, value) {
 document.addEventListener('DOMContentLoaded', function() {
   const backendURL = window.backendBaseURL + '/volunteer_hours';
   
-  wrappedFetch(window.backendBaseURL + "/healthcheck?src=VolunteerHoursTool&c=1")
+  wrappedwindow.backendBaseURL + "/healthcheck?src=VolunteerHoursTool&c=1")
     .then(response => {
         return response.json();
     })
@@ -519,7 +519,10 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
               <div class="edit-mode-buttons" style="display: none;">
                 <button class="btn btn-sm btn-success save-row-btn" title="Save changes">
-                  <i class="fas fa-check"></i>
+                  <span class="save-icon"><i class="fas fa-check"></i></span>
+                  <span class="spinner-border spinner-border-sm save-spinner" role="status" style="display: none;">
+                    <span class="visually-hidden">Loading...</span>
+                  </span>
                 </button>
                 <button class="btn btn-sm btn-secondary cancel-edit-btn" title="Cancel editing">
                   <i class="fas fa-times"></i>
@@ -677,6 +680,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the entry ID from the row
     const entryId = row.getAttribute('data-id');
     
+    // Get the save button and show the spinner
+    const saveBtn = row.querySelector('.save-row-btn');
+    const saveIcon = saveBtn.querySelector('.save-icon');
+    const saveSpinner = saveBtn.querySelector('.save-spinner');
+    
+    // Disable buttons and show spinner
+    saveBtn.disabled = true;
+    row.querySelector('.cancel-edit-btn').disabled = true;
+    saveIcon.style.display = 'none';
+    saveSpinner.style.display = 'inline-block';
+    
     // Get the updated values from the input fields
     const dateInput = row.querySelector('.edit-date');
     const hoursInput = row.querySelector('.edit-hours');
@@ -689,6 +703,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Validate the input
     if (!date || isNaN(hours) || hours <= 0) {
       alert('Please enter valid date and hours.');
+      
+      // Reset button states
+      saveBtn.disabled = false;
+      row.querySelector('.cancel-edit-btn').disabled = false;
+      saveIcon.style.display = 'inline-block';
+      saveSpinner.style.display = 'none';
       return;
     }
     
@@ -716,6 +736,17 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => {
       console.error('Error updating hours entry:', error);
       showMessage('deleteHoursError', error.message || 'Error updating hours. Please try again.');
+      
+      // Reset button states
+      const saveBtn = row.querySelector('.save-row-btn');
+      const cancelBtn = row.querySelector('.cancel-edit-btn');
+      const saveIcon = saveBtn.querySelector('.save-icon');
+      const saveSpinner = saveBtn.querySelector('.save-spinner');
+      
+      saveBtn.disabled = false;
+      cancelBtn.disabled = false;
+      saveIcon.style.display = 'inline-block';
+      saveSpinner.style.display = 'none';
       
       // Switch back to view mode with old values
       cancelRowEdit(row);
