@@ -93,6 +93,46 @@ document.addEventListener('DOMContentLoaded', function() {
     userSelect: '',
     statsUserSelect: ''
   };
+  
+  // Tab management object
+  const tabManager = {
+    // Get the current tab ID from URL hash or default to 'log-hours'
+    getCurrentTabId: function() {
+      if (window.location.hash) {
+        return window.location.hash.substring(1); // Remove the # from the hash
+      }
+      return 'log-hours'; // Default tab
+    },
+    
+    // Update URL hash without scrolling
+    setTabInUrl: function(tabId) {
+      history.replaceState(null, null, `#${tabId}`);
+    },
+    
+    // Activate a tab by ID
+    activateTab: function(tabId) {
+      const tabToActivate = document.querySelector(`[data-bs-target="#${tabId}"]`);
+      if (tabToActivate) {
+        const tab = new bootstrap.Tab(tabToActivate);
+        tab.show();
+      }
+    },
+    
+    // Handle tab content loading based on tab ID
+    loadTabContent: function(tabId) {
+      switch(tabId) {
+        case 'log-hours':
+          loadUsers();
+          break;
+        case 'view-hours':
+          loadHoursData();
+          break;
+        case 'user-stats':
+          populateStatsUserDropdown();
+          break;
+      }
+    }
+  };
 
   // ==========================================
   // Helper Functions
@@ -214,6 +254,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('dateInput').value = today;
   
+  // Initialize tab from URL hash if present
+  const initialTabId = tabManager.getCurrentTabId();
+  if (initialTabId !== 'log-hours') { // Only if not the default tab
+    // Use setTimeout to avoid scroll behavior
+    setTimeout(() => {
+      window.scrollTo(0, 0); // Ensure no scrolling
+      tabManager.activateTab(initialTabId);
+      tabManager.loadTabContent(initialTabId);
+    }, 0);
+  }
+  
   // Event listeners for forms
   document.getElementById('logHoursForm').addEventListener('submit', logHours);
   document.getElementById('createUserForm').addEventListener('submit', createUser);
@@ -224,25 +275,19 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('shown.bs.tab', function(event) {
       // Get the newly activated tab
       const activeTab = event.target.getAttribute('data-bs-target');
-      console.log(`Tab changed to: ${activeTab}`);
+      const tabId = activeTab.substring(1); // Remove the # from the selector
+      console.log(`Tab changed to: ${tabId}`);
       
-      // Reload the appropriate dropdown based on which tab is now active
-      switch(activeTab) {
-        case '#log-hours':
-          loadUsers(); // Reload the users dropdown for logging hours
-          break;
-        case '#view-hours':
-          loadHoursData(); // Load hours data when view tab is shown
-          break;
-        case '#user-stats':
-          populateStatsUserDropdown(); // Reload the stats user dropdown
-          break;
-      }
+      // Update URL hash without scrolling
+      tabManager.setTabInUrl(tabId);
+      
+      // Load the appropriate content for this tab
+      tabManager.loadTabContent(tabId);
     });
   });
   
-  // Load hours data when view tab is shown
-  document.getElementById('view-hours-tab').addEventListener('click', loadHoursData);
+  // Remove duplicate event listeners as they're now handled by tabManager
+  // The "click" handlers aren't needed as we already have "shown.bs.tab" handlers
   
   // Add event listener for the load stats button
   document.getElementById('loadStatsBtn').addEventListener('click', loadUserStats);
