@@ -238,6 +238,12 @@ document.addEventListener('DOMContentLoaded', function() {
    */
   function showMessage(elementId, message) {
     const element = document.getElementById(elementId);
+    
+    if (!element) {
+      console.error(`Element with ID "${elementId}" not found for showing message: ${message}`);
+      return;
+    }
+    
     element.textContent = message;
     element.classList.remove('d-none');
     
@@ -468,7 +474,15 @@ document.addEventListener('DOMContentLoaded', function() {
   function loadHoursData() {
     fetchWithErrorHandling('/all')
       .then(hoursData => {
-        const tableBody = document.getElementById('hoursTable').querySelector('tbody');
+        const hoursTable = document.getElementById('hoursTable');
+        
+        // Check if the table exists before proceeding
+        if (!hoursTable) {
+          console.error('Hours table element not found');
+          return;
+        }
+        
+        const tableBody = hoursTable.querySelector('tbody');
         tableBody.innerHTML = '';
         
         if (hoursData.length === 0) {
@@ -490,10 +504,18 @@ document.addEventListener('DOMContentLoaded', function() {
             <td>${formatDate(entry.date)}</td>
             <td>${entry.hours}</td>
             <td>${entry.notes || ''}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-danger delete-hours-btn" data-id="${entry.id}" title="Delete this entry">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
           `;
           
           tableBody.appendChild(row);
         });
+        
+        // Add event listeners to delete buttons
+        attachDeleteEventListeners();
       })
       .catch(error => {
         console.error('Error loading hours data:', error);
@@ -511,6 +533,61 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Error loading users for stats:', error);
         showMessage('statsError', error.message || 'Error loading volunteers. Please try again.');
       });
+  }
+  
+  // Function to attach event listeners to delete buttons
+  function attachDeleteEventListeners() {
+    const deleteButtons = document.querySelectorAll('.delete-hours-btn');
+    
+    if (deleteButtons.length === 0) {
+      console.log('No delete buttons found to attach listeners to');
+      return;
+    }
+    
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        const entryId = this.getAttribute('data-id');
+        
+        // Confirm before deleting
+        if (confirm('Are you sure you want to delete this volunteer hours entry? This action cannot be undone.')) {
+          deleteHoursEntry(entryId);
+        }
+      });
+    });
+  }
+  
+  // Function to delete a volunteer hours entry
+  function deleteHoursEntry(entryId) {
+    // Hide any previous messages
+    const successElement = document.getElementById('deleteHoursSuccess');
+    const errorElement = document.getElementById('deleteHoursError');
+    
+    if (successElement) {
+      successElement.classList.add('d-none');
+    }
+    
+    if (errorElement) {
+      errorElement.classList.add('d-none');
+    }
+    
+    fetchWithErrorHandling(`/delete/${entryId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(data => {
+      // Show success message
+      showMessage('deleteHoursSuccess', data.message || 'Entry deleted successfully.');
+      
+      // Reload hours data to refresh the table
+      loadHoursData();
+    })
+    .catch(error => {
+      console.error('Error deleting hours entry:', error);
+      showMessage('deleteHoursError', error.message || 'Error deleting entry. Please try again.');
+    });
   }
   
   // Function to load user stats
