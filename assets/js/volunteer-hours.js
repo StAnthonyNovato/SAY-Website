@@ -88,6 +88,12 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Error fetching backend version:', error);
     });
 
+  // Track the currently selected users in each dropdown
+  const selectedUsers = {
+    userSelect: '',
+    statsUserSelect: ''
+  };
+
   // ==========================================
   // Helper Functions
   // ==========================================
@@ -170,6 +176,10 @@ document.addEventListener('DOMContentLoaded', function() {
    */
   function populateUserSelect(selectId, users, defaultText = "Select volunteer...") {
     const selectElement = document.getElementById(selectId);
+    // Remember currently selected value if any
+    const currentValue = selectElement.value;
+    selectedUsers[selectId] = currentValue;
+    
     // Clear existing options
     selectElement.innerHTML = `<option value="">${defaultText}</option>`;
     
@@ -178,8 +188,19 @@ document.addEventListener('DOMContentLoaded', function() {
       const option = document.createElement('option');
       option.value = user.id;
       option.textContent = user.name;
+      
+      // If this was the previously selected value, keep it selected
+      if (user.id == currentValue) {
+        option.selected = true;
+      }
+      
       selectElement.appendChild(option);
     });
+    
+    // If there was a previously selected value that's no longer in the list
+    if (currentValue && selectElement.value !== currentValue) {
+      console.log(`Previously selected user (${currentValue}) no longer available.`);
+    }
   }
   
   // ==========================================
@@ -197,17 +218,31 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('logHoursForm').addEventListener('submit', logHours);
   document.getElementById('createUserForm').addEventListener('submit', createUser);
   
+  // Add tab change event listeners to all tabs
+  const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
+  tabButtons.forEach(button => {
+    button.addEventListener('shown.bs.tab', function(event) {
+      // Get the newly activated tab
+      const activeTab = event.target.getAttribute('data-bs-target');
+      console.log(`Tab changed to: ${activeTab}`);
+      
+      // Reload the appropriate dropdown based on which tab is now active
+      switch(activeTab) {
+        case '#log-hours':
+          loadUsers(); // Reload the users dropdown for logging hours
+          break;
+        case '#view-hours':
+          loadHoursData(); // Load hours data when view tab is shown
+          break;
+        case '#user-stats':
+          populateStatsUserDropdown(); // Reload the stats user dropdown
+          break;
+      }
+    });
+  });
+  
   // Load hours data when view tab is shown
   document.getElementById('view-hours-tab').addEventListener('click', loadHoursData);
-  
-  // Setup stats tab functionality
-  document.getElementById('user-stats-tab').addEventListener('click', function() {
-    // Populate the stats user dropdown if it's empty
-    const statsUserSelect = document.getElementById('statsUserSelect');
-    if (statsUserSelect.options.length <= 1) {
-      populateStatsUserDropdown();
-    }
-  });
   
   // Add event listener for the load stats button
   document.getElementById('loadStatsBtn').addEventListener('click', loadUserStats);
@@ -216,6 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function loadUsers() {
     fetchWithErrorHandling('/users')
       .then(users => {
+        // Populate the log hours dropdown
         populateUserSelect('userSelect', users);
       })
       .catch(error => {
