@@ -372,6 +372,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Add event listener for the load stats button
   document.getElementById('loadStatsBtn').addEventListener('click', loadUserStats);
   
+  // No need for modal initialization anymore since we're using inline editing
+  
   // Function to load users
   function loadUsers() {
     fetchWithErrorHandling('/users')
@@ -498,24 +500,39 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add rows to table
         hoursData.forEach(entry => {
           const row = document.createElement('tr');
-          row.setAttribute('title', `ID ${entry.id}`);
+          row.setAttribute('data-id', entry.id);
+          row.setAttribute('data-mode', 'view');
+          row.className = 'hours-row';
           row.innerHTML = `
-            <td>${entry.name}</td>
-            <td>${formatDate(entry.date)}</td>
-            <td>${entry.hours}</td>
-            <td>${entry.notes || ''}</td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-danger delete-hours-btn" data-id="${entry.id}" title="Delete this entry">
-                <i class="fas fa-trash-alt"></i>
-              </button>
+            <td class="name-cell">${entry.name}</td>
+            <td class="date-cell" data-date="${entry.date}">${formatDate(entry.date)}</td>
+            <td class="hours-cell" data-hours="${entry.hours}">${entry.hours}</td>
+            <td class="notes-cell" data-notes="${entry.notes || ''}">${entry.notes || ''}</td>
+            <td class="text-center action-buttons">
+              <div class="view-mode-buttons">
+                <button class="btn btn-sm btn-primary edit-row-btn" title="Edit this entry">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-danger delete-hours-btn" title="Delete this entry">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+              <div class="edit-mode-buttons" style="display: none;">
+                <button class="btn btn-sm btn-success save-row-btn" title="Save changes">
+                  <i class="fas fa-check"></i>
+                </button>
+                <button class="btn btn-sm btn-secondary cancel-edit-btn" title="Cancel editing">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
             </td>
           `;
           
           tableBody.appendChild(row);
         });
         
-        // Add event listeners to delete buttons
-        attachDeleteEventListeners();
+        // Add event listeners to action buttons
+        attachActionEventListeners();
       })
       .catch(error => {
         console.error('Error loading hours data:', error);
@@ -535,26 +552,64 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
   
-  // Function to attach event listeners to delete buttons
-  function attachDeleteEventListeners() {
+  // Function to attach event listeners to action buttons
+  function attachActionEventListeners() {
+    // Attach listeners to delete buttons
     const deleteButtons = document.querySelectorAll('.delete-hours-btn');
     
-    if (deleteButtons.length === 0) {
-      console.log('No delete buttons found to attach listeners to');
-      return;
+    if (deleteButtons.length > 0) {
+      deleteButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+          event.preventDefault();
+          const row = this.closest('tr');
+          const entryId = row.getAttribute('data-id');
+          
+          // Confirm before deleting
+          if (confirm('Are you sure you want to delete this volunteer hours entry? This action cannot be undone.')) {
+            deleteHoursEntry(entryId);
+          }
+        });
+      });
     }
     
-    deleteButtons.forEach(button => {
-      button.addEventListener('click', function(event) {
-        event.preventDefault();
-        const entryId = this.getAttribute('data-id');
-        
-        // Confirm before deleting
-        if (confirm('Are you sure you want to delete this volunteer hours entry? This action cannot be undone.')) {
-          deleteHoursEntry(entryId);
-        }
+    // Attach listeners to edit row buttons
+    const editButtons = document.querySelectorAll('.edit-row-btn');
+    
+    if (editButtons.length > 0) {
+      editButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+          event.preventDefault();
+          const row = this.closest('tr');
+          switchToEditMode(row);
+        });
       });
-    });
+    }
+    
+    // Attach listeners to save row buttons
+    const saveButtons = document.querySelectorAll('.save-row-btn');
+    
+    if (saveButtons.length > 0) {
+      saveButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+          event.preventDefault();
+          const row = this.closest('tr');
+          saveRowChanges(row);
+        });
+      });
+    }
+    
+    // Attach listeners to cancel edit buttons
+    const cancelButtons = document.querySelectorAll('.cancel-edit-btn');
+    
+    if (cancelButtons.length > 0) {
+      cancelButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+          event.preventDefault();
+          const row = this.closest('tr');
+          cancelRowEdit(row);
+        });
+      });
+    }
   }
   
   // Function to delete a volunteer hours entry
@@ -588,6 +643,111 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('Error deleting hours entry:', error);
       showMessage('deleteHoursError', error.message || 'Error deleting entry. Please try again.');
     });
+  }
+  
+  // Function to switch a row to edit mode
+  function switchToEditMode(row) {
+    // Set row to edit mode
+    row.setAttribute('data-mode', 'edit');
+    
+    // Get the current values from the cells
+    const dateCell = row.querySelector('.date-cell');
+    const hoursCell = row.querySelector('.hours-cell');
+    const notesCell = row.querySelector('.notes-cell');
+    
+    const date = dateCell.getAttribute('data-date');
+    const hours = hoursCell.getAttribute('data-hours');
+    const notes = notesCell.getAttribute('data-notes');
+    
+    // Replace content with form fields
+    dateCell.innerHTML = `<input type="date" class="form-control form-control-sm edit-date" value="${date}">`;
+    hoursCell.innerHTML = `<input type="number" class="form-control form-control-sm edit-hours" value="${hours}" step="0.5" min="0.5" max="24">`;
+    notesCell.innerHTML = `<input type="text" class="form-control form-control-sm edit-notes" value="${notes}">`;
+    
+    // Show edit mode buttons, hide view mode buttons
+    const viewBtns = row.querySelector('.view-mode-buttons');
+    const editBtns = row.querySelector('.edit-mode-buttons');
+    
+    viewBtns.style.display = 'none';
+    editBtns.style.display = 'block';
+  }
+  
+  // Function to save changes made to a row
+  function saveRowChanges(row) {
+    // Get the entry ID from the row
+    const entryId = row.getAttribute('data-id');
+    
+    // Get the updated values from the input fields
+    const dateInput = row.querySelector('.edit-date');
+    const hoursInput = row.querySelector('.edit-hours');
+    const notesInput = row.querySelector('.edit-notes');
+    
+    const date = dateInput.value;
+    const hours = parseFloat(hoursInput.value);
+    const notes = notesInput.value;
+    
+    // Validate the input
+    if (!date || isNaN(hours) || hours <= 0) {
+      alert('Please enter valid date and hours.');
+      return;
+    }
+    
+    const updatedData = {
+      date: date,
+      hours: hours,
+      notes: notes
+    };
+    
+    // Make API request to update the entry
+    fetchWithErrorHandling(`/edit/${entryId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedData)
+    })
+    .then(data => {
+      // Show success message
+      showMessage('deleteHoursSuccess', 'Hours updated successfully!');
+      
+      // Reload hours data to refresh the table
+      loadHoursData();
+    })
+    .catch(error => {
+      console.error('Error updating hours entry:', error);
+      showMessage('deleteHoursError', error.message || 'Error updating hours. Please try again.');
+      
+      // Switch back to view mode with old values
+      cancelRowEdit(row);
+    });
+  }
+  
+  // Function to cancel editing a row
+  function cancelRowEdit(row) {
+    // Set row back to view mode
+    row.setAttribute('data-mode', 'view');
+    
+    // Get the cells
+    const dateCell = row.querySelector('.date-cell');
+    const hoursCell = row.querySelector('.hours-cell');
+    const notesCell = row.querySelector('.notes-cell');
+    
+    // Get the original values
+    const date = dateCell.getAttribute('data-date');
+    const hours = hoursCell.getAttribute('data-hours');
+    const notes = notesCell.getAttribute('data-notes');
+    
+    // Restore the original content
+    dateCell.innerHTML = formatDate(date);
+    hoursCell.innerHTML = hours;
+    notesCell.innerHTML = notes || '';
+    
+    // Show view mode buttons, hide edit mode buttons
+    const viewBtns = row.querySelector('.view-mode-buttons');
+    const editBtns = row.querySelector('.edit-mode-buttons');
+    
+    viewBtns.style.display = 'block';
+    editBtns.style.display = 'none';
   }
   
   // Function to load user stats
