@@ -3,12 +3,71 @@
  */
 
 .volunteer-hours {
+  /* Custom tab transitions */
+  .tab-content {
+    .tab-pane {
+      /* Override Bootstrap's default fade transition */
+      display: block !important;
+      position: relative;
+      opacity: 0;
+      visibility: hidden;
+      height: auto;
+      transition: transform 0.35s ease-out, opacity 0.25s ease-out;
+      transform: translateX(20px);
+      
+      /* Position tabs as absolute to prevent layout jumps */
+      position: absolute;
+      width: 100%;
+      
+      /* Active tab styling */
+      &.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        position: relative;
+        z-index: 5;
+      }
+      
+      /* Add directional animations based on tab order */
+      &.sliding-left {
+        transform: translateX(-20px);
+      }
+      
+      &.sliding-right {
+        transform: translateX(20px);
+      }
+    }
+  }
+  
   &-tabs {
     .nav-link {
       color: #495057;
+      position: relative;
+      transition: all 0.2s ease;
+      
+      /* Animated underline indicator for tabs */
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: currentColor;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
       
       &.active {
         font-weight: bold;
+        
+        &::after {
+          width: 80%;
+        }
+      }
+      
+      &:hover:not(.active)::after {
+        width: 40%;
       }
     }
   }
@@ -16,6 +75,12 @@
   &-card {
     border-radius: 10px;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
     
     .card-header {
       border-bottom: 0;

@@ -96,6 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Tab management object
   const tabManager = {
+    // Keep track of current and previous tab for direction-aware animations
+    previousTabId: null,
+    currentTabId: 'log-hours',
+    
+    // Tab order for determining animation direction
+    tabOrder: ['log-hours', 'create-user', 'view-hours', 'user-stats'],
+    
     // Get the current tab ID from URL hash or default to 'log-hours'
     getCurrentTabId: function() {
       if (window.location.hash) {
@@ -109,10 +116,56 @@ document.addEventListener('DOMContentLoaded', function() {
       history.replaceState(null, null, `#${tabId}`);
     },
     
-    // Activate a tab by ID
+    // Determine if we're moving left or right in tab order
+    getAnimationDirection: function(newTabId) {
+      const previousIndex = this.tabOrder.indexOf(this.currentTabId);
+      const newIndex = this.tabOrder.indexOf(newTabId);
+      
+      // Update tab tracking
+      this.previousTabId = this.currentTabId;
+      this.currentTabId = newTabId;
+      
+      return (newIndex > previousIndex) ? 'right' : 'left';
+    },
+    
+    // Apply sliding animation classes based on direction
+    animateTabTransition: function(newTabId) {
+      const direction = this.getAnimationDirection(newTabId);
+      const newTab = document.getElementById(newTabId);
+      const oldTab = document.getElementById(this.previousTabId);
+      
+      if (oldTab && newTab) {
+        // First remove any existing animation classes
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+          pane.classList.remove('sliding-left', 'sliding-right');
+        });
+        
+        // Set direction classes for nice animation
+        if (direction === 'right') {
+          oldTab.classList.add('sliding-left');
+          newTab.classList.add('sliding-right');
+        } else {
+          oldTab.classList.add('sliding-right');
+          newTab.classList.add('sliding-left');
+        }
+        
+        // Remove animation classes after transition completes
+        setTimeout(() => {
+          document.querySelectorAll('.tab-pane').forEach(pane => {
+            pane.classList.remove('sliding-left', 'sliding-right');
+          });
+        }, 400);
+      }
+    },
+    
+    // Activate a tab by ID with animation
     activateTab: function(tabId) {
       const tabToActivate = document.querySelector(`[data-bs-target="#${tabId}"]`);
       if (tabToActivate) {
+        // Set up animation before tab changes
+        this.animateTabTransition(tabId);
+        
+        // Show the tab
         const tab = new bootstrap.Tab(tabToActivate);
         tab.show();
       }
@@ -256,12 +309,22 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize tab from URL hash if present
   const initialTabId = tabManager.getCurrentTabId();
+  
+  // Set current tab in tab manager to ensure animations work correctly
+  tabManager.currentTabId = initialTabId;
+  
   if (initialTabId !== 'log-hours') { // Only if not the default tab
     // Use setTimeout to avoid scroll behavior
     setTimeout(() => {
       window.scrollTo(0, 0); // Ensure no scrolling
-      tabManager.activateTab(initialTabId);
-      tabManager.loadTabContent(initialTabId);
+      
+      // For initial load, we just activate the tab without animation
+      const tabToActivate = document.querySelector(`[data-bs-target="#${initialTabId}"]`);
+      if (tabToActivate) {
+        const tab = new bootstrap.Tab(tabToActivate);
+        tab.show();
+        tabManager.loadTabContent(initialTabId);
+      }
     }, 0);
   }
   
@@ -272,6 +335,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // Add tab change event listeners to all tabs
   const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
   tabButtons.forEach(button => {
+    // Listen for the 'show.bs.tab' event which fires BEFORE tab is shown
+    button.addEventListener('show.bs.tab', function(event) {
+      // Get the newly activated tab
+      const activeTab = event.target.getAttribute('data-bs-target');
+      const tabId = activeTab.substring(1); // Remove the # from the selector
+      
+      // Set up animation before the tab change happens
+      tabManager.animateTabTransition(tabId);
+    });
+    
+    // Listen for the 'shown.bs.tab' event which fires AFTER tab is shown
     button.addEventListener('shown.bs.tab', function(event) {
       // Get the newly activated tab
       const activeTab = event.target.getAttribute('data-bs-target');
