@@ -7,24 +7,118 @@
  * - Viewing volunteer hour logs
  */
 
+var apiRequests = {
+    total: 0,
+    success: 0,
+    failed: 0,
+    post: 0
+};
+
+function cleanVersion(version) {
+    // remove .dXXXXXXXX, if present
+    const cleaned = version.replace(/\.d[0-9a-f]+$/, '');
+    console.log(`cleanVersion: ${version} -> ${cleaned}`);
+    return cleaned;
+}
+
+function wrappedFetch(endpoint, options = {}) {
+    // Ensure headers exist in options
+    if (!options.headers) {
+        options.headers = {};
+    }
+    
+    // Track POST requests
+    if (options.method === 'POST') {
+        apiRequests.post++;
+    }
+    
+    return fetch(endpoint, options)
+        .then(response => {
+            apiRequests.success++;
+            apiRequests.total = apiRequests.success + apiRequests.failed;
+            
+            // Update all API request counters
+            updateAllElements('apiRequests', apiRequests.total);
+            updateAllElements('postRequests', apiRequests.post);
+            updateAllElements('failedRequests', apiRequests.failed);
+            return response;
+        })
+        .catch(error => {
+            // Track failed requests
+            apiRequests.failed++;
+            apiRequests.total = apiRequests.success + apiRequests.failed;
+            
+            // Update counters
+            updateAllElements('apiRequests', apiRequests.total);
+            updateAllElements('failedRequests', apiRequests.failed);
+            
+            // Re-throw the error for handling elsewhere
+            throw error;
+        });
+}
+
+// Helper function to update all elements with the same base ID
+function updateAllElements(baseId, value) {
+    // Find all elements that start with the baseId
+    for (let i = 1; i <= 4; i++) {
+        const element = document.getElementById(baseId + i);
+        if (element) {
+            element.textContent = value;
+        }
+    }
+    // Also update the original element if it exists (for backward compatibility)
+    const originalElement = document.getElementById(baseId);
+    if (originalElement) {
+        originalElement.textContent = value;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   const backendURL = window.backendBaseURL + '/volunteer_hours';
   
+  wrappedFetch(window.backendBaseURL + "/healthcheck?src=VolunteerHoursTool&c=1")
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        // Update all version elements
+        updateAllElements('backendVersion', cleanVersion(data.version) || 'Unknown');
+    })
+    .catch(error => {
+        console.error('Error fetching backend version:', error);
+    });
+
   // ==========================================
   // Helper Functions
   // ==========================================
   
   /**
-   * Makes a fetch request to the API with error handling
+   * Makes a fetch request to the API with error handling and no caching
    * @param {string} endpoint - API endpoint to fetch from
    * @param {Object} options - Fetch options (method, headers, body)
    * @returns {Promise} - Promise that resolves to the JSON response
    */
   function fetchWithErrorHandling(endpoint, options = {}) {
-    return fetch(backendURL + endpoint, options)
+    // Ensure headers exist in options
+    if (!options.headers) {
+      options.headers = {};
+    }
+    
+    // Add cache control headers to prevent caching
+    options.headers = {
+      ...options.headers,
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    };
+    
+    return wrappedFetch(backendURL + endpoint, options)
       .then(response => {
         if (!response.ok) {
           return response.json().then(errorData => {
+            // Track failed requests in fetchWithErrorHandling too
+            apiRequests.failed++;
+            updateAllElements('failedRequests', apiRequests.failed);
             throw new Error(errorData.error || `Failed request - ${response.statusText}`);
           }).catch(e => {
             // If response.json() fails, just use the status text
@@ -235,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add rows to table
         hoursData.forEach(entry => {
           const row = document.createElement('tr');
-          
+          row.setAttribute('title', `ID ${entry.id}`);
           row.innerHTML = `
             <td>${entry.name}</td>
             <td>${formatDate(entry.date)}</td>
@@ -304,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Add rows to table
           userData.history.forEach(entry => {
             const row = document.createElement('tr');
-            
+            row.setAttribute('title', `ID ${entry.id}`);
             row.innerHTML = `
               <td>${formatDate(entry.date)}</td>
               <td>${entry.hours}</td>

@@ -3,42 +3,7 @@ layout: default
 title: Volunteer Hour Tracking
 permalink: /hours
 ---
-<!--
-### 6. Get Volunteer Summary for a Single User
 
-**GET** `/api/volunteer_hours/view/<id>`
-
-- **Description:** Retrieve all information for a single user, including total hours, name, email, and a list of their volunteer history.
-- **Response:**
-    - `200 OK` with a JSON object containing user info, total hours, and a `history` array of all their volunteer logs.
-    - `404 Not Found` if the user does not exist.
-
-**Example Response:**
-```json
-{
-  "id": 1,
-  "name": "Alice",
-  "email": "alice@example.com",
-  "total_hours": 12.5,
-  "history": [
-    {
-      "id": 10,
-      "date": "2025-08-01",
-      "hours": 2.5,
-      "notes": "Helped with setup!",
-      "created_at": "2025-08-01 12:34:56"
-    },
-    {
-      "id": 7,
-      "date": "2025-07-15",
-      "hours": 3.0,
-      "notes": "Food pantry",
-      "created_at": "2025-07-15 09:12:34"
-    }
-  ]
-}
-```
--->
 <div class="container py-5 volunteer-hours" style="margin-top: 6vh;">
   <!-- Tabs for navigation -->
   <ul class="nav nav-tabs mb-4 volunteer-hours-tabs" id="volunteerTabs" role="tablist">
@@ -105,6 +70,15 @@ permalink: /hours
           <div class="alert alert-danger mt-3 d-none" id="logHoursError">
             Error logging hours. Please try again.
           </div>
+          
+          <!-- Card footer -->
+          <div class="card-footer bg-light text-end">
+            <small class="volunteer-hours-footer text-muted">
+              <span class="d-block">Backend v<span class="fw-bold" id="backendVersion1">LOADING...</span></span>
+              <span class="d-block">API Requests: <span class="fw-bold" id="apiRequests1">LOADING...</span></span>
+              <span class="d-block">POST: <span class="fw-bold" id="postRequests1">0</span> | Failed: <span class="fw-bold" id="failedRequests1">0</span></span>
+            </small>
+          </div>
         </div>
       </div>
     </div>
@@ -126,7 +100,7 @@ permalink: /hours
               <input type="email" class="form-control" id="emailInput" required>
             </div>
             <div class="mb-3">
-              <label for="phoneInput" class="form-label">Phone (optional)</label>
+
               <input type="tel" class="form-control" id="phoneInput">
             </div>
             <div class="d-grid">
@@ -140,6 +114,15 @@ permalink: /hours
           </div>
           <div class="alert alert-danger mt-3 d-none" id="createUserError">
             Error registering volunteer. Please try again.
+          </div>
+          
+          <!-- Card footer -->
+          <div class="card-footer bg-light text-end">
+            <small class="volunteer-hours-footer text-muted">
+              <span class="d-block">Backend v<span class="fw-bold" id="backendVersion2">LOADING...</span></span>
+              <span class="d-block">API Requests: <span class="fw-bold" id="apiRequests2">LOADING...</span></span>
+              <span class="d-block">POST: <span class="fw-bold" id="postRequests2">0</span> | Failed: <span class="fw-bold" id="failedRequests2">0</span></span>
+            </small>
           </div>
         </div>
       </div>
@@ -172,6 +155,15 @@ permalink: /hours
           </div>
           <div class="alert alert-danger mt-3 d-none" id="viewHoursError">
             Error retrieving volunteer hours. Please try again.
+          </div>
+          
+          <!-- Card footer -->
+          <div class="card-footer bg-light text-end">
+            <small class="volunteer-hours-footer text-muted">
+              <span class="d-block">Backend v<span class="fw-bold" id="backendVersion3">LOADING...</span></span>
+              <span class="d-block">API Requests: <span class="fw-bold" id="apiRequests3">LOADING...</span></span>
+              <span class="d-block">POST: <span class="fw-bold" id="postRequests3">0</span> | Failed: <span class="fw-bold" id="failedRequests3">0</span></span>
+            </small>
           </div>
         </div>
       </div>
@@ -253,6 +245,15 @@ permalink: /hours
           <!-- Error message -->
           <div class="alert alert-danger mt-3 d-none" id="statsError">
             Error retrieving volunteer stats. Please try again.
+          </div>
+          
+          <!-- Card footer -->
+          <div class="card-footer bg-light text-end">
+            <small class="volunteer-hours-footer text-muted">
+              <span class="d-block">Backend v<span class="fw-bold" id="backendVersion4">LOADING...</span></span>
+              <span class="d-block">API Requests: <span class="fw-bold" id="apiRequests4">LOADING...</span></span>
+              <span class="d-block">POST: <span class="fw-bold" id="postRequests4">0</span> | Failed: <span class="fw-bold" id="failedRequests4">0</span></span>
+            </small>
           </div>
         </div>
       </div>
