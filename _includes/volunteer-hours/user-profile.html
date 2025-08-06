@@ -1,0 +1,87 @@
+<!-- User profile display -->
+<div class="user-profile-container">
+  <div class="card mb-4 volunteer-hours-card">
+    <div class="card-body">
+      <div class="d-flex align-items-center mb-3">
+        <i class="fas fa-user-circle fa-3x text-muted me-3"></i>
+        <div>
+          <h5 class="mb-0" id="profileUsername">Username</h5>
+          <p class="text-muted mb-0" id="profileEmail">email@example.com</p>
+        </div>
+        <div class="ms-auto">
+          <span class="badge bg-success rounded-pill" id="profileLastLogin">Last login: Today</span>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="card bg-light">
+            <div class="card-body">
+              <h6 class="card-subtitle mb-1 text-muted">Account Created</h6>
+              <p class="card-text" id="profileCreatedAt">August 4, 2025</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card bg-light">
+            <div class="card-body">
+              <h6 class="card-subtitle mb-1 text-muted">Status</h6>
+              <p class="card-text">
+                <span class="text-success" id="profileStatus">Active</span>
+                <span class="badge bg-primary ms-2 d-none" id="adminBadge">Administrator</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-outline-primary" id="changePasswordBtn">
+          <i class="fas fa-key me-2"></i>Change Password
+        </button>
+        <button class="btn btn-outline-danger" id="logoutBtn">
+          <i class="fas fa-sign-out-alt me-2"></i>Log Out
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Change Password Modal -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="changePasswordForm">
+            <div class="mb-3">
+              <label for="currentPassword" class="form-label">Current Password</label>
+              <input type="password" class="form-control" id="currentPassword" required>
+            </div>
+            <div class="mb-3">
+              <label for="newPassword" class="form-label">New Password</label>
+              <input type="password" class="form-control" id="newPassword" required minlength="8" pattern="(?=.*\d).{8,}" title="Password must be at least 8 characters with at least one number">
+              <div class="form-text">At least 8 characters with at least one number</div>
+            </div>
+            <div class="mb-3">
+              <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+              <input type="password" class="form-control" id="confirmNewPassword" required>
+            </div>
+          </form>
+          <div class="alert alert-success mt-3 d-none" id="changePasswordSuccess">
+            Password changed successfully!
+          </div>
+          <div class="alert alert-danger mt-3 d-none" id="changePasswordError">
+            Error changing password. Please try again.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="savePasswordBtn">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

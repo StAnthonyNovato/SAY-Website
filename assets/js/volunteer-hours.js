@@ -76,7 +76,7 @@ function updateAllElements(baseId, value) {
 document.addEventListener('DOMContentLoaded', function() {
   const backendURL = window.backendBaseURL + '/volunteer_hours';
   
-  wrappedwindow.backendBaseURL + "/healthcheck?src=VolunteerHoursTool&c=1")
+  wrappedFetch(window.backendBaseURL + "/healthcheck?src=VolunteerHoursTool&c=1")
     .then(response => {
         return response.json();
     })
