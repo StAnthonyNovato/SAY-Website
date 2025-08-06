@@ -8,6 +8,12 @@
 @use "sass:color";
 
 // Base Styles
+html, body {
+  overflow-x: hidden; // Prevent horizontal scrolling
+  width: 100%;
+  position: relative;
+}
+
 body {
   font-family: $font-secondary;
   color: #333;

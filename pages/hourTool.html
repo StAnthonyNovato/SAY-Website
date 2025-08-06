@@ -1,0 +1,76 @@
+---
+layout: default
+title: Volunteer Hour Tracking
+permalink: /hours
+---
+
+<div class="container py-5 volunteer-hours" style="margin-top: 6vh;">
+  <!-- Navigation tabs -->
+  {% include volunteer-hours/tabs-nav.html %}
+  
+  <!-- Tab content -->
+  <div class="tab-content" id="volunteerTabsContent">
+    <!-- Log Hours Tab -->
+    <div class="tab-pane fade show active" id="log-hours" role="tabpanel" aria-labelledby="log-hours-tab">
+      {% capture log_hours_content %}
+        {% include volunteer-hours/log-hours-form.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="Log Volunteer Hours" 
+        icon_class="fas fa-clock" 
+        header_class="bg-primary text-white" 
+        content=log_hours_content 
+        footer_id="1" 
+      %}
+    </div>
+    
+    <!-- Create User Tab -->
+    <div class="tab-pane fade" id="create-user" role="tabpanel" aria-labelledby="create-user-tab">
+      {% capture create_user_content %}
+        {% include volunteer-hours/create-user-form.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="Register New Volunteer" 
+        icon_class="fas fa-user-plus" 
+        header_class="bg-success text-white" 
+        content=create_user_content 
+        footer_id="2" 
+      %}
+    </div>
+    
+    <!-- View Hours Tab -->
+    <div class="tab-pane fade" id="view-hours" role="tabpanel" aria-labelledby="view-hours-tab">
+      {% capture view_hours_content %}
+        {% include volunteer-hours/view-hours-table.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="Volunteer Hours Log" 
+        icon_class="fas fa-table" 
+        header_class="bg-info text-white" 
+        content=view_hours_content 
+        footer_id="3" 
+      %}
+    </div>
+    
+    <!-- User Stats Tab -->
+    <div class="tab-pane fade" id="user-stats" role="tabpanel" aria-labelledby="user-stats-tab">
+      {% capture user_stats_content %}
+        {% include volunteer-hours/user-stats.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="My Volunteer Stats" 
+        icon_class="fas fa-chart-bar" 
+        header_class="bg-purple text-white" 
+        header_style="background-color: #6f42c1;" 
+        content=user_stats_content 
+        footer_id="4" 
+      %}
+    </div>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/volunteer-hours.js' | relative_url }}"></script>

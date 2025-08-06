@@ -1,0 +1,10 @@
+<!-- Tab card template with customizable header and content -->
+<div class="card shadow-sm volunteer-hours-card">
+  <div class="card-header {{ include.header_class }}" {% if include.header_style %}style="{{ include.header_style }}"{% endif %}>
+    <h5 class="mb-0"><i class="{{ include.icon_class }} me-2"></i>{{ include.title }}</h5>
+  </div>
+  <div class="card-body">
+    {{ include.content }}
+  </div>
+  {% include volunteer-hours/card-footer.html id=include.footer_id %}
+</div>

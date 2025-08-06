@@ -9,6 +9,9 @@
 .site-footer {
   background-color: #1a1a1a;
   color: rgb(255 255 255 / 80%);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .footer-links {

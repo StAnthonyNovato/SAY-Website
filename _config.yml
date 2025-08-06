@@ -10,6 +10,7 @@ admin_email: damien@alphagame.dev
 # TODO: Add this at launch.
 # tracking_id:
 
+# force_backend_url: "http://192.168.0.167:8000/api" # Temporary for local testing FIXME: Remove this line
 permalink: /news/:year/:month/:title
 description: >- # this means to ignore newlines until "baseurl:"
   St. Anthony de Padua Catholic Parish Confirmation Program, guiding youth 
@@ -20,6 +21,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 instagram_username: stanthonyyouth.novato
 
 publisher: "St. Anthony de Padua Catholic Parish"
+
 plugins:
   - jekyll-feed
   - jekyll-sitemap
