@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
     activateTab: function(tabId) {
       console.log(`Activating tab ID: ${tabId}`);
       const tabToActivate = document.querySelector(`[data-bs-target="#${tabId}"]`);
+      console.log(`Tab button element:`, tabToActivate);
       
       // For hidden tabs like registration-confirmation that don't have nav buttons
       if (tabId === 'registration-confirmation') {
@@ -216,6 +217,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show the tab
         const tab = new bootstrap.Tab(tabToActivate);
         tab.show();
+      } else {
+        console.error(`Tab button for "${tabId}" not found!`);
       }
     },
     
@@ -248,13 +251,30 @@ document.addEventListener('DOMContentLoaded', function() {
       
       console.log(`Rules shown: ${rulesShown}`);
       if (!rulesShown) {
-        alert('Please read the rules before logging hours.');
+        // First check if the rules tab button exists
+        const rulesTabButton = document.querySelector('[data-bs-target="#rules"]');
+        if (!rulesTabButton) {
+          console.error('Rules tab button not found!');
+          // Create a temporary alert to show rules are required
+          alert('Please read the rules before logging hours.');
+          console.warn('Rules tab button not found! Cannot show rules tab.');
+          localStorage.setItem('rulesShown', 'true');
+          return;
+        }
+        
         console.log('Showing rules tab for the first time.');
 
-        // Show rules tab on first visit
-        this.activateTab('rules');
+        // Use bootstrap's API directly to show the tab
+        const tab = new bootstrap.Tab(rulesTabButton);
+        tab.show();
+        
         // Mark that rules have been shown
         localStorage.setItem('rulesShown', 'true');
+        
+        // Also update the tabManager state
+        this.previousTabId = this.currentTabId;
+        this.currentTabId = 'rules';
+        this.setTabInUrl('rules');
       }
     }
   };
