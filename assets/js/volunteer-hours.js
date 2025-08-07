@@ -14,6 +14,9 @@ var apiRequests = {
     post: 0
 };
 
+var LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY = 'selectedVolunteerId';
+var LOCALSTORAGE_RULESSHOWN_KEY = 'rulesShown';
+
 // Declare tabManager in global scope
 var tabManager;
 
@@ -100,6 +103,21 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => {
         console.error('Error fetching backend version:', error);
     });
+    
+  // Add event listeners to save dropdown selections to localStorage
+  document.getElementById('userSelect').addEventListener('change', function() {
+    const oldValue = localStorage.getItem(LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY);
+    localStorage.setItem(LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY, this.value);
+    console.log(`Saved user selection to localStorage: ${oldValue} -> ${this.value}`);
+    console.log(`User ${this.options[this.selectedIndex].text} (ID: ${this.value}) selected for logging hours`);
+  });
+  
+  document.getElementById('statsUserSelect').addEventListener('change', function() {
+    const oldValue = localStorage.getItem(LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY);
+    localStorage.setItem(LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY, this.value);
+    console.log(`Saved stats user selection to localStorage: ${oldValue} -> ${this.value}`);
+    console.log(`User ${this.options[this.selectedIndex].text} (ID: ${this.value}) selected for viewing stats`);
+  });
 
   // Track the currently selected users in each dropdown
   const selectedUsers = {
@@ -243,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
           break;
         case 'user-stats':
           populateStatsUserDropdown();
+          setTimeout(() => loadUserStats(true), 250); // Auto-run stats loading; we need to wait for the dropdown to populate
           break;
         case 'rules':
           // Nothing specific to load for rules tab
@@ -257,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
     checkRulesShown: function() {
       // Check if rules have been shown before
       console.log('Checking if rules have been shown...');
-      const rulesShown = localStorage.getItem('rulesShown');
+      const rulesShown = localStorage.getItem(LOCALSTORAGE_RULESSHOWN_KEY);
       
       console.log(`Rules shown: ${rulesShown}`);
       if (!rulesShown) {
@@ -268,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Create a temporary alert to show rules are required
           alert('Please read the rules before logging hours.');
           console.warn('Rules tab button not found! Cannot show rules tab.');
-          localStorage.setItem('rulesShown', 'true');
+          localStorage.setItem(LOCALSTORAGE_RULESSHOWN_KEY, 'true');
           return;
         }
         
@@ -279,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tab.show();
         
         // Mark that rules have been shown
-        localStorage.setItem('rulesShown', 'true');
+        localStorage.setItem(LOCALSTORAGE_RULESSHOWN_KEY, 'true');
         
         // Also update the tabManager state
         this.previousTabId = this.currentTabId;
@@ -369,6 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Populate a select element with user options
   /**
    * Populates a select element with user options
    * @param {string} selectId - ID of the select element to populate
@@ -377,9 +397,16 @@ document.addEventListener('DOMContentLoaded', function() {
    */
   function populateUserSelect(selectId, users, defaultText = "Select volunteer...") {
     const selectElement = document.getElementById(selectId);
-    // Remember currently selected value if any
-    const currentValue = selectElement.value;
+    
+    // Get saved value from localStorage - now using a single key for all volunteer selections
+    const savedValue = localStorage.getItem(LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY);
+    console.log(`populateUserSelect(${selectId}): Retrieved from localStorage: ${savedValue}`);
+    
+    // Remember currently selected value if any (prioritize the element's value over localStorage)
+    const currentValue = selectElement.value || savedValue;
     selectedUsers[selectId] = currentValue;
+    
+    console.log(`populateUserSelect(${selectId}): Using value: ${currentValue} (element.value: ${selectElement.value}, localStorage: ${savedValue})`);
     
     // Clear existing options
     selectElement.innerHTML = `<option value="">${defaultText}</option>`;
@@ -393,6 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // If this was the previously selected value, keep it selected
       if (user.id == currentValue) {
         option.selected = true;
+        console.log(`populateUserSelect(${selectId}): Auto-selected user "${user.name}" (ID: ${user.id}) based on saved value`);
       }
       
       selectElement.appendChild(option);
@@ -400,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // If there was a previously selected value that's no longer in the list
     if (currentValue && selectElement.value !== currentValue) {
-      console.log(`Previously selected user (${currentValue}) no longer available.`);
+      console.log(`populateUserSelect(${selectId}): Previously selected user (${currentValue}) no longer available.`);
     }
   }
   
@@ -522,10 +550,27 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Function to load users
   function loadUsers() {
+    console.log('loadUsers(): Fetching users from server...');
     fetchWithErrorHandling('/users')
       .then(users => {
-        // Populate the log hours dropdown
+        console.log(`loadUsers(): Received ${users.length} users from server`);
+        
+        // Populate the log hours dropdown with saved selection from localStorage
         populateUserSelect('userSelect', users);
+        
+        // If the value changed because of localStorage, trigger the change event
+        const userSelect = document.getElementById('userSelect');
+        const savedValue = localStorage.getItem(LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY);
+        if (savedValue && userSelect.value !== selectedUsers.userSelect) {
+          // Update tracking object
+          selectedUsers.userSelect = userSelect.value;
+          
+          // Find the selected user's name for better logging
+          const selectedOption = userSelect.options[userSelect.selectedIndex];
+          const userName = selectedOption ? selectedOption.text : 'Unknown';
+          
+          console.log(`loadUsers(): Auto-selected user "${userName}" (ID: ${userSelect.value}) from localStorage`);
+        }
       })
       .catch(error => {
         console.error('Error loading users:', error);
@@ -702,9 +747,26 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   // Function to populate the stats user dropdown
   function populateStatsUserDropdown() {
+    console.log('populateStatsUserDropdown(): Fetching users for stats dropdown...');
     fetchWithErrorHandling('/users')
       .then(users => {
+        console.log(`populateStatsUserDropdown(): Received ${users.length} users from server`);
+        
         populateUserSelect('statsUserSelect', users, 'Choose volunteer...');
+        
+        // If the value changed because of localStorage, trigger the change event
+        const statsUserSelect = document.getElementById('statsUserSelect');
+        const savedValue = localStorage.getItem(LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY);
+        if (savedValue && statsUserSelect.value !== selectedUsers.statsUserSelect) {
+          // Update tracking object
+          selectedUsers.statsUserSelect = statsUserSelect.value;
+          
+          // Find the selected user's name for better logging
+          const selectedOption = statsUserSelect.options[statsUserSelect.selectedIndex];
+          const userName = selectedOption ? selectedOption.text : 'Unknown';
+          
+          console.log(`populateStatsUserDropdown(): Auto-selected user "${userName}" (ID: ${statsUserSelect.value}) from localStorage for stats`);
+        }
       })
       .catch(error => {
         console.error('Error loading users for stats:', error);
@@ -939,10 +1001,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Function to load user stats
-  function loadUserStats() {
+  function loadUserStats(autoRun = false) {
     const userId = document.getElementById('statsUserSelect').value;
-    
-    if (!userId) {
+    console.log("loadUserStats(): Selected user ID:", userId);
+
+    if (!userId && !autoRun) {
       showMessage('statsError', 'Please select a volunteer to view their stats.');
       return;
     }
