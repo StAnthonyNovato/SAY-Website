@@ -117,6 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem(LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY, this.value);
     console.log(`Saved stats user selection to localStorage: ${oldValue} -> ${this.value}`);
     console.log(`User ${this.options[this.selectedIndex].text} (ID: ${this.value}) selected for viewing stats`);
+
+    setTimeout(() => {loadUserStats()}, 100);
   });
 
   // Track the currently selected users in each dropdown
@@ -128,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Tab management object - assigned to global variable
   tabManager = {
     // Keep track of current and previous tab for direction-aware animations
-    previousTabId: null,
+    previousTabId: null, 
     currentTabId: 'log-hours',
     
     // Tab order for determining animation direction
