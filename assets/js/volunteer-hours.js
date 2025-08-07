@@ -660,6 +660,9 @@ document.addEventListener('DOMContentLoaded', function() {
       if (phone) {
         document.getElementById('confirmationPhone').textContent = phone;
       }
+      console.log(`Received user data for signup:`, data);
+
+      localStorage.setItem(LOCALSTORAGE_VOLUNTEERDROPDOWN_KEY, data.id);
       
       // Switch to the confirmation tab
       tabManager.activateTab('registration-confirmation');
