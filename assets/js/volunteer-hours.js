@@ -62,11 +62,19 @@ function wrappedFetch(endpoint, options = {}) {
 
 // Helper function to update all elements with the same base ID
 function updateAllElements(baseId, value) {
+    // FIXME: Damn, this system SUCKS! We need a better way to handle this.
+    // We should REALLY be using document.getElementsByClassName or a similar method
+    // Tell past self to not impliment stupid ID-based things when you COULD use classes.
+    // Fuck my life.
+
     // Find all elements that start with the baseId
-    for (let i = 1; i <= 4; i++) {
+    let elementsAffected = 0;
+
+    for (let i = 1; i <= 8; i++) {
         const element = document.getElementById(baseId + i);
         if (element) {
             element.textContent = value;
+            elementsAffected++;
         }
     }
     // Also update the original element if it exists (for backward compatibility)
@@ -74,6 +82,8 @@ function updateAllElements(baseId, value) {
     if (originalElement) {
         originalElement.textContent = value;
     }
+
+    console.log(`updateAllElements: ${baseId} -> ${value}, elements affected: ${elementsAffected}`);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
