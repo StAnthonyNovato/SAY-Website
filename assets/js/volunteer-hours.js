@@ -14,6 +14,9 @@ var apiRequests = {
     post: 0
 };
 
+// Declare tabManager in global scope
+var tabManager;
+
 function cleanVersion(version) {
     // remove .dXXXXXXXX, if present
     const cleaned = version.replace(/\.d[0-9a-f]+$/, '');
@@ -94,14 +97,14 @@ document.addEventListener('DOMContentLoaded', function() {
     statsUserSelect: ''
   };
   
-  // Tab management object
-  const tabManager = {
+  // Tab management object - assigned to global variable
+  tabManager = {
     // Keep track of current and previous tab for direction-aware animations
     previousTabId: null,
     currentTabId: 'log-hours',
     
     // Tab order for determining animation direction
-    tabOrder: ['log-hours', 'create-user', 'view-hours', 'user-stats'],
+    tabOrder: ['log-hours', 'create-user', 'view-hours', 'user-stats', 'rules', 'registration-confirmation'],
     
     // Get the current tab ID from URL hash or default to 'log-hours'
     getCurrentTabId: function() {
@@ -160,8 +163,53 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Activate a tab by ID with animation
     activateTab: function(tabId) {
+      console.log(`Activating tab ID: ${tabId}`);
       const tabToActivate = document.querySelector(`[data-bs-target="#${tabId}"]`);
+      
+      // For hidden tabs like registration-confirmation that don't have nav buttons
+      if (tabId === 'registration-confirmation') {
+        // Handle the special case of confirmation tab which has no nav button
+        this.previousTabId = this.currentTabId;
+        this.currentTabId = tabId;
+        
+        // Get the tab panes
+        const oldTab = document.getElementById(this.previousTabId);
+        const newTab = document.getElementById(tabId);
+        
+        if (oldTab && newTab) {
+          // Hide all tab panes first
+          document.querySelectorAll('.tab-pane').forEach(pane => {
+            pane.classList.remove('show', 'active');
+            // Ensure fade class is present for bootstrap transitions
+            pane.classList.add('fade');
+          });
+          
+          // Show the new tab pane with animation
+          oldTab.classList.add('sliding-left');
+          newTab.classList.add('sliding-right', 'show', 'active');
+          
+          // Remove animation classes after transition completes
+          setTimeout(() => {
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+              pane.classList.remove('sliding-left', 'sliding-right');
+            });
+          }, 400);
+          
+          // Update URL hash
+          this.setTabInUrl(tabId);
+        }
+        return;
+      }
+      
+      // Normal case for tabs with navigation buttons
       if (tabToActivate) {
+        // Hide all tab panes first to ensure clean state
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+          if (pane.id !== tabId) {
+            pane.classList.remove('show', 'active');
+          }
+        });
+        
         // Set up animation before tab changes
         this.animateTabTransition(tabId);
         
@@ -183,6 +231,30 @@ document.addEventListener('DOMContentLoaded', function() {
         case 'user-stats':
           populateStatsUserDropdown();
           break;
+        case 'rules':
+          // Nothing specific to load for rules tab
+          break;
+        case 'registration-confirmation':
+          // The confirmation tab is populated when a user registers
+          break;
+      }
+    },
+    
+    // Check if rules should be shown and handle
+    checkRulesShown: function() {
+      // Check if rules have been shown before
+      console.log('Checking if rules have been shown...');
+      const rulesShown = localStorage.getItem('rulesShown');
+      
+      console.log(`Rules shown: ${rulesShown}`);
+      if (!rulesShown) {
+        alert('Please read the rules before logging hours.');
+        console.log('Showing rules tab for the first time.');
+
+        // Show rules tab on first visit
+        this.activateTab('rules');
+        // Mark that rules have been shown
+        localStorage.setItem('rulesShown', 'true');
       }
     }
   };
@@ -319,6 +391,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Set current tab in tab manager to ensure animations work correctly
   tabManager.currentTabId = initialTabId;
   
+  // Check if rules should be shown (only if not coming from a direct URL)
+  if (initialTabId === 'log-hours') {
+    tabManager.checkRulesShown();
+  }
+  
   if (initialTabId !== 'log-hours') { // Only if not the default tab
     // Use setTimeout to avoid scroll behavior
     setTimeout(() => {
@@ -347,6 +424,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const activeTab = event.target.getAttribute('data-bs-target');
       const tabId = activeTab.substring(1); // Remove the # from the selector
       
+      // First, make sure all special tabs are hidden
+      const confirmationTab = document.getElementById('registration-confirmation');
+      if (confirmationTab) {
+        confirmationTab.classList.remove('show', 'active');
+      }
+      
       // Set up animation before the tab change happens
       tabManager.animateTabTransition(tabId);
     });
@@ -371,6 +454,39 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Add event listener for the load stats button
   document.getElementById('loadStatsBtn').addEventListener('click', loadUserStats);
+  
+  // Add event listener for the "Log Hours Now" button on the confirmation screen
+  if (document.getElementById('goToLogHoursBtn')) {
+    document.getElementById('goToLogHoursBtn').addEventListener('click', function() {
+      // First, make sure all tab panes are hidden
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        if (pane.id !== 'log-hours') {
+          pane.classList.remove('show', 'active');
+        }
+      });
+      
+      // Get reference to the log hours tab and explicitly hide the confirmation tab
+      const confirmationTab = document.getElementById('registration-confirmation');
+      if (confirmationTab) {
+        confirmationTab.classList.remove('show', 'active');
+      }
+      
+      // Navigate back to the log hours tab
+      const logHoursTabButton = document.querySelector('[data-bs-target="#log-hours"]');
+      if (logHoursTabButton) {
+        // Update tab manager's state
+        tabManager.previousTabId = 'registration-confirmation';
+        tabManager.currentTabId = 'log-hours';
+        
+        // Use Bootstrap's API to show the tab
+        const tab = new bootstrap.Tab(logHoursTabButton);
+        tab.show();
+        
+        // Update the URL hash
+        tabManager.setTabInUrl('log-hours');
+      }
+    });
+  }
   
   // No need for modal initialization anymore since we're using inline editing
   
@@ -457,13 +573,24 @@ document.addEventListener('DOMContentLoaded', function() {
       body: JSON.stringify(userData)
     })
     .then(data => {
-      // Show success message
+      // Show success message (this will be shown briefly before tab change)
       showMessage('createUserSuccess', 'Volunteer registered successfully!');
       
-      // Reset form
+      // Populate the confirmation screen with the user's information
+      document.getElementById('confirmedUserName').textContent = name;
+      document.getElementById('confirmationName').textContent = name;
+      document.getElementById('confirmationEmail').textContent = email;
+      if (phone) {
+        document.getElementById('confirmationPhone').textContent = phone;
+      }
+      
+      // Switch to the confirmation tab
+      tabManager.activateTab('registration-confirmation');
+      
+      // Reset form (will be hidden now)
       document.getElementById('createUserForm').reset();
       
-      // Reload users dropdown
+      // Reload users dropdown in background
       loadUsers();
     })
     .catch(error => {

@@ -1,0 +1,28 @@
+<!-- Registration confirmation screen -->
+<div class="text-center py-4">
+  <div class="mb-4">
+    <i class="fas fa-check-circle text-success" style="font-size: 64px;"></i>
+  </div>
+  <h2 class="mb-3">Registration Successful!</h2>
+  <p class="lead mb-4">Thank you for registering as a volunteer, <span id="confirmedUserName" class="fw-bold"></span>!</p>
+  <p class="mb-4">Your information has been saved in our system. You can now log your volunteer hours using the "Log Hours" tab.</p>
+  
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-8">
+      <div class="card bg-light">
+        <div class="card-body">
+          <h5 class="card-title">Your Registration Information</h5>
+          <div class="mb-2"><strong>Name:</strong> <span id="confirmationName"></span></div>
+          <div class="mb-2"><strong>Email:</strong> <span id="confirmationEmail"></span></div>
+          <div class="mb-2"><strong>Phone:</strong> <span id="confirmationPhone">Not provided</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="d-grid gap-2 col-md-6 mx-auto">
+    <button id="goToLogHoursBtn" class="btn btn-primary btn-lg">
+      <i class="fas fa-clock me-2"></i>Log Your Hours Now
+    </button>
+  </div>
+</div>

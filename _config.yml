@@ -53,6 +53,7 @@ exclude:
   - vendor
   - venv
   - .venv
+  - docs/ # For the repository documentation
 
 # Pagination settings
 paginate: 5

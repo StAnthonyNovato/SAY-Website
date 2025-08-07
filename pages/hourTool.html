@@ -70,7 +70,36 @@ permalink: /hours
         footer_id="4" 
       %}
     </div>
+  
+    <!-- RULES tab -->
+    <div class="tab-pane fade" id="rules" role="tabpanel" aria-labelledby="rules-tab">
+      {% capture rules_content %}
+        {% include volunteer-hours/rules.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="Volunteer Hour Rules" 
+        icon_class="fas fa-gavel" 
+        header_class="bg-warning text-white" 
+        content=rules_content 
+        footer_id="5" 
+      %}
+    </div>
+    
+    <!-- Registration Confirmation tab (hidden until registration completes) -->
+    <div class="tab-pane fade" id="registration-confirmation" role="tabpanel" aria-labelledby="registration-confirmation-tab">
+      {% capture confirmation_content %}
+        {% include volunteer-hours/registration-confirmation.html %}
+      {% endcapture %}
+      
+      {% include volunteer-hours/tab-card.html 
+        title="Registration Confirmation" 
+        icon_class="fas fa-check-circle" 
+        header_class="bg-success text-white" 
+        content=confirmation_content 
+        footer_id="6" 
+      %}
+    </div>
   </div>
-</div>
 
 <script src="{{ '/assets/js/volunteer-hours.js' | relative_url }}"></script>
