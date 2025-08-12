@@ -34,6 +34,10 @@ plugins:
 
 # Jekyll Minifier configuration
 jekyll-minifier:
+  exclude:
+    - "*.txt"
+    - "**/*.txt"
+
   uglifier_args:
     harmony: true
     source_map: true
@@ -71,3 +75,5 @@ exclude:
   - LICENSE # only for the repo lol
   - README.md # only for the repo lol
   - seo.py
+  - package.json
+  - package-lock.json
