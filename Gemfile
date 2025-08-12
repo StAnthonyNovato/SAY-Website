@@ -14,7 +14,8 @@ group :jekyll_plugins do
   gem 'jekyll-news-sitemap'
   gem 'jekyll-paginate', '~> 1.1'
   gem 'jekyll-sass-converter', '~> 3.0'
-  gem 'jekyll-minifier'
+  gem 'jekyll-minifier', git: "https://github.com/StAnthonyNovato/jekyll-minifier"
+  # gem 'jekyll-minifier', path: "../jekyll-minifier"
   gem "jekyll-resize", git: "https://github.com/MichaelCurrin/jekyll-resize"
   # goddammit, this cannot work because of no version solving is availiable.
   # gem 'github-pages'

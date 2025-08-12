@@ -750,6 +750,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('viewHoursError').textContent = error.message || 'Error retrieving volunteer hours. Please try again.';
       });
   }
+
   // Function to populate the stats user dropdown
   function populateStatsUserDropdown() {
     console.log('populateStatsUserDropdown(): Fetching users for stats dropdown...');

@@ -10,7 +10,7 @@ admin_email: damien@alphagame.dev
 # TODO: Add this at launch.
 # tracking_id:
 
-# force_backend_url: "http://192.168.0.167:8000/api" # Temporary for local testing FIXME: Remove this line
+force_backend_url: "https://stanthonyyouth.alphagame.dev/api" # Temporary for local testing FIXME: Remove this line
 permalink: /news/:year/:month/:title
 description: >- # this means to ignore newlines until "baseurl:"
   St. Anthony de Padua Catholic Parish Confirmation Program, guiding youth 
@@ -36,9 +36,11 @@ plugins:
 jekyll-minifier:
   uglifier_args:
     harmony: true
+    source_map: true
     compress:
       drop_console: false
     mangle: true
+    source_map: true
 
 # Sass/SCSS configuration
 sass:

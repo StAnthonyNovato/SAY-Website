@@ -4,6 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 const updateHealthStatus = () => {
+    console.log("[updateHealthStatus] Checking backend health status...");
     const emojis = {
         'healthy': '\uD83D\uDFE2',
         'degraded': '\uD83D\uDFE1',
@@ -57,5 +58,6 @@ const updateHealthStatus = () => {
 setInterval(updateHealthStatus, 60000);
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateHealthStatus();
+    console.log("[healthcheck] Firing updateHealthStatus");
+    setTimeout(() => {updateHealthStatus()}, 250);
 });
