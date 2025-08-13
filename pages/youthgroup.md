@@ -1,6 +1,6 @@
 ---
 title: Youth Group
-permalink: /programs/youth-group
+permalink: /programs/youthgroup
 layout: page
 ---
 

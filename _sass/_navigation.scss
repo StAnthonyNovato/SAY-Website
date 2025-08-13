@@ -133,7 +133,7 @@
     }
     
     &.active {
-      background: linear-gradient(135deg, $secondary-color, lighten($secondary-color, 10%));
+      background: linear-gradient(135deg, $secondary-color, color.scale($secondary-color, $lightness: 10%));
       border-color: $secondary-color;
       color: white !important;
       transform: translateY(-1px);
