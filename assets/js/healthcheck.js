@@ -3,6 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+(() => {console.log("[healthcheck] Initializing healthcheck script")})();
+
 const updateHealthStatus = () => {
     console.log("[updateHealthStatus] Checking backend health status...");
     const emojis = {
@@ -19,7 +21,8 @@ const updateHealthStatus = () => {
     const statusDot = healthElement.querySelector('.status-dot');
     const statusText = healthElement.querySelector('.status-text');
 
-    fetch(`${window.backendBaseURL}/healthcheck?fcnl=1`, {
+    let startTime = Date.now();
+    fetch(`${window.backendBaseURL}/healthcheck?fcnl=1&c=1`, { //c - server-side cache
         method: 'GET',
         cache: 'no-cache',
         headers: {
@@ -30,10 +33,15 @@ const updateHealthStatus = () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+
+            responseMilliseconds = Date.now() - startTime;
+            console.log("[updateHealthStatus] Backend health status fetched successfully. (Took " + responseMilliseconds + " ms)");
             statusDot.title = `Last checked: ${new Date().toLocaleTimeString()}`;
+            console.log("X-Cache: " + response.headers.get("X-Cache"));
             return response.json();
         })
         .then(data => {
+            console.log("[updateHealthStatus] Backend health status data:", data);
             if (data.status === 'healthy') {
                 statusDot.textContent = emojis['healthy'];
                 statusText.textContent = 'All Systems Operational';
@@ -55,9 +63,9 @@ const updateHealthStatus = () => {
         });
 }
 
-setInterval(updateHealthStatus, 60000);
+setInterval(() => {updateHealthStatus()}, 60000);
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("[healthcheck] Firing updateHealthStatus");
-    setTimeout(() => {updateHealthStatus()}, 250);
-});
+// This second `setTimeout` is a workaround for Safari.
+// No idea why this works, or why it's needed, but if it ain't broke,
+// don't fix it.
+setTimeout(() => {updateHealthStatus()}, 100);

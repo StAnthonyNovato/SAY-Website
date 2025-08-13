@@ -1,3 +1,5 @@
+---
+---
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
   <!-- Sky -->
   <rect x="0" y="0" width="1000" height="600" fill="#6ab7ff" opacity="0.3" />
@@ -185,48 +187,47 @@
     </linearGradient>
   </defs>
   
-  <g transform="translate(625, 470) scale(2)">
-    <!-- Fox Group with Animation - Flipped to face left -->
+  {% if site.data.experiments.experiment_hero_humanreading %}
+  <g transform="translate(720, 520)">
+    <!-- Inner group: animation only -->
     <g>
-      <!-- Fox Body - Using Triangular Style (flipped) -->
-      <path d="M0,0 L-20,5 L-10,-15 Z" fill="#e67e22" />
+      <!-- Head -->
+      <circle cx="0" cy="-20" r="8" fill="#40361aff" stroke="#000" stroke-width="1" />
+      <!-- Eyeballs -->
+      <circle cx="-3" cy="-22" r="2" fill="#40361aff" />
+      <circle cx="3" cy="-22" r="2" fill="#40361aff" />
+      <!-- Body -->
+      <line x1="0" y1="-12" x2="0" y2="10" stroke="#000" stroke-width="2" />
       
-      <!-- Fox Head (flipped) -->
-      <path d="M-20,0 L-35,5 L-28,-12 Z" fill="#e67e22" />
+      <!-- Arms -->
+      <line x1="0" y1="-10" x2="-12" y2="0" stroke="#000" stroke-width="2" />
+      <line x1="0" y1="-10" x2="12" y2="0" stroke="#000" stroke-width="2" />
       
-      <!-- Fox Ears (flipped) -->
-      <path d="M-25,-10 L-28,-18 L-32,-8 Z" fill="#d35400" />
-      <path d="M-30,-10 L-35,-16 L-33,-7 Z" fill="#d35400" />
+      <!-- Legs -->
+      <line x1="0" y1="10" x2="-10" y2="22" stroke="#000" stroke-width="2" />
+      <line x1="0" y1="10" x2="10" y2="22" stroke="#000" stroke-width="2" />
       
-      <!-- Fox Eye (flipped) -->
-      <circle cx="-30" cy="-5" r="1.5" fill="#2c3e50" />
-      
-      <!-- Fox Tail with Gradient (now on right side) -->
-      <path d="M0,0 L15,-5 L10,5 Z" fill="url(#foxTailGradient)">
-        <animateTransform 
-          attributeName="transform"
-          type="rotate"
-          values="0;-10;0;5;0"
-          dur="3s"
-          repeatCount="indefinite"
-        />
-      </path>
-      
-      <!-- Fox Legs (flipped) -->
-      <path d="M-5,0 L-7,10 L-10,0 Z" fill="#d35400" />
-      <path d="M-15,0 L-17,10 L-20,0 Z" fill="#d35400" />
-      
-      <!-- Overall Fox Animation -->
+      <!-- Book -->
+      <rect x="-16" y="0" width="32" height="14" fill="#8b5e3c" stroke="#5a3d29" stroke-width="1.5" />
+      <line x1="-16" y1="0" x2="-16" y2="14" stroke="#5a3d29" stroke-width="1.5" />
+      <line x1="16" y1="0" x2="16" y2="14" stroke="#5a3d29" stroke-width="1.5" />
+      <line x1="-16" y1="7" x2="16" y2="7" stroke="#fff" stroke-width="0.8" />
+      <line x1="-16" y1="2" x2="16" y2="2" stroke="#fff" stroke-width="0.5" />
+      <line x1="-16" y1="12" x2="16" y2="12" stroke="#fff" stroke-width="0.5" />
+      <!-- Vertical Split -->
+      <line x1="0" y1="0" x2="0" y2="14" stroke="#5a3d29" stroke-width="1.5" />
+      <!-- Animation only applies to inner group -->
       <animateTransform 
         attributeName="transform"
-        type="translate"
-        values="0,0; 0,-2; 0,0"
-        dur="4s"
+        type="rotate"
+        values="0;2;0;-2;0"
+        dur="3s"
         repeatCount="indefinite"
       />
     </g>
   </g>
-  
+  {% endif %}
+
   <!-- Lion and Lamb on left side of cross (moved down and separated) -->
   <g transform="translate(380, 490)">
     <!-- Lion Group - More recognizable design -->
