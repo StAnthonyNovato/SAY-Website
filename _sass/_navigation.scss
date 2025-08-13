@@ -18,10 +18,199 @@
   }
 }
 
+// Mobile navigation full-screen overlay
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(145deg, 
+      rgba(26, 26, 26, 0.98) 0%, 
+      rgba(40, 40, 40, 0.95) 50%, 
+      rgba(20, 20, 30, 0.98) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 9999;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    // Add subtle pattern overlay
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-item {
+    transform: translateY(50px);
+    opacity: 0;
+    width: 100%;
+    max-width: 220px;
+    
+    .navbar-collapse.show & {
+      animation: slideInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      
+      &:nth-child(1) { animation-delay: 0.1s; }
+      &:nth-child(2) { animation-delay: 0.15s; }
+      &:nth-child(3) { animation-delay: 0.2s; }
+      &:nth-child(4) { animation-delay: 0.25s; }
+      &:nth-child(5) { animation-delay: 0.3s; }
+      &:nth-child(6) { animation-delay: 0.35s; }
+    }
+  }
+
+  .nav-link {
+    font-size: 1.1rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.3px;
+    padding: 0.8rem 1.5rem !important;
+    margin: 0.2rem 0;
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    
+    // Subtle glow effect
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 8px;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      color: white !important;
+      
+      &::before {
+        opacity: 1;
+      }
+    }
+    
+    &.active {
+      background: linear-gradient(135deg, $secondary-color, lighten($secondary-color, 10%));
+      border-color: $secondary-color;
+      color: white !important;
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba($secondary-color, 0.3);
+      
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .navbar-toggler {
+    z-index: 10000;
+    border: none;
+    padding: 0.5rem;
+    
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  // Hamburger animation
+  .navbar-toggler-icon {
+    background-image: none;
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    position: relative;
+    transition: all 0.3s ease;
+    
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background-color: white;
+      transition: all 0.3s ease;
+    }
+    
+    &::before {
+      top: -8px;
+    }
+    
+    &::after {
+      top: 8px;
+    }
+  }
+
+  .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background-color: transparent;
+    
+    &::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
+    
+    &::after {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+  }
+}
+
+@keyframes slideInUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .navbar-brand {
   display: flex;
   flex-direction: column;
   line-height: 1.2;
+  z-index: 10000;
+  position: relative;
 }
 
 .parish-name {
@@ -56,5 +245,14 @@
     right: 1rem;
     height: 3px;
     background-color: $secondary-color;
+  }
+}
+
+// Desktop-specific styles
+@media (min-width: 992px) {
+  .navbar-nav .nav-link {
+    &.active::after {
+      display: block;
+    }
   }
 }
