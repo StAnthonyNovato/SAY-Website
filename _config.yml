@@ -8,7 +8,7 @@ admin_email: damien@alphagame.dev
 
 # Google Analytics tracking ID
 # TODO: Add this at launch.
-# tracking_id:
+tracking_id: G-G1NW74W2R5
 
 force_backend_url: "https://stanthonyyouth.alphagame.dev/api" # Temporary for local testing FIXME: Remove this line
 permalink: /news/:year/:month/:title
