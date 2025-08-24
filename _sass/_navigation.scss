@@ -82,12 +82,9 @@
     .navbar-collapse.show & {
       animation: slideInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
       
-      &:nth-child(1) { animation-delay: 0.1s; }
-      &:nth-child(2) { animation-delay: 0.15s; }
-      &:nth-child(3) { animation-delay: 0.2s; }
-      &:nth-child(4) { animation-delay: 0.25s; }
-      &:nth-child(5) { animation-delay: 0.3s; }
-      &:nth-child(6) { animation-delay: 0.35s; }
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) { animation-delay: 0.1s + ($i - 1) * 0.05s; }
+      }
     }
   }
 
