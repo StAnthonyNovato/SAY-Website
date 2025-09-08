@@ -14,40 +14,10 @@
     {% if site.force_backend_url %}
       window.backendBaseURL = "{{ site.force_backend_url }}";
     {% else %}
-      window.backendBaseURL = "{% if jekyll.environment == 'development' %}http://localhost:8000/api{% else %}https://stanthonyyouth.alphagame.dev/api{% endif %}";
+      window.backendBaseURL = "{% if jekyll.environment == 'development' %}http://localhost:8000/api{% else %}https://api.stanthonyyouth.org/api{% endif %}";
     {% endif %}
   </script>
-  <script>
-  window.originalFetch = window.fetch;
-
-  // monkey patch fetch
-  window.fetch = function(...args) {
-    const url = args[0];
-    console.log("USING CUSTOM FETCH");
-    if (typeof url === "string" && url.includes(window.backendBaseURL)) {
-      // Modify the URL as needed
-      console.log("Custom fetch called for:", url);
-      return window.originalFetch(...args).then(response => {
-        let serverNode;
-        // Gunicorn seems to be lowercasing header names. Big headache
-        if (response.headers) {
-          console.log(response.headers);
-          serverNode = response.headers.get("x-server-node") || response.headers.get("X-Server-Node");
-          console.log("X-Server-Node:", serverNode);
-        } else {
-          console.warn("Response headers are null or undefined.");
-        }
-        return response;
-      }).catch(error => {
-        console.error("Fetch error:", error);
-        throw error;
-      });
-    }
-    return window.originalFetch(...args);
-  };
-
-  fetch(window.backendBaseURL + "/some-endpoint")
-</script>
+  <script defer src="{{ '/assets/js/fetchMonkeyPatch.js' | relative_url }}"></script>
   <!-- google analytics (gtag.js) -->
   {% if site.tracking_id %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.tracking_id }}"></script>
