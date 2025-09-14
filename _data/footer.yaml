@@ -9,7 +9,7 @@ quick_links:
   - name: "About"
     url: "/about/"
   - name: "Volunteer Hour Tracking Tool"
-    url: "/volunteer-hours/"
+    url: "/volunteer-hours"
   - name: "Schedule"
     url: "/schedule/"
   - name: "Resources"
